@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>لوحة الشرف - مسابقة رمضان</title>
+  <style>
+    :root {
+      --ramadan-night: #050816;
+      --ramadan-deep: #020617;
+      --ramadan-green: #0f766e;
+      --ramadan-green-soft: #14b8a6;
+      --ramadan-gold: #facc6b;
+      --ramadan-gold-soft: #fcdca4;
+      --card-bg: rgba(15, 23, 42, 0.95);
+      --border-soft: rgba(252, 211, 77, 0.35);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: "Tahoma", system-ui, -apple-system, BlinkMacSystemFont;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.25) 0, transparent 55%),
+        radial-gradient(circle at 80% 0%, rgba(250, 204, 21, 0.18) 0, transparent 55%),
+        linear-gradient(to bottom, var(--ramadan-night), var(--ramadan-deep));
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
+        radial-gradient(circle, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
+      background-size: 120px 120px, 200px 200px;
+      background-position: 0 0, 60px 80px;
+      opacity: 0.18;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    header {
+      background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.35), transparent 55%),
+                  linear-gradient(120deg, #020617, #020617);
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow:
+        0 18px 45px rgba(15, 23, 42, 0.95),
+        0 0 0 1px rgba(30, 64, 175, 0.45);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .header-right h1 {
+      margin: 0 0 4px 0;
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-right p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .lantern {
+      width: 22px;
+      height: 48px;
+      border-radius: 999px;
+      border: 2px solid var(--ramadan-gold);
+      box-shadow:
+        0 0 12px rgba(250, 204, 21, 0.7),
+        0 0 40px rgba(250, 204, 21, 0.45);
+      position: relative;
+      background: radial-gradient(circle at 50% 20%, #fef3c7, #fbbf24, #92400e);
+    }
+
+    .lantern::before {
+      content: "";
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      width: 14px;
+      height: 10px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      border: 2px solid var(--ramadan-gold);
+      background: rgba(15, 23, 42, 0.9);
+    }
+
+    .lantern::after {
+      content: "";
+      position: absolute;
+      top: -22px;
+      left: 50%;
+      width: 2px;
+      height: 12px;
+      transform: translateX(-50%);
+      background: linear-gradient(to top, var(--ramadan-gold), transparent);
+    }
+
+    .lantern-1 { transform: translateY(4px); }
+    .lantern-2 { transform: translateY(-3px) scale(0.9); opacity: 0.85; }
+
+    .page {
+      max-width: 900px;
+      margin: 24px auto 40px auto;
+      padding: 0 14px;
+    }
+
+    .board-card {
+      background:
+        radial-gradient(circle at top left, rgba(8, 47, 73, 0.7), transparent 55%),
+        radial-gradient(circle at bottom right, rgba(22, 101, 52, 0.6), transparent 55%),
+        var(--card-bg);
+      border-radius: 18px;
+      padding: 18px 16px 22px 16px;
+      border: 1px solid var(--border-soft);
+      box-shadow:
+        0 24px 60px rgba(0, 0, 0, 0.75),
+        0 0 0 1px rgba(148, 163, 184, 0.35);
+      backdrop-filter: blur(16px);
+    }
+
+    h2 {
+      margin: 0 0 8px 0;
+      font-size: 1.3rem;
+      color: var(--ramadan-gold);
+    }
+
+    .hint {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      background: rgba(15, 23, 42, 0.96);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+    }
+
+    th, td {
+      border: 1px solid rgba(30, 64, 175, 0.35);
+      padding: 6px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: #e5e7eb;
+    }
+
+    th {
+      background: linear-gradient(135deg, rgba(15, 118, 110, 0.95), rgba(30, 64, 175, 0.9));
+      color: #fefce8;
+      font-weight: 600;
+    }
+
+    tbody tr:nth-child(even) { background: rgba(15, 23, 42, 0.98); }
+    tbody tr:nth-child(odd) { background: rgba(15, 23, 42, 0.9); }
+    tbody tr:hover { background: rgba(22, 163, 74, 0.35); }
+
+    .medal-badge { font-size: 1rem; }
+
+    .score-bar-wrapper {
+      background: rgba(15, 23, 42, 0.95);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      height: 9px;
+    }
+
+    .score-bar-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #22c55e, #a3e635, #facc15);
+      width: 0%;
+    }
+
+    .score-text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .empty-text {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .top3 {
+      margin-top: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .top-card {
+      flex: 1;
+      min-width: 220px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(250, 204, 21, 0.6);
+      background:
+        radial-gradient(circle at top left, rgba(250, 204, 21, 0.25), transparent 55%),
+        rgba(15, 23, 42, 0.96);
+      box-shadow:
+        0 16px 40px rgba(15, 23, 42, 0.9),
+        0 0 22px rgba(250, 204, 21, 0.5);
+    }
+
+    .top-title {
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      color: var(--ramadan-gold-soft);
+    }
+
+    .top-name {
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .top-score {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    @media (max-width: 768px) {
+      .header-content { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-content">
+    <div class="header-right">
+      <h1>🏆 لوحة الشرف - مسابقة الفرق الرمضانية</h1>
+      <p>عرض ترتيب الفرق بناءً على النتائج المسجلة من صفحة المسابقة</p>
+    </div>
+    <div class="header-left">
+      <div class="lantern lantern-1"></div>
+      <div class="lantern lantern-2"></div>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+  <div class="board-card">
+    <h2>الترتيب العام للفرق</h2>
+    <p class="hint">
+      ✅ هذه الصفحة تقرأ بيانات الفرق من <strong>Firebase Realtime Database</strong> (مش localStorage).<br>
+      أي تحديث يحصل من صفحة المسابقة (index.html) هيظهر هنا مباشرة بعد التحديث/إعادة التحميل.
+    </p>
+
+    <div id="top3Container" class="top3"></div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>الترتيب</th>
+          <th>الفريق</th>
+          <th>عدد الأيام</th>
+          <th>متوسط (تعبئة + تطوع أوتوماتيك) ٪</th>
+          <th>نسبة التبرعات والمنتجات ٪</th>
+          <th>درجات الأدمن اليدوية ٪</th>
+          <th>Score الكلي ٪</th>
+        </tr>
+      </thead>
+      <tbody id="boardBody"></tbody>
+    </table>
+
+    <div id="emptyMessage" class="empty-text"></div>
+  </div>
+</div>
+
+<!-- ✅ FIREBASE + LEADERBOARD LOGIC -->
+<script type="module">
+  // =========================
+  // 🔥 Firebase Imports (CDN)
+  // =========================
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+  import { getDatabase, ref, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+  // =========================
+  // ✅ 1) ضع بيانات Firebase هنا (نفس بيانات index.html)
+  // =========================
+  const firebaseConfig = {
+  apiKey: "AIzaSyDSxSRKH-cZFk9y4AqzrmFQftXcxI_ADSk",
+  authDomain: "ramdan-92ed1.firebaseapp.com",
+  databaseURL: "https://ramdan-92ed1-default-rtdb.firebaseio.com",
+  projectId: "ramdan-92ed1",
+  storageBucket: "ramdan-92ed1.firebasestorage.app",
+  messagingSenderId: "467097580348",
+  appId: "1:467097580348:web:52ebc0b97988857a60a439",
+  measurementId: "G-YZSM40GPXF"
+};
+
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // =========================
+  // نفس الكونستانتس المستخدمة في index.html
+  // =========================
+  const ITEM_MAX_PERCENT = {
+    fill_daily_target: 20,
+    fill_quality: 10,
+    fill_time: 10,
+    donation_meat: 10,
+    donation_house: 10,
+    donation_variety: 5,
+    products: 5,
+    vol_team_presence: 15,
+    vol_new_volunteers: 10,
+    vol_sheet: 5
+  };
+
+  const MAX_NON_DONATION_PERCENT =
+    ITEM_MAX_PERCENT.fill_daily_target +
+    ITEM_MAX_PERCENT.fill_time +
+    ITEM_MAX_PERCENT.vol_team_presence +
+    ITEM_MAX_PERCENT.vol_new_volunteers; // 55
+
+  const MANUAL_EXTRA_MAX =
+    ITEM_MAX_PERCENT.fill_quality + ITEM_MAX_PERCENT.vol_sheet; // 15
+
+  const MAX_DONATION_PERCENT =
+    ITEM_MAX_PERCENT.donation_meat +
+    ITEM_MAX_PERCENT.donation_house +
+    ITEM_MAX_PERCENT.donation_variety +
+    ITEM_MAX_PERCENT.products; // 30
+
+  const MAX_TOTAL_PERCENT = MAX_NON_DONATION_PERCENT + MANUAL_EXTRA_MAX + MAX_DONATION_PERCENT; // 100
+
+  const DONATION_TARGETS = {
+    donation_meat: 15000,
+    donation_house: 5000,
+    donation_variety: 10,
+    products: 3000
+  };
+
+  function calcDonationPercent(totalAmount, target, maxPercent) {
+    if (totalAmount <= 0) return 0;
+    const ratio = totalAmount / target;
+    const clamped = Math.min(ratio, 1);
+    return clamped * maxPercent;
+  }
+
+  function computeTeamOverallStats(t) {
+    if (!t || !t.daysCount || t.daysCount <= 0) {
+      const manualQuality = t && t.manualQuality ? t.manualQuality : 0;
+      const manualSheet = t && t.manualSheet ? t.manualSheet : 0;
+      return {
+        avgNonDonation: 0,
+        donationTotalPercent: 0,
+        manualQuality,
+        manualSheet,
+        overallCurrent: manualQuality + manualSheet
+      };
+    }
+
+    const avgNonDonation = t.nonDonationTotalSum / t.daysCount;
+
+    const donationMeatPercent = calcDonationPercent(
+      t.donationMeatTotal || 0,
+      DONATION_TARGETS.donation_meat,
+      ITEM_MAX_PERCENT.donation_meat
+    );
+    const donationHousePercent = calcDonationPercent(
+      t.donationHouseTotal || 0,
+      DONATION_TARGETS.donation_house,
+      ITEM_MAX_PERCENT.donation_house
+    );
+    const donationVarietyPercent = calcDonationPercent(
+      t.donationVarietyTotal || 0,
+      DONATION_TARGETS.donation_variety,
+      ITEM_MAX_PERCENT.donation_variety
+    );
+    const productsPercent = calcDonationPercent(
+      t.productsTotal || 0,
+      DONATION_TARGETS.products,
+      ITEM_MAX_PERCENT.products
+    );
+
+    const donationTotalPercent =
+      donationMeatPercent + donationHousePercent + donationVarietyPercent + productsPercent;
+
+    const manualQuality = t.manualQuality || 0;
+    const manualSheet = t.manualSheet || 0;
+    const overallCurrent = avgNonDonation + donationTotalPercent + manualQuality + manualSheet;
+
+    return {
+      avgNonDonation,
+      donationTotalPercent,
+      manualQuality,
+      manualSheet,
+      overallCurrent
+    };
+  }
+
+  function getMedal(rank) {
+    if (rank === 1) return "🥇";
+    if (rank === 2) return "🥈";
+    if (rank === 3) return "🥉";
+    return "";
+  }
+
+  function safeDecodeKey(key) {
+    try { return decodeURIComponent(key); } catch { return key; }
+  }
+
+  function renderLeaderboard(stats) {
+    const body = document.getElementById('boardBody');
+    const emptyMsg = document.getElementById('emptyMessage');
+    const top3Container = document.getElementById('top3Container');
+
+    body.innerHTML = "";
+    top3Container.innerHTML = "";
+    emptyMsg.textContent = "";
+
+    const keys = Object.keys(stats || {});
+    if (keys.length === 0) {
+      emptyMsg.textContent = "لا توجد بيانات فرق مسجّلة حتى الآن. من فضلك استخدم صفحة المسابقة أولاً.";
+      return;
+    }
+
+    const rowsData = [];
+    keys.forEach(teamKey => {
+      const t = stats[teamKey];
+      if (!t || !t.daysCount || t.daysCount <= 0) return;
+      const s = computeTeamOverallStats(t);
+      rowsData.push({
+        teamKey,
+        teamName: t.name || safeDecodeKey(teamKey),
+        t,
+        s
+      });
+    });
+
+    if (rowsData.length === 0) {
+      emptyMsg.textContent = "لا توجد بيانات كافية لعرض ترتيب الفرق.";
+      return;
+    }
+
+    rowsData.sort((a, b) => b.s.overallCurrent - a.s.overallCurrent);
+
+    // Top 3 Cards
+    rowsData.slice(0, 3).forEach((item, i) => {
+      const rank = i + 1;
+      const medal = getMedal(rank);
+      const card = document.createElement('div');
+      card.className = 'top-card';
+
+      const title = document.createElement('div');
+      title.className = 'top-title';
+      title.textContent = rank === 1 ? "المركز الأول" : rank === 2 ? "المركز الثاني" : "المركز الثالث";
+
+      const name = document.createElement('div');
+      name.className = 'top-name';
+      name.textContent = `${item.teamName} ${medal}`;
+
+      const score = document.createElement('div');
+      score.className = 'top-score';
+      score.textContent =
+        `Score الكلي: ${item.s.overallCurrent.toFixed(1)}٪ من ${MAX_TOTAL_PERCENT}٪ – ` +
+        `أيام: ${item.t.daysCount}`;
+
+      const barWrapper = document.createElement('div');
+      barWrapper.className = 'score-bar-wrapper';
+      const barFill = document.createElement('div');
+      barFill.className = 'score-bar-fill';
+      barFill.style.width = Math.min(item.s.overallCurrent, MAX_TOTAL_PERCENT) + '%';
+      barWrapper.appendChild(barFill);
+
+      card.appendChild(title);
+      card.appendChild(name);
+      card.appendChild(barWrapper);
+      card.appendChild(score);
+      top3Container.appendChild(card);
+    });
+
+    // جدول كامل
+    rowsData.forEach((item, index) => {
+      const rank = index + 1;
+      const row = document.createElement('tr');
+
+      const rankCell = document.createElement('td');
+      const medal = getMedal(rank);
+      rankCell.innerHTML = `<span class="medal-badge">${rank} ${medal}</span>`;
+
+      const nameCell = document.createElement('td');
+      nameCell.textContent = item.teamName;
+
+      const daysCell = document.createElement('td');
+      daysCell.textContent = item.t.daysCount;
+
+      const avgNonDonationCell = document.createElement('td');
+      avgNonDonationCell.textContent = item.s.avgNonDonation.toFixed(1);
+
+      const donationCell = document.createElement('td');
+      donationCell.textContent = item.s.donationTotalPercent.toFixed(1);
+
+      const manualCell = document.createElement('td');
+      const manualTotal = (item.s.manualQuality + item.s.manualSheet).toFixed(1);
+      manualCell.textContent = `${manualTotal} من ${MANUAL_EXTRA_MAX}٪`;
+
+      const overallCell = document.createElement('td');
+      overallCell.innerHTML =
+        `<div class="score-bar-wrapper">
+           <div class="score-bar-fill" style="width:${Math.min(item.s.overallCurrent, MAX_TOTAL_PERCENT)}%;"></div>
+         </div>
+         <div class="score-text">${item.s.overallCurrent.toFixed(1)}٪ من ${MAX_TOTAL_PERCENT}٪</div>`;
+
+      row.appendChild(rankCell);
+      row.appendChild(nameCell);
+      row.appendChild(daysCell);
+      row.appendChild(avgNonDonationCell);
+      row.appendChild(donationCell);
+      row.appendChild(manualCell);
+      row.appendChild(overallCell);
+
+      body.appendChild(row);
+    });
+  }
+
+  // ✅ Live updates: أي تغيير في Firebase يحدث → إعادة Render
+  const statsRef = ref(db, "teamsStats");
+  onValue(statsRef, (snapshot) => {
+    const stats = snapshot.exists() ? snapshot.val() : {};
+    renderLeaderboard(stats);
+  }, (err) => {
+    document.getElementById('emptyMessage').textContent =
+      "حدث خطأ أثناء تحميل البيانات من Firebase. راجع إعدادات firebaseConfig و Rules.";
+    console.error(err);
+  });
+</script>
+</body>
+</html>
