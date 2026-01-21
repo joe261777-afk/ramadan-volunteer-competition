@@ -2,564 +2,798 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <title>لوحة الشرف - مسابقة رمضان</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>لوحة الشرف - مسابقة الفرق التطوعية</title>
+
+  <!-- Fonts (same as index) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --ramadan-night: #050816;
-      --ramadan-deep: #020617;
-      --ramadan-green: #0f766e;
-      --ramadan-green-soft: #14b8a6;
-      --ramadan-gold: #facc6b;
-      --ramadan-gold-soft: #fcdca4;
-      --card-bg: rgba(15, 23, 42, 0.95);
-      --border-soft: rgba(252, 211, 77, 0.35);
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
+    :root{
+      /* Ramadan palette (match index) */
+      --navy-950:#03102b;
+      --navy-900:#041a3f;
+      --navy-850:#06234f;
+      --navy-800:#07315e;
+      --navy-700:#0a4f86;
+
+      --gold-500:#f4c451;
+      --gold-600:#d9a63b;
+
+      --text:#f8fafc;
+      --muted:rgba(248,250,252,.72);
+
+      --line:rgba(244,196,81,.58);
+      --line2:rgba(244,196,81,.28);
+
+      --card: rgba(2, 20, 55, .62);
+      --card2: rgba(3, 16, 43, .82);
+      --border: rgba(244,196,81,.28);
     }
 
     * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font-family:"Tajawal",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      background:#e7e7e7; /* outer gray */
+      color:var(--text);
+    }
 
-    body {
-      font-family: "Tahoma", system-ui, -apple-system, BlinkMacSystemFont;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      color: var(--text-main);
+    .stage{
+      max-width: 1200px;
+      margin: 36px auto;
+      padding: 0 18px;
+    }
+
+    .ramadan-canvas{
+      position:relative;
+      overflow:hidden;
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800) 55%, #064d83);
+      box-shadow: 0 18px 55px rgba(0,0,0,.35);
+      border-radius: 2px;
+      min-height: 720px;
+    }
+
+    .ramadan-canvas::before{
+      content:"";
+      position:absolute; inset:0;
       background:
-        radial-gradient(circle at 10% 20%, rgba(56, 189, 248, 0.25) 0, transparent 55%),
-        radial-gradient(circle at 80% 0%, rgba(250, 204, 21, 0.18) 0, transparent 55%),
-        linear-gradient(to bottom, var(--ramadan-night), var(--ramadan-deep));
-      position: relative;
-      overflow-x: hidden;
+        radial-gradient(circle at 70% 35%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(circle at 22% 85%, rgba(0,0,0,.22), transparent 55%);
+      pointer-events:none;
+      z-index:1;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background-image:
-        radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
-        radial-gradient(circle, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
-      background-size: 120px 120px, 200px 200px;
-      background-position: 0 0, 60px 80px;
-      opacity: 0.18;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    header {
-      background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.35), transparent 55%),
-                  linear-gradient(120deg, #020617, #020617);
-      padding: 18px 0;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-      box-shadow:
-        0 18px 45px rgba(15, 23, 42, 0.95),
-        0 0 0 1px rgba(30, 64, 175, 0.45);
+    /* ================= NAVBAR ================= */
+    header.topbar{
       position: sticky;
       top: 0;
-      z-index: 10;
+      z-index: 30;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 18px 32px;
+      background: rgba(2, 20, 55, .74);
+      border-bottom: 2px solid var(--line);
+      backdrop-filter: blur(10px);
     }
 
-    .header-content {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 0 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+    .logo{
+      font-family:"El Messiri", serif;
+      font-weight: 800;
+      letter-spacing: .02em;
+      color: var(--gold-500);
+      font-size: 20px;
+      white-space: nowrap;
     }
 
-    .header-right h1 {
-      margin: 0 0 4px 0;
-      font-size: 1.6rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .nav{
+      display:flex;
+      align-items:center;
+      gap: 26px;
+      flex-wrap: wrap;
+      list-style:none;
+      margin:0;
+      padding:0;
+      color: var(--gold-500);
+      font-weight: 700;
+      font-size: .95rem;
     }
-
-    .header-right p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .lantern {
-      width: 22px;
-      height: 48px;
+    .nav a{
+      color:inherit;
+      text-decoration:none;
+      padding: 6px 10px;
       border-radius: 999px;
-      border: 2px solid var(--ramadan-gold);
-      box-shadow:
-        0 0 12px rgba(250, 204, 21, 0.7),
-        0 0 40px rgba(250, 204, 21, 0.45);
-      position: relative;
-      background: radial-gradient(circle at 50% 20%, #fef3c7, #fbbf24, #92400e);
+      border: 1px solid transparent;
+      transition: .15s ease;
+    }
+    .nav a:hover{
+      border-color: var(--line2);
+      background: rgba(244,196,81,.08);
     }
 
-    .lantern::before {
-      content: "";
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      width: 14px;
-      height: 10px;
-      transform: translateX(-50%);
-      border-radius: 999px;
-      border: 2px solid var(--ramadan-gold);
-      background: rgba(15, 23, 42, 0.9);
+    .golden-rule{
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(244,196,81,.78), transparent);
+      opacity:.95;
+      position:relative;
+      z-index: 25;
     }
 
-    .lantern::after {
-      content: "";
-      position: absolute;
-      top: -22px;
-      left: 50%;
-      width: 2px;
-      height: 12px;
-      transform: translateX(-50%);
-      background: linear-gradient(to top, var(--ramadan-gold), transparent);
+    /* ================= DECOR LAYERS ================= */
+    .stars{
+      position:absolute;
+      inset:0;
+      z-index:3;
+      pointer-events:none;
+      opacity:.95;
     }
 
-    .lantern-1 { transform: translateY(4px); }
-    .lantern-2 { transform: translateY(-3px) scale(0.9); opacity: 0.85; }
-
-    .page {
-      max-width: 900px;
-      margin: 24px auto 40px auto;
-      padding: 0 14px;
+    .mosque{
+      position:absolute;
+      left:0; right:0;
+      bottom:-10px;
+      height: 260px;
+      z-index:4;
+      pointer-events:none;
+      opacity:.48;
     }
 
-    .board-card {
-      background:
-        radial-gradient(circle at top left, rgba(8, 47, 73, 0.7), transparent 55%),
-        radial-gradient(circle at bottom right, rgba(22, 101, 52, 0.6), transparent 55%),
-        var(--card-bg);
+    .moon-wrap{
+      position:absolute;
+      left: 61%;
+      top: 120px;
+      width: 360px;
+      height: 360px;
+      z-index:5;
+      pointer-events:none;
+      filter: drop-shadow(0 18px 30px rgba(244,196,81,.18));
+      opacity:.98;
+    }
+
+    .string{
+      position:absolute;
+      width:2px;
+      background: linear-gradient(180deg, rgba(244,196,81,.9), rgba(244,196,81,.15));
+      z-index:6;
+      pointer-events:none;
+      opacity:.85;
+    }
+    .string.s1{ left: 60.4%; top: 64px; height: 185px; }
+    .string.s2{ right: 9.5%; top: 0; height: 225px; }
+    .string.s3{ right: 21.2%; top: 260px; height: 175px; }
+
+    .lantern{
+      position:absolute;
+      top: 0;
+      z-index:6;
+      width: 120px;
+      opacity: .98;
+      transform-origin: top center;
+      animation: swing 4.2s ease-in-out infinite;
+      pointer-events:none;
+    }
+    .lantern.l1{ left: 54%; top: 86px; width: 120px; animation-delay: .1s; }
+    .lantern.l2{ right: 5.3%; top: 10px; width: 150px; animation-delay: .35s; }
+    .lantern.l3{ right: 18%; top: 320px; width: 120px; animation-delay: .25s; }
+
+    @keyframes swing{
+      0%,100%{ transform: rotate(-2.2deg); }
+      50%{ transform: rotate(2.2deg); }
+    }
+
+    /* ================= PAGE CONTENT ================= */
+    .page{
+      position:relative;
+      z-index:10;
+      padding: 34px 32px 34px 32px;
+      min-height: 560px;
+    }
+
+    /* vertical golden separators like index */
+    .page::after{
+      content:"";
+      position:absolute;
+      top:0; bottom:0;
+      left: 57%;
+      width:2px;
+      background: linear-gradient(180deg, transparent, rgba(244,196,81,.5), transparent);
+      opacity:.75;
+      z-index:2;
+      pointer-events:none;
+    }
+    .page::before{
+      content:"";
+      position:absolute;
+      top:0; bottom:0;
+      right: 8.5%;
+      width:2px;
+      background: linear-gradient(180deg, transparent, rgba(244,196,81,.5), transparent);
+      opacity:.6;
+      z-index:2;
+      pointer-events:none;
+    }
+
+    .board-card{
+      background: rgba(2, 20, 55, .56);
+      border: 1px solid rgba(244,196,81,.22);
       border-radius: 18px;
       padding: 18px 16px 22px 16px;
-      border: 1px solid var(--border-soft);
-      box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.75),
-        0 0 0 1px rgba(148, 163, 184, 0.35);
-      backdrop-filter: blur(16px);
+      box-shadow: 0 18px 55px rgba(0,0,0,.28);
+      backdrop-filter: blur(12px);
+      position:relative;
+      z-index:12;
     }
 
-    h2 {
-      margin: 0 0 8px 0;
-      font-size: 1.3rem;
-      color: var(--ramadan-gold);
+    .board-card h1{
+      margin: 0 0 6px 0;
+      font-family:"El Messiri", serif;
+      font-weight: 900;
+      color: rgba(244,196,81,.95);
+      font-size: 26px;
+    }
+    .hint{
+      margin: 0 0 14px 0;
+      color: rgba(248,250,252,.72);
+      line-height: 1.8;
+      font-size: 13px;
     }
 
-    .hint {
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
+    .top3{
+      margin-top: 12px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .top-card{
+      flex: 1;
+      min-width: 220px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(244,196,81,.35);
+      background: rgba(3, 16, 43, .78);
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
+    }
+    .top-title{
+      font-size: 13px;
+      color: rgba(244,196,81,.85);
+      font-weight: 900;
+      margin-bottom: 6px;
+      font-family:"El Messiri", serif;
+    }
+    .top-name{
+      font-size: 16px;
+      font-weight: 900;
+      color: rgba(248,250,252,.92);
+      margin-bottom: 8px;
+    }
+    .top-score{
+      font-size: 13px;
+      color: rgba(248,250,252,.72);
       line-height: 1.7;
     }
 
-    table {
+    table{
       width: 100%;
       border-collapse: collapse;
       margin-top: 12px;
-      background: rgba(15, 23, 42, 0.96);
+      background: rgba(3, 16, 43, .78);
       border-radius: 12px;
       overflow: hidden;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
     }
-
-    th, td {
-      border: 1px solid rgba(30, 64, 175, 0.35);
-      padding: 6px;
+    th, td{
+      border: 1px solid rgba(244,196,81,.14);
+      padding: 8px;
       text-align: center;
-      font-size: 0.82rem;
-      color: #e5e7eb;
+      font-size: 13px;
+      color: rgba(248,250,252,.90);
     }
-
-    th {
-      background: linear-gradient(135deg, rgba(15, 118, 110, 0.95), rgba(30, 64, 175, 0.9));
-      color: #fefce8;
-      font-weight: 600;
+    th{
+      background: linear-gradient(135deg, rgba(244,196,81,.25), rgba(10,79,134,.35));
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
     }
+    tbody tr:nth-child(even){ background: rgba(3,16,43,.86); }
+    tbody tr:nth-child(odd){ background: rgba(3,16,43,.70); }
+    tbody tr:hover{ background: rgba(244,196,81,.08); }
 
-    tbody tr:nth-child(even) { background: rgba(15, 23, 42, 0.98); }
-    tbody tr:nth-child(odd) { background: rgba(15, 23, 42, 0.9); }
-    tbody tr:hover { background: rgba(22, 163, 74, 0.35); }
-
-    .medal-badge { font-size: 1rem; }
-
-    .score-bar-wrapper {
-      background: rgba(15, 23, 42, 0.95);
+    .score-bar-wrapper{
+      background: rgba(3, 16, 43, .82);
       border-radius: 999px;
       overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.6);
-      height: 9px;
+      border: 1px solid rgba(244,196,81,.20);
+      height: 10px;
     }
-
-    .score-bar-fill {
+    .score-bar-fill{
       height: 100%;
       border-radius: inherit;
       background: linear-gradient(90deg, #22c55e, #a3e635, #facc15);
       width: 0%;
     }
-
-    .score-text {
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      margin-top: 2px;
+    .score-text{
+      font-size: 12px;
+      color: rgba(248,250,252,.70);
+      margin-top: 4px;
+      font-weight: 700;
     }
 
-    .empty-text {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .top3 {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .top-card {
-      flex: 1;
-      min-width: 220px;
+    .empty-text{
+      text-align:center;
+      margin-top: 14px;
+      font-size: 14px;
+      color: rgba(248,250,252,.70);
+      font-weight: 700;
       padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(250, 204, 21, 0.6);
-      background:
-        radial-gradient(circle at top left, rgba(250, 204, 21, 0.25), transparent 55%),
-        rgba(15, 23, 42, 0.96);
-      box-shadow:
-        0 16px 40px rgba(15, 23, 42, 0.9),
-        0 0 22px rgba(250, 204, 21, 0.5);
+      background: rgba(3, 16, 43, .75);
+      border-radius: 12px;
+      border: 1px solid rgba(244,196,81,.22);
     }
 
-    .top-title {
-      font-size: 0.9rem;
-      margin-bottom: 4px;
-      color: var(--ramadan-gold-soft);
+    /* Responsive */
+    @media (max-width: 980px){
+      header.topbar{ padding: 14px 16px; }
+      .page{ padding: 22px 16px 22px 16px; }
+      .page::after, .page::before{ display:none; }
+      .moon-wrap{ left: 40%; top: 145px; width: 320px; height: 320px; }
+      .lantern.l1{ left: 52%; }
     }
-
-    .top-name {
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    .top-score {
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-top: 3px;
-    }
-
-    @media (max-width: 768px) {
-      .header-content { flex-direction: column; align-items: flex-start; }
+    @media (max-width: 600px){
+      .moon-wrap{ left: 30%; top: 165px; width: 260px; height: 260px; }
+      .lantern.l2{ right: 2%; width: 130px; }
+      .lantern.l3{ right: 8%; }
+      .nav{ gap: 10px; font-size: .9rem; }
+      th, td{ font-size: 12px; padding: 6px; }
     }
   </style>
 </head>
+
 <body>
-<header>
-  <div class="header-content">
-    <div class="header-right">
-      <h1>🏆 لوحة الشرف - مسابقة الفرق الرمضانية</h1>
-      <p>عرض ترتيب الفرق بناءً على النتائج المسجلة من صفحة المسابقة</p>
-    </div>
-    <div class="header-left">
-      <div class="lantern lantern-1"></div>
-      <div class="lantern lantern-2"></div>
+  <div class="stage">
+    <div class="ramadan-canvas">
+
+      <!-- NAVBAR (same style) -->
+      <header class="topbar">
+        <div class="logo">مسابقة الفرق التطوعية</div>
+        <ul class="nav">
+          <li><a href="index.html">المسابقة</a></li>
+          <li><a href="#" onclick="scrollToBoard();return false;">لوحة الشرف</a></li>
+          <li><a href="index.html#app">تسجيل النقاط</a></li>
+          <li><a href="index.html#admin">الأدمن</a></li>
+        </ul>
+      </header>
+      <div class="golden-rule"></div>
+
+      <!-- Stars -->
+      <svg class="stars" viewBox="0 0 1200 650" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="white" stop-opacity="1"/>
+            <stop offset="60%" stop-color="white" stop-opacity=".35"/>
+            <stop offset="100%" stop-color="white" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <g opacity=".85">
+          <circle cx="820" cy="170" r="38" fill="url(#starGlow)" opacity=".55"/>
+          <circle cx="960" cy="210" r="24" fill="url(#starGlow)" opacity=".45"/>
+          <circle cx="720" cy="260" r="18" fill="url(#starGlow)" opacity=".35"/>
+          <g fill="white" opacity=".85">
+            <circle cx="740" cy="120" r="1.6"/>
+            <circle cx="880" cy="130" r="1.2"/>
+            <circle cx="1010" cy="160" r="1.4"/>
+            <circle cx="1120" cy="210" r="1.3"/>
+            <circle cx="860" cy="280" r="1.2"/>
+            <circle cx="780" cy="310" r="1.1"/>
+            <circle cx="930" cy="330" r="1.2"/>
+            <circle cx="1060" cy="290" r="1.1"/>
+          </g>
+        </g>
+      </svg>
+
+      <!-- Moon -->
+      <svg class="moon-wrap" viewBox="0 0 420 420" aria-hidden="true">
+        <defs>
+          <radialGradient id="moonGrad" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#fff3cf" stop-opacity="1"/>
+            <stop offset="45%" stop-color="#f4c451" stop-opacity=".98"/>
+            <stop offset="100%" stop-color="#d19a2f" stop-opacity="1"/>
+          </radialGradient>
+          <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <path filter="url(#softGlow)"
+              d="M275 65c-45 22-76 69-76 123 0 63 42 116 100 133-22 18-51 29-83 29-73 0-132-59-132-132S143 86 216 86c21 0 41 5 59 14z"
+              fill="url(#moonGrad)"
+              opacity=".98"/>
+
+        <path filter="url(#softGlow)"
+              d="M330 170l11 23 25 4-18 17 4 24-22-12-22 12 4-24-18-17 25-4z"
+              fill="#ffe7a1"
+              opacity=".95"/>
+      </svg>
+
+      <!-- Strings -->
+      <div class="string s1"></div>
+      <div class="string s2"></div>
+      <div class="string s3"></div>
+
+      <!-- Lanterns (SVG) -->
+      <svg class="lantern l1" viewBox="0 0 120 220" aria-hidden="true">
+        <defs>
+          <linearGradient id="lanGold" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#fff3cf"/>
+            <stop offset="0.45" stop-color="#f4c451"/>
+            <stop offset="1" stop-color="#c98b24"/>
+          </linearGradient>
+          <linearGradient id="glass" x1="0" x2="1">
+            <stop offset="0" stop-color="#a7f3d0" stop-opacity=".15"/>
+            <stop offset="1" stop-color="#93c5fd" stop-opacity=".22"/>
+          </linearGradient>
+        </defs>
+        <path d="M60 14c14 0 24 8 24 18v14H36V32c0-10 10-18 24-18z" fill="url(#lanGold)"/>
+        <path d="M34 46h52l-8 18v98l8 18H34l8-18V64z" fill="url(#lanGold)"/>
+        <rect x="44" y="70" width="32" height="78" rx="10" fill="url(#glass)" stroke="rgba(255,255,255,.25)"/>
+        <circle cx="60" cy="110" r="18" fill="rgba(255,255,255,.12)"/>
+        <path d="M44 198h32l-6 12H50z" fill="url(#lanGold)"/>
+      </svg>
+
+      <svg class="lantern l2" viewBox="0 0 120 220" aria-hidden="true">
+        <defs>
+          <linearGradient id="lanGold2" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#fff3cf"/>
+            <stop offset="0.45" stop-color="#f4c451"/>
+            <stop offset="1" stop-color="#c98b24"/>
+          </linearGradient>
+          <linearGradient id="glass2" x1="0" x2="1">
+            <stop offset="0" stop-color="#a7f3d0" stop-opacity=".15"/>
+            <stop offset="1" stop-color="#93c5fd" stop-opacity=".22"/>
+          </linearGradient>
+        </defs>
+        <path d="M60 14c14 0 24 8 24 18v14H36V32c0-10 10-18 24-18z" fill="url(#lanGold2)"/>
+        <path d="M34 46h52l-8 18v98l8 18H34l8-18V64z" fill="url(#lanGold2)"/>
+        <rect x="44" y="70" width="32" height="78" rx="10" fill="url(#glass2)" stroke="rgba(255,255,255,.25)"/>
+        <circle cx="60" cy="110" r="18" fill="rgba(255,255,255,.12)"/>
+        <path d="M44 198h32l-6 12H50z" fill="url(#lanGold2)"/>
+      </svg>
+
+      <svg class="lantern l3" viewBox="0 0 120 220" aria-hidden="true">
+        <defs>
+          <linearGradient id="lanGold3" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#fff3cf"/>
+            <stop offset="0.45" stop-color="#f4c451"/>
+            <stop offset="1" stop-color="#c98b24"/>
+          </linearGradient>
+          <linearGradient id="glass3" x1="0" x2="1">
+            <stop offset="0" stop-color="#a7f3d0" stop-opacity=".15"/>
+            <stop offset="1" stop-color="#93c5fd" stop-opacity=".22"/>
+          </linearGradient>
+        </defs>
+        <path d="M60 14c14 0 24 8 24 18v14H36V32c0-10 10-18 24-18z" fill="url(#lanGold3)"/>
+        <path d="M34 46h52l-8 18v98l8 18H34l8-18V64z" fill="url(#lanGold3)"/>
+        <rect x="44" y="70" width="32" height="78" rx="10" fill="url(#glass3)" stroke="rgba(255,255,255,.25)"/>
+        <circle cx="60" cy="110" r="18" fill="rgba(255,255,255,.12)"/>
+        <path d="M44 198h32l-6 12H50z" fill="url(#lanGold3)"/>
+      </svg>
+
+      <!-- Mosque silhouette -->
+      <svg class="mosque" viewBox="0 0 1200 260" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="mosq" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#0b3a69" stop-opacity=".85"/>
+            <stop offset="1" stop-color="#041a3f" stop-opacity="1"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#mosq)" opacity=".95"
+          d="M0 260V170c40-10 70-30 95-60 24-29 55-45 90-50v-6c0-10 8-18 18-18s18 8 18 18v9
+             c45 10 79 33 105 70 25 36 62 55 112 58v-40c0-18 14-32 32-32h16c-2-8-3-16-3-24
+             0-46 33-86 78-96-2-5-3-10-3-15 0-26 21-47 47-47s47 21 47 47c0 5-1 10-3 15
+             45 10 78 50 78 96 0 8-1 16-3 24h16c18 0 32 14 32 32v40c50-3 87-22 112-58
+             26-37 60-60 105-70v-9c0-10 8-18 18-18s18 8 18 18v6c35 5 66 21 90 50
+             25 30 55 50 95 60v90H0z"/>
+      </svg>
+
+      <!-- CONTENT -->
+      <section class="page" id="board">
+        <div class="board-card">
+          <h1>🏆 لوحة الشرف</h1>
+          <p class="hint">
+            هذه الصفحة تقرأ بيانات الفرق من <b>Firebase Realtime Database</b> (المسار: <code>teamsStats</code>) وتحدّث نفسها تلقائيًا.
+          </p>
+
+          <div id="top3Container" class="top3"></div>
+
+          <table>
+            <thead>
+              <tr>
+                <th>الترتيب</th>
+                <th>الفريق</th>
+                <th>عدد الأيام</th>
+                <th>متوسط (تعبئة + تطوع أوتوماتيك) ٪</th>
+                <th>نسبة التبرعات والمنتجات ٪</th>
+                <th>درجات الأدمن اليدوية ٪</th>
+                <th>Score الكلي ٪</th>
+              </tr>
+            </thead>
+            <tbody id="boardBody"></tbody>
+          </table>
+
+          <div id="emptyMessage" class="empty-text" style="display:none;"></div>
+        </div>
+      </section>
+
+      <!-- ✅ FIREBASE + LEADERBOARD LOGIC -->
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
+        // ✅ same config as index.html
+        const firebaseConfig = {
+          apiKey: "AIzaSyDSxSRKH-cZFk9y4AqzrmFQftXcxI_ADSk",
+          authDomain: "ramdan-92ed1.firebaseapp.com",
+          databaseURL: "https://ramdan-92ed1-default-rtdb.firebaseio.com",
+          projectId: "ramdan-92ed1",
+          storageBucket: "ramdan-92ed1.firebasestorage.app",
+          messagingSenderId: "467097580348",
+          appId: "1:467097580348:web:52ebc0b97988857a60a439",
+          measurementId: "G-YZSM40GPXF"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        const ITEM_MAX_PERCENT = {
+          fill_daily_target: 20,
+          fill_quality: 10,
+          fill_time: 10,
+          donation_meat: 10,
+          donation_house: 10,
+          donation_variety: 5,
+          products: 5,
+          vol_team_presence: 15,
+          vol_new_volunteers: 10,
+          vol_sheet: 5
+        };
+
+        const MAX_NON_DONATION_PERCENT =
+          ITEM_MAX_PERCENT.fill_daily_target +
+          ITEM_MAX_PERCENT.fill_time +
+          ITEM_MAX_PERCENT.vol_team_presence +
+          ITEM_MAX_PERCENT.vol_new_volunteers; // 55
+
+        const MANUAL_EXTRA_MAX =
+          ITEM_MAX_PERCENT.fill_quality + ITEM_MAX_PERCENT.vol_sheet; // 15
+
+        const MAX_DONATION_PERCENT =
+          ITEM_MAX_PERCENT.donation_meat +
+          ITEM_MAX_PERCENT.donation_house +
+          ITEM_MAX_PERCENT.donation_variety +
+          ITEM_MAX_PERCENT.products; // 30
+
+        const MAX_TOTAL_PERCENT = MAX_NON_DONATION_PERCENT + MANUAL_EXTRA_MAX + MAX_DONATION_PERCENT; // 100
+
+        const DONATION_TARGETS = {
+          donation_meat: 15000,
+          donation_house: 5000,
+          donation_variety: 10,
+          products: 3000
+        };
+
+        function calcDonationPercent(totalAmount, target, maxPercent) {
+          if (totalAmount <= 0) return 0;
+          const ratio = totalAmount / target;
+          const clamped = Math.min(ratio, 1);
+          return clamped * maxPercent;
+        }
+
+        function computeTeamOverallStats(t) {
+          if (!t || !t.daysCount || t.daysCount <= 0) {
+            const manualQuality = t && t.manualQuality ? t.manualQuality : 0;
+            const manualSheet = t && t.manualSheet ? t.manualSheet : 0;
+            return {
+              avgNonDonation: 0,
+              donationTotalPercent: 0,
+              manualQuality,
+              manualSheet,
+              overallCurrent: manualQuality + manualSheet
+            };
+          }
+
+          const avgNonDonation = t.nonDonationTotalSum / t.daysCount;
+
+          const donationMeatPercent = calcDonationPercent(
+            t.donationMeatTotal || 0,
+            DONATION_TARGETS.donation_meat,
+            ITEM_MAX_PERCENT.donation_meat
+          );
+          const donationHousePercent = calcDonationPercent(
+            t.donationHouseTotal || 0,
+            DONATION_TARGETS.donation_house,
+            ITEM_MAX_PERCENT.donation_house
+          );
+          const donationVarietyPercent = calcDonationPercent(
+            t.donationVarietyTotal || 0,
+            DONATION_TARGETS.donation_variety,
+            ITEM_MAX_PERCENT.donation_variety
+          );
+          const productsPercent = calcDonationPercent(
+            t.productsTotal || 0,
+            DONATION_TARGETS.products,
+            ITEM_MAX_PERCENT.products
+          );
+
+          const donationTotalPercent =
+            donationMeatPercent + donationHousePercent + donationVarietyPercent + productsPercent;
+
+          const manualQuality = t.manualQuality || 0;
+          const manualSheet = t.manualSheet || 0;
+          const overallCurrent = avgNonDonation + donationTotalPercent + manualQuality + manualSheet;
+
+          return {
+            avgNonDonation,
+            donationTotalPercent,
+            manualQuality,
+            manualSheet,
+            overallCurrent
+          };
+        }
+
+        function getMedal(rank) {
+          if (rank === 1) return "🥇";
+          if (rank === 2) return "🥈";
+          if (rank === 3) return "🥉";
+          return "";
+        }
+
+        function safeDecodeKey(key) {
+          try { return decodeURIComponent(key); } catch { return key; }
+        }
+
+        function renderLeaderboard(stats) {
+          const body = document.getElementById('boardBody');
+          const emptyMsg = document.getElementById('emptyMessage');
+          const top3Container = document.getElementById('top3Container');
+
+          body.innerHTML = "";
+          top3Container.innerHTML = "";
+          emptyMsg.style.display = "none";
+          emptyMsg.textContent = "";
+
+          const keys = Object.keys(stats || {});
+          if (keys.length === 0) {
+            emptyMsg.style.display = "block";
+            emptyMsg.textContent = "لا توجد بيانات فرق مسجّلة حتى الآن. من فضلك استخدم صفحة المسابقة أولاً.";
+            return;
+          }
+
+          const rowsData = [];
+          keys.forEach(teamKey => {
+            const t = stats[teamKey];
+            if (!t || !t.daysCount || t.daysCount <= 0) return;
+            const s = computeTeamOverallStats(t);
+            rowsData.push({
+              teamKey,
+              teamName: t.name || safeDecodeKey(teamKey),
+              t,
+              s
+            });
+          });
+
+          if (rowsData.length === 0) {
+            emptyMsg.style.display = "block";
+            emptyMsg.textContent = "لا توجد بيانات كافية لعرض ترتيب الفرق.";
+            return;
+          }
+
+          rowsData.sort((a, b) => b.s.overallCurrent - a.s.overallCurrent);
+
+          // Top 3
+          rowsData.slice(0, 3).forEach((item, i) => {
+            const rank = i + 1;
+            const medal = getMedal(rank);
+
+            const card = document.createElement('div');
+            card.className = 'top-card';
+
+            const title = document.createElement('div');
+            title.className = 'top-title';
+            title.textContent = rank === 1 ? "المركز الأول" : rank === 2 ? "المركز الثاني" : "المركز الثالث";
+
+            const name = document.createElement('div');
+            name.className = 'top-name';
+            name.textContent = `${item.teamName} ${medal}`;
+
+            const barWrapper = document.createElement('div');
+            barWrapper.className = 'score-bar-wrapper';
+
+            const barFill = document.createElement('div');
+            barFill.className = 'score-bar-fill';
+            barFill.style.width = Math.min(item.s.overallCurrent, MAX_TOTAL_PERCENT) + '%';
+            barWrapper.appendChild(barFill);
+
+            const score = document.createElement('div');
+            score.className = 'top-score';
+            score.textContent =
+              `Score الكلي: ${item.s.overallCurrent.toFixed(1)}٪ من ${MAX_TOTAL_PERCENT}٪ — أيام: ${item.t.daysCount}`;
+
+            card.appendChild(title);
+            card.appendChild(name);
+            card.appendChild(barWrapper);
+            card.appendChild(score);
+            top3Container.appendChild(card);
+          });
+
+          // Full table
+          rowsData.forEach((item, index) => {
+            const rank = index + 1;
+            const row = document.createElement('tr');
+
+            const rankCell = document.createElement('td');
+            rankCell.textContent = `${rank} ${getMedal(rank)}`;
+
+            const nameCell = document.createElement('td');
+            nameCell.textContent = item.teamName;
+
+            const daysCell = document.createElement('td');
+            daysCell.textContent = item.t.daysCount;
+
+            const avgNonDonationCell = document.createElement('td');
+            avgNonDonationCell.textContent = item.s.avgNonDonation.toFixed(1);
+
+            const donationCell = document.createElement('td');
+            donationCell.textContent = item.s.donationTotalPercent.toFixed(1);
+
+            const manualCell = document.createElement('td');
+            const manualTotal = (item.s.manualQuality + item.s.manualSheet).toFixed(1);
+            manualCell.textContent = `${manualTotal} من ${MANUAL_EXTRA_MAX}٪`;
+
+            const overallCell = document.createElement('td');
+            overallCell.innerHTML =
+              `<div class="score-bar-wrapper">
+                 <div class="score-bar-fill" style="width:${Math.min(item.s.overallCurrent, MAX_TOTAL_PERCENT)}%;"></div>
+               </div>
+               <div class="score-text">${item.s.overallCurrent.toFixed(1)}٪ من ${MAX_TOTAL_PERCENT}٪</div>`;
+
+            row.appendChild(rankCell);
+            row.appendChild(nameCell);
+            row.appendChild(daysCell);
+            row.appendChild(avgNonDonationCell);
+            row.appendChild(donationCell);
+            row.appendChild(manualCell);
+            row.appendChild(overallCell);
+
+            body.appendChild(row);
+          });
+        }
+
+        const statsRef = ref(db, "teamsStats");
+        onValue(statsRef, (snapshot) => {
+          const stats = snapshot.exists() ? snapshot.val() : {};
+          renderLeaderboard(stats);
+        }, (err) => {
+          const emptyMsg = document.getElementById('emptyMessage');
+          emptyMsg.style.display = "block";
+          emptyMsg.textContent = "حدث خطأ أثناء تحميل البيانات من Firebase. راجع firebaseConfig و Rules.";
+          console.error(err);
+        });
+
+        // UI helpers
+        window.scrollToBoard = function(){
+          document.getElementById('board')?.scrollIntoView({ behavior:'smooth', block:'start' });
+        };
+      </script>
+
     </div>
   </div>
-</header>
-
-<div class="page">
-  <div class="board-card">
-    <h2>الترتيب العام للفرق</h2>
-    <p class="hint">
-      ✅ هذه الصفحة تقرأ بيانات الفرق من <strong>Firebase Realtime Database</strong> (مش localStorage).<br>
-      أي تحديث يحصل من صفحة المسابقة (index.html) هيظهر هنا مباشرة بعد التحديث/إعادة التحميل.
-    </p>
-
-    <div id="top3Container" class="top3"></div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>الترتيب</th>
-          <th>الفريق</th>
-          <th>عدد الأيام</th>
-          <th>متوسط (تعبئة + تطوع أوتوماتيك) ٪</th>
-          <th>نسبة التبرعات والمنتجات ٪</th>
-          <th>درجات الأدمن اليدوية ٪</th>
-          <th>Score الكلي ٪</th>
-        </tr>
-      </thead>
-      <tbody id="boardBody"></tbody>
-    </table>
-
-    <div id="emptyMessage" class="empty-text"></div>
-  </div>
-</div>
-
-<!-- ✅ FIREBASE + LEADERBOARD LOGIC -->
-<script type="module">
-  // =========================
-  // 🔥 Firebase Imports (CDN)
-  // =========================
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-  import { getDatabase, ref, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
-
-  // =========================
-  // ✅ 1) ضع بيانات Firebase هنا (نفس بيانات index.html)
-  // =========================
-  const firebaseConfig = {
-  apiKey: "AIzaSyDSxSRKH-cZFk9y4AqzrmFQftXcxI_ADSk",
-  authDomain: "ramdan-92ed1.firebaseapp.com",
-  databaseURL: "https://ramdan-92ed1-default-rtdb.firebaseio.com",
-  projectId: "ramdan-92ed1",
-  storageBucket: "ramdan-92ed1.firebasestorage.app",
-  messagingSenderId: "467097580348",
-  appId: "1:467097580348:web:52ebc0b97988857a60a439",
-  measurementId: "G-YZSM40GPXF"
-};
-
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // =========================
-  // نفس الكونستانتس المستخدمة في index.html
-  // =========================
-  const ITEM_MAX_PERCENT = {
-    fill_daily_target: 20,
-    fill_quality: 10,
-    fill_time: 10,
-    donation_meat: 10,
-    donation_house: 10,
-    donation_variety: 5,
-    products: 5,
-    vol_team_presence: 15,
-    vol_new_volunteers: 10,
-    vol_sheet: 5
-  };
-
-  const MAX_NON_DONATION_PERCENT =
-    ITEM_MAX_PERCENT.fill_daily_target +
-    ITEM_MAX_PERCENT.fill_time +
-    ITEM_MAX_PERCENT.vol_team_presence +
-    ITEM_MAX_PERCENT.vol_new_volunteers; // 55
-
-  const MANUAL_EXTRA_MAX =
-    ITEM_MAX_PERCENT.fill_quality + ITEM_MAX_PERCENT.vol_sheet; // 15
-
-  const MAX_DONATION_PERCENT =
-    ITEM_MAX_PERCENT.donation_meat +
-    ITEM_MAX_PERCENT.donation_house +
-    ITEM_MAX_PERCENT.donation_variety +
-    ITEM_MAX_PERCENT.products; // 30
-
-  const MAX_TOTAL_PERCENT = MAX_NON_DONATION_PERCENT + MANUAL_EXTRA_MAX + MAX_DONATION_PERCENT; // 100
-
-  const DONATION_TARGETS = {
-    donation_meat: 15000,
-    donation_house: 5000,
-    donation_variety: 10,
-    products: 3000
-  };
-
-  function calcDonationPercent(totalAmount, target, maxPercent) {
-    if (totalAmount <= 0) return 0;
-    const ratio = totalAmount / target;
-    const clamped = Math.min(ratio, 1);
-    return clamped * maxPercent;
-  }
-
-  function computeTeamOverallStats(t) {
-    if (!t || !t.daysCount || t.daysCount <= 0) {
-      const manualQuality = t && t.manualQuality ? t.manualQuality : 0;
-      const manualSheet = t && t.manualSheet ? t.manualSheet : 0;
-      return {
-        avgNonDonation: 0,
-        donationTotalPercent: 0,
-        manualQuality,
-        manualSheet,
-        overallCurrent: manualQuality + manualSheet
-      };
-    }
-
-    const avgNonDonation = t.nonDonationTotalSum / t.daysCount;
-
-    const donationMeatPercent = calcDonationPercent(
-      t.donationMeatTotal || 0,
-      DONATION_TARGETS.donation_meat,
-      ITEM_MAX_PERCENT.donation_meat
-    );
-    const donationHousePercent = calcDonationPercent(
-      t.donationHouseTotal || 0,
-      DONATION_TARGETS.donation_house,
-      ITEM_MAX_PERCENT.donation_house
-    );
-    const donationVarietyPercent = calcDonationPercent(
-      t.donationVarietyTotal || 0,
-      DONATION_TARGETS.donation_variety,
-      ITEM_MAX_PERCENT.donation_variety
-    );
-    const productsPercent = calcDonationPercent(
-      t.productsTotal || 0,
-      DONATION_TARGETS.products,
-      ITEM_MAX_PERCENT.products
-    );
-
-    const donationTotalPercent =
-      donationMeatPercent + donationHousePercent + donationVarietyPercent + productsPercent;
-
-    const manualQuality = t.manualQuality || 0;
-    const manualSheet = t.manualSheet || 0;
-    const overallCurrent = avgNonDonation + donationTotalPercent + manualQuality + manualSheet;
-
-    return {
-      avgNonDonation,
-      donationTotalPercent,
-      manualQuality,
-      manualSheet,
-      overallCurrent
-    };
-  }
-
-  function getMedal(rank) {
-    if (rank === 1) return "🥇";
-    if (rank === 2) return "🥈";
-    if (rank === 3) return "🥉";
-    return "";
-  }
-
-  function safeDecodeKey(key) {
-    try { return decodeURIComponent(key); } catch { return key; }
-  }
-
-  function renderLeaderboard(stats) {
-    const body = document.getElementById('boardBody');
-    const emptyMsg = document.getElementById('emptyMessage');
-    const top3Container = document.getElementById('top3Container');
-
-    body.innerHTML = "";
-    top3Container.innerHTML = "";
-    emptyMsg.textContent = "";
-
-    const keys = Object.keys(stats || {});
-    if (keys.length === 0) {
-      emptyMsg.textContent = "لا توجد بيانات فرق مسجّلة حتى الآن. من فضلك استخدم صفحة المسابقة أولاً.";
-      return;
-    }
-
-    const rowsData = [];
-    keys.forEach(teamKey => {
-      const t = stats[teamKey];
-      if (!t || !t.daysCount || t.daysCount <= 0) return;
-      const s = computeTeamOverallStats(t);
-      rowsData.push({
-        teamKey,
-        teamName: t.name || safeDecodeKey(teamKey),
-        t,
-        s
-      });
-    });
-
-    if (rowsData.length === 0) {
-      emptyMsg.textContent = "لا توجد بيانات كافية لعرض ترتيب الفرق.";
-      return;
-    }
-
-    rowsData.sort((a, b) => b.s.overallCurrent - a.s.overallCurrent);
-
-    // Top 3 Cards
-    rowsData.slice(0, 3).forEach((item, i) => {
-      const rank = i + 1;
-      const medal = getMedal(rank);
-      const card = document.createElement('div');
-      card.className = 'top-card';
-
-      const title = document.createElement('div');
-      title.className = 'top-title';
-      title.textContent = rank === 1 ? "المركز الأول" : rank === 2 ? "المركز الثاني" : "المركز الثالث";
-
-      const name = document.createElement('div');
-      name.className = 'top-name';
-      name.textContent = `${item.teamName} ${medal}`;
-
-      const score = document.createElement('div');
-      score.className = 'top-score';
-      score.textContent =
-        `Score الكلي: ${item.s.overallCurrent.toFixed(1)}٪ من ${MAX_TOTAL_PERCENT}٪ – ` +
-        `أيام: ${item.t.daysCount}`;
-
-      const barWrapper = document.createElement('div');
-      barWrapper.className = 'score-bar-wrapper';
-      const barFill = document.createElement('div');
-      barFill.className = 'score-bar-fill';
-      barFill.style.width = Math.min(item.s.overallCurrent, MAX_TOTAL_PERCENT) + '%';
-      barWrapper.appendChild(barFill);
-
-      card.appendChild(title);
-      card.appendChild(name);
-      card.appendChild(barWrapper);
-      card.appendChild(score);
-      top3Container.appendChild(card);
-    });
-
-    // جدول كامل
-    rowsData.forEach((item, index) => {
-      const rank = index + 1;
-      const row = document.createElement('tr');
-
-      const rankCell = document.createElement('td');
-      const medal = getMedal(rank);
-      rankCell.innerHTML = `<span class="medal-badge">${rank} ${medal}</span>`;
-
-      const nameCell = document.createElement('td');
-      nameCell.textContent = item.teamName;
-
-      const daysCell = document.createElement('td');
-      daysCell.textContent = item.t.daysCount;
-
-      const avgNonDonationCell = document.createElement('td');
-      avgNonDonationCell.textContent = item.s.avgNonDonation.toFixed(1);
-
-      const donationCell = document.createElement('td');
-      donationCell.textContent = item.s.donationTotalPercent.toFixed(1);
-
-      const manualCell = document.createElement('td');
-      const manualTotal = (item.s.manualQuality + item.s.manualSheet).toFixed(1);
-      manualCell.textContent = `${manualTotal} من ${MANUAL_EXTRA_MAX}٪`;
-
-      const overallCell = document.createElement('td');
-      overallCell.innerHTML =
-        `<div class="score-bar-wrapper">
-           <div class="score-bar-fill" style="width:${Math.min(item.s.overallCurrent, MAX_TOTAL_PERCENT)}%;"></div>
-         </div>
-         <div class="score-text">${item.s.overallCurrent.toFixed(1)}٪ من ${MAX_TOTAL_PERCENT}٪</div>`;
-
-      row.appendChild(rankCell);
-      row.appendChild(nameCell);
-      row.appendChild(daysCell);
-      row.appendChild(avgNonDonationCell);
-      row.appendChild(donationCell);
-      row.appendChild(manualCell);
-      row.appendChild(overallCell);
-
-      body.appendChild(row);
-    });
-  }
-
-  // ✅ Live updates: أي تغيير في Firebase يحدث → إعادة Render
-  const statsRef = ref(db, "teamsStats");
-  onValue(statsRef, (snapshot) => {
-    const stats = snapshot.exists() ? snapshot.val() : {};
-    renderLeaderboard(stats);
-  }, (err) => {
-    document.getElementById('emptyMessage').textContent =
-      "حدث خطأ أثناء تحميل البيانات من Firebase. راجع إعدادات firebaseConfig و Rules.";
-    console.error(err);
-  });
-</script>
 </body>
 </html>

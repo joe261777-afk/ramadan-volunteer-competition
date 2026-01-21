@@ -2,1406 +2,1661 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>مسابقة الفرق التطوعية - رمضان</title>
+
+  <!-- Fonts (Arabic-friendly) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+
   <style>
-  :root {
-    --ramadan-night: #050816;
-    --ramadan-deep: #060b1c;
-    --ramadan-green: #0f766e;
-    --ramadan-green-soft: #14b8a6;
-    --ramadan-gold: #facc6b;
-    --ramadan-gold-soft: #fcdca4;
-    --card-bg: rgba(10, 15, 35, 0.82);
-    --border-soft: rgba(252, 211, 77, 0.35);
-    --text-main: #f9fafb;
-    --text-muted: #9ca3af;
-  }
+    :root{
+      /* Ramadan palette (like reference) */
+      --navy-950:#03102b;
+      --navy-900:#041a3f;
+      --navy-850:#06234f;
+      --navy-800:#07315e;
+      --navy-700:#0a4f86;
 
-  * { box-sizing: border-box; }
+      --gold-500:#f4c451;
+      --gold-600:#d9a63b;
 
-  body {
-    font-family: "Tahoma", system-ui, -apple-system, BlinkMacSystemFont;
-    background:
-      radial-gradient(circle at 10% 20%, rgba(76, 106, 191, 0.18) 0, transparent 50%),
-      radial-gradient(circle at 80% 0%, rgba(244, 196, 48, 0.12) 0, transparent 55%),
-      linear-gradient(to bottom, var(--ramadan-night), var(--ramadan-deep));
-    margin: 0;
-    padding: 0;
-    color: var(--text-main);
-    min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
-  }
+      --text:#f8fafc;
+      --muted:rgba(248,250,252,.72);
 
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image:
-      radial-gradient(circle, rgba(255, 255, 255, 0.8) 1px, transparent 1px),
-      radial-gradient(circle, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
-    background-size: 120px 120px, 200px 200px;
-    background-position: 0 0, 60px 80px;
-    opacity: 0.25;
-    pointer-events: none;
-    z-index: -1;
-  }
+      --line:rgba(244,196,81,.58);
+      --line2:rgba(244,196,81,.28);
 
-  header {
-    background: radial-gradient(circle at top left, rgba(250, 204, 21, 0.35), transparent 55%),
-                linear-gradient(120deg, #020617, #020617);
-    color: var(--text-main);
-    padding: 18px 0;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.35);
-    box-shadow:
-      0 18px 45px rgba(15, 23, 42, 0.95),
-      0 0 0 1px rgba(30, 64, 175, 0.45);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
+      --card: rgba(2, 20, 55, .62);
+      --card2: rgba(3, 16, 43, .82);
+      --border: rgba(244,196,81,.28);
 
-  .header-content {
-    max-width: 950px;
-    margin: 0 auto;
-    padding: 0 16px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .header-right h1 {
-    margin: 0 0 4px 0;
-    font-size: 1.6rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .header-right p {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-  }
-
-  .header-left {
-    display: flex;
-    align-items: flex-end;
-    gap: 10px;
-  }
-
-  .lantern {
-    width: 22px;
-    height: 48px;
-    border-radius: 999px;
-    border: 2px solid var(--ramadan-gold);
-    box-shadow:
-      0 0 12px rgba(250, 204, 21, 0.7),
-      0 0 40px rgba(250, 204, 21, 0.45);
-    position: relative;
-    background: radial-gradient(circle at 50% 20%, #fef3c7, #fbbf24, #92400e);
-  }
-
-  .lantern::before {
-    content: "";
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    width: 14px;
-    height: 10px;
-    transform: translateX(-50%);
-    border-radius: 999px;
-    border: 2px solid var(--ramadan-gold);
-    background: rgba(15, 23, 42, 0.9);
-  }
-
-  .lantern::after {
-    content: "";
-    position: absolute;
-    top: -22px;
-    left: 50%;
-    width: 2px;
-    height: 12px;
-    transform: translateX(-50%);
-    background: linear-gradient(to top, var(--ramadan-gold), transparent);
-  }
-
-  .lantern-1 { transform: translateY(4px); }
-  .lantern-2 { transform: translateY(-3px) scale(0.9); opacity: 0.85; }
-
-  .container {
-    max-width: 950px;
-    margin: 24px auto 40px auto;
-    background: radial-gradient(circle at top left, rgba(8, 47, 73, 0.7), transparent 55%),
-                radial-gradient(circle at bottom right, rgba(22, 101, 52, 0.6), transparent 55%),
-                var(--card-bg);
-    padding: 22px 18px 24px 18px;
-    border-radius: 18px;
-    box-shadow:
-      0 24px 60px rgba(0, 0, 0, 0.75),
-      0 0 0 1px rgba(148, 163, 184, 0.35);
-    border: 1px solid var(--border-soft);
-    backdrop-filter: blur(16px);
-  }
-
-  h2 {
-    margin-top: 18px;
-    margin-bottom: 8px;
-    color: var(--ramadan-gold);
-    border-bottom: 1px dashed rgba(148, 163, 184, 0.4);
-    padding-bottom: 4px;
-    font-size: 1.1rem;
-  }
-
-  h3 {
-    color: var(--ramadan-green-soft);
-    margin-top: 18px;
-    margin-bottom: 6px;
-    font-size: 1rem;
-  }
-
-  .field-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    margin: 8px 0;
-    flex-wrap: wrap;
-  }
-
-  .field-row label {
-    flex: 1;
-    font-size: 0.9rem;
-    color: var(--text-main);
-  }
-
-  .field-row input[type="number"],
-  .field-row input[type="date"],
-  .field-row input[type="text"],
-  .field-row input[type="password"],
-  .field-row input[type="file"] {
-    width: 230px;
-    padding: 7px 8px;
-    border-radius: 10px;
-    border: 1px solid rgba(148, 163, 184, 0.7);
-    background: rgba(15, 23, 42, 0.95);
-    color: var(--text-main);
-    font-size: 0.85rem;
-    outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s, transform 0.1s;
-  }
-
-  .field-row input[type="file"] { padding: 5px 6px; }
-
-  .field-row input::placeholder { color: rgba(148, 163, 184, 0.8); }
-
-  .field-row input:focus {
-    border-color: var(--ramadan-green-soft);
-    box-shadow:
-      0 0 0 1px rgba(45, 212, 191, 0.5),
-      0 0 20px rgba(45, 212, 191, 0.2);
-    background: rgba(15, 23, 42, 0.98);
-    transform: translateY(-1px);
-  }
-
-  .hint {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    line-height: 1.7;
-    margin: 4px 0 8px 0;
-  }
-
-  button {
-    margin-top: 10px;
-    padding: 9px 18px;
-    border: none;
-    border-radius: 999px;
-    background: linear-gradient(135deg, var(--ramadan-green), var(--ramadan-green-soft));
-    color: #ecfeff;
-    font-size: 0.9rem;
-    cursor: pointer;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    box-shadow:
-      0 12px 30px rgba(15, 118, 110, 0.6),
-      0 0 0 1px rgba(34, 197, 186, 0.4);
-    transition: transform 0.12s ease-out, box-shadow 0.12s ease-out, filter 0.12s;
-  }
-
-  button:hover {
-    transform: translateY(-1px) scale(1.01);
-    box-shadow:
-      0 16px 40px rgba(15, 118, 110, 0.8),
-      0 0 0 1px rgba(34, 197, 186, 0.6);
-    filter: brightness(1.03);
-  }
-
-  button:active {
-    transform: translateY(1px) scale(0.99);
-    box-shadow:
-      0 8px 20px rgba(15, 23, 42, 0.9),
-      0 0 0 1px rgba(34, 197, 186, 0.7);
-  }
-
-  .result {
-    margin-top: 15px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--ramadan-gold-soft);
-    line-height: 1.7;
-    background: radial-gradient(circle at top left, rgba(22, 101, 52, 0.4), transparent 55%),
-                rgba(15, 23, 42, 0.9);
-    border-radius: 12px;
-    padding: 10px 12px;
-    border: 1px solid rgba(74, 222, 128, 0.3);
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-    background: rgba(15, 23, 42, 0.92);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.9);
-  }
-
-  th, td {
-    border: 1px solid rgba(30, 64, 175, 0.35);
-    padding: 6px;
-    text-align: center;
-    font-size: 0.8rem;
-    color: #e5e7eb;
-  }
-
-  th {
-    background: linear-gradient(135deg, rgba(15, 118, 110, 0.95), rgba(30, 64, 175, 0.9));
-    color: #fefce8;
-    font-weight: 600;
-  }
-
-  tbody tr:nth-child(even) { background: rgba(15, 23, 42, 0.96); }
-  tbody tr:nth-child(odd)  { background: rgba(15, 23, 42, 0.86); }
-  tbody tr:hover { background: rgba(22, 163, 74, 0.35); }
-
-  .login-card {
-    max-width: 420px;
-    margin: 40px auto;
-    background:
-      radial-gradient(circle at top left, rgba(56, 189, 248, 0.45), transparent 60%),
-      radial-gradient(circle at bottom right, rgba(22, 163, 74, 0.55), transparent 60%),
-      rgba(15, 23, 42, 0.95);
-    padding: 22px 18px 20px 18px;
-    border-radius: 18px;
-    box-shadow:
-      0 24px 60px rgba(0, 0, 0, 0.9),
-      0 0 0 1px rgba(148, 163, 184, 0.6);
-    border: 1px solid var(--border-soft);
-    backdrop-filter: blur(18px);
-    color: var(--text-main);
-  }
-
-  .login-card h2 { border-bottom: none; margin-top: 0; text-align: center; }
-
-  .role-info {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    margin-top: 10px;
-    line-height: 1.7;
-  }
-
-  .badge {
-    display: inline-block;
-    padding: 2px 8px;
-    border-radius: 999px;
-    font-size: 0.75rem;
-    background: linear-gradient(135deg, var(--ramadan-gold), #f97316);
-    color: #1f2937;
-    margin-right: 5px;
-    box-shadow: 0 4px 12px rgba(248, 250, 252, 0.3);
-  }
-
-  #adminPhotosContainer img {
-    max-width: 140px;
-    max-height: 140px;
-    margin: 4px;
-    border-radius: 10px;
-    border: 1px solid rgba(250, 204, 21, 0.6);
-    box-shadow:
-      0 10px 25px rgba(15, 23, 42, 0.9),
-      0 0 15px rgba(250, 204, 21, 0.5);
-    object-fit: cover;
-  }
-
-  .hidden { display: none; }
-
-  .target-progress-wrapper { width: 100%; margin-top: 4px; margin-bottom: 6px; }
-  .target-progress-label { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 2px; }
-  .target-progress-bar {
-    width: 100%;
-    height: 9px;
-    border-radius: 999px;
-    overflow: hidden;
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(148, 163, 184, 0.6);
-  }
-  .target-progress-fill {
-    height: 100%;
-    border-radius: inherit;
-    background: linear-gradient(90deg, #22c55e, #a3e635, #facc15);
-    width: 0%;
-    transition: width 0.25s ease-out;
-  }
-
-  .score-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.82);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 40;
-  }
-  .score-overlay.hidden { display: none; }
-
-  .score-overlay-content {
-    width: min(420px, 90%);
-    background:
-      radial-gradient(circle at top left, rgba(250, 204, 21, 0.25), transparent 55%),
-      radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.25), transparent 55%),
-      rgba(15, 23, 42, 0.98);
-    border-radius: 20px;
-    padding: 18px 16px 20px 16px;
-    border: 1px solid rgba(252, 211, 77, 0.7);
-    box-shadow:
-      0 24px 60px rgba(0, 0, 0, 0.9),
-      0 0 35px rgba(250, 204, 21, 0.7);
-    text-align: center;
-  }
-
-  .score-overlay-content h2 { border-bottom: none; margin: 0 0 8px 0; color: var(--ramadan-gold-soft); }
-  .score-main { font-size: 1.4rem; font-weight: 700; margin: 4px 0 8px 0; }
-
-  .overlay-bar-wrapper {
-    width: 100%;
-    height: 12px;
-    border-radius: 999px;
-    overflow: hidden;
-    background: rgba(15, 23, 42, 0.95);
-    border: 1px solid rgba(148, 163, 184, 0.8);
-    margin-bottom: 6px;
-  }
-  .overlay-bar-fill {
-    height: 100%;
-    border-radius: inherit;
-    background: linear-gradient(90deg, #22c55e, #a3e635, #facc15);
-    width: 0;
-  }
-
-  .score-rank { font-size: 0.95rem; margin: 6px 0; }
-  .score-trend { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 6px; }
-  .score-overlay-content button { margin-top: 6px; }
-
-  .score-overlay-content.rank-up {
-    animation: rankUpGlow 0.9s ease-out;
-    box-shadow:
-      0 0 25px rgba(250, 204, 21, 0.9),
-      0 0 60px rgba(250, 204, 21, 0.8),
-      0 0 0 2px rgba(250, 204, 21, 0.8);
-  }
-
-  .score-overlay-content.rank-down {
-    animation: rankDownShake 0.7s ease-out;
-    box-shadow:
-      0 0 25px rgba(239, 68, 68, 0.9),
-      0 0 60px rgba(239, 68, 68, 0.6),
-      0 0 0 2px rgba(239, 68, 68, 0.8);
-  }
-
-  .rank-down-rocket { font-size: 2rem; margin-bottom: 4px; animation: rocketDown 0.8s ease-in forwards; }
-
-  @keyframes rankUpGlow {
-    0% {
-      transform: scale(0.92);
-      box-shadow:
-        0 0 5px rgba(250, 204, 21, 0.4),
-        0 0 10px rgba(250, 204, 21, 0.3);
+      --ok: rgba(34,197,94,.22);
+      --okBorder: rgba(34,197,94,.35);
     }
-    40% { transform: scale(1.03); }
-    100% { transform: scale(1); }
-  }
 
-  @keyframes rankDownShake {
-    0%   { transform: translateX(0); }
-    20%  { transform: translateX(-5px); }
-    40%  { transform: translateX(5px); }
-    60%  { transform: translateX(-4px); }
-    80%  { transform: translateX(4px); }
-    100% { transform: translateX(0); }
-  }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin:0;
+      font-family:"Tajawal",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+      background:#e7e7e7; /* outer gray like screenshot */
+      color:var(--text);
+    }
 
-  @keyframes rocketDown {
-    0% { transform: translateY(-30px); opacity: 0; }
-    40% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(40px); opacity: 0; }
-  }
+    /* stage like screenshot */
+    .stage{
+      max-width: 1200px;
+      margin: 36px auto;
+      padding: 0 18px;
+    }
 
-  @media (max-width: 768px) {
-    .header-content { flex-direction: column; align-items: flex-start; }
-    .header-left { align-self: flex-end; margin-top: 6px; }
-    .container { margin: 18px 10px 28px 10px; padding: 18px 12px 20px 12px; }
-    .field-row input[type="number"],
-    .field-row input[type="date"],
-    .field-row input[type="text"],
-    .field-row input[type="password"],
-    .field-row input[type="file"] { width: 100%; }
-    header { padding: 14px 0; }
-  }
+    /* main canvas */
+    .ramadan-canvas{
+      position:relative;
+      overflow:hidden;
+      background: linear-gradient(135deg, var(--navy-900), var(--navy-800) 55%, #064d83);
+      box-shadow: 0 18px 55px rgba(0,0,0,.35);
+      border-radius: 2px;
+      min-height: 720px;
+    }
+
+    .ramadan-canvas::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 70% 35%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(circle at 22% 85%, rgba(0,0,0,.22), transparent 55%);
+      pointer-events:none;
+      z-index:1;
+    }
+
+    /* ================= NAVBAR ================= */
+    header.topbar{
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 18px 32px;
+      background: rgba(2, 20, 55, .74);
+      border-bottom: 2px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .logo{
+      font-family:"El Messiri", serif;
+      font-weight: 800;
+      letter-spacing: .02em;
+      color: var(--gold-500);
+      font-size: 20px;
+      white-space: nowrap;
+    }
+
+    .nav{
+      display:flex;
+      align-items:center;
+      gap: 26px;
+      flex-wrap: wrap;
+      list-style:none;
+      margin:0;
+      padding:0;
+      color: var(--gold-500);
+      font-weight: 700;
+      font-size: .95rem;
+    }
+    .nav a{
+      color:inherit;
+      text-decoration:none;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      transition: .15s ease;
+    }
+    .nav a:hover{
+      border-color: var(--line2);
+      background: rgba(244,196,81,.08);
+    }
+
+    .golden-rule{
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(244,196,81,.78), transparent);
+      opacity:.95;
+      position:relative;
+      z-index: 25;
+    }
+
+    /* ================= DECOR LAYERS ================= */
+    .stars{
+      position:absolute;
+      inset:0;
+      z-index:3;
+      pointer-events:none;
+      opacity:.95;
+    }
+
+    /* ✅ Mosque silhouette already exists: just make it a bit clearer */
+    .mosque{
+      position:absolute;
+      left:0; right:0;
+      bottom:-12px;
+      height: 280px;
+      z-index:4;
+      pointer-events:none;
+      opacity:.64;            /* كان .48 */
+      filter: blur(.15px);
+    }
+
+    /* ======= MOVE RAMADAN DECOR TO THE LEFT EMPTY SIDE ======= */
+    .moon-wrap{
+      position:absolute;
+      left: 10%;              /* كان 61% */
+      top: 145px;             /* ضبط بسيط */
+      width: 360px;
+      height: 360px;
+      z-index:5;
+      pointer-events:none;
+      filter: drop-shadow(0 18px 30px rgba(244,196,81,.18));
+      opacity:.98;
+    }
+
+    .string{
+      position:absolute;
+      width:2px;
+      background: linear-gradient(180deg, rgba(244,196,81,.9), rgba(244,196,81,.15));
+      z-index:6;
+      pointer-events:none;
+      opacity:.85;
+    }
+    /* ✅ strings على الشمال بدل اليمين */
+    .string.s1{ left: 18%; top: 64px; height: 185px; }
+    .string.s2{ left: 6.5%; top: 0; height: 225px; }
+    .string.s3{ left: 28.5%; top: 260px; height: 175px; }
+
+    .lantern{
+      position:absolute;
+      top: 0;
+      z-index:6;
+      width: 120px;
+      opacity: .98;
+      transform-origin: top center;
+      animation: swing 4.2s ease-in-out infinite;
+      pointer-events:none;
+    }
+    /* ✅ lanterns متوزعين على الشمال بمسافات */
+    .lantern.l1{ left: 14%; top: 86px; width: 120px; animation-delay: .1s; }
+    .lantern.l2{ left: 2.5%; top: 10px; width: 150px; animation-delay: .35s; }
+    .lantern.l3{ left: 24%; top: 320px; width: 120px; animation-delay: .25s; }
+
+    @keyframes swing{
+      0%,100%{ transform: rotate(-2.2deg); }
+      50%{ transform: rotate(2.2deg); }
+    }
+
+    /* ================= HERO / LAYOUT ================= */
+    .hero{
+      position:relative;
+      z-index:10;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      padding: 46px 32px 24px 32px;
+      min-height: 560px;
+    }
+
+    /* vertical golden separators like screenshot */
+    .hero::after{
+      content:"";
+      position:absolute;
+      top:0; bottom:0;
+      left: 57%;
+      width:2px;
+      background: linear-gradient(180deg, transparent, rgba(244,196,81,.5), transparent);
+      opacity:.75;
+      z-index:2;
+      pointer-events:none;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      top:0; bottom:0;
+      right: 8.5%;
+      width:2px;
+      background: linear-gradient(180deg, transparent, rgba(244,196,81,.5), transparent);
+      opacity:.6;
+      z-index:2;
+      pointer-events:none;
+    }
+
+    /* ✅ خليت العمود اليمين للعنوان فقط (مكان الكلام)، وخلّيت الشمال للدخول */
+    .hero-left{
+      position:relative;
+      z-index:12;
+      padding-top: 56px;
+      text-align: right;
+    }
+
+    .hero-title{
+      font-family:"El Messiri", serif;
+      font-weight: 800;
+      font-size: 64px;     /* أكبر شوية زي طلبك */
+      margin: 0;
+      color: var(--gold-500);
+      text-shadow: 0 10px 30px rgba(244,196,81,.18);
+      line-height: 1.12;
+    }
+
+    .hero-subtitle{
+      margin: 14px 0 0 0;
+      font-weight: 800;
+      color: rgba(244,196,81,.92);
+      font-size: 18px;
+      letter-spacing: .02em;
+    }
+
+    /* ✅ إخفاء الوصف والبنود بالكامل (بدون حذف HTML لو تحب ترجعهم) */
+    .hero-desc,
+    .hero-bullets,
+    .cta-row{
+      display:none;
+    }
+
+    .hero-right{
+      position:relative;
+      z-index:12;
+      min-height: 460px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+      padding-top: 48px;
+    }
+
+    /* ================= APP CARDS (Login/User/Admin) ================= */
+    .glass-card{
+      width: min(420px, 95%);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px 16px 16px 16px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 18px 45px rgba(0,0,0,.25);
+    }
+
+    .glass-card h2{
+      margin:0 0 12px 0;
+      font-family:"El Messiri", serif;
+      font-size: 20px;
+      color: rgba(244,196,81,.95);
+      font-weight: 800;
+    }
+
+    .badge{
+      display:inline-block;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
+      color: #18233d;
+      font-weight: 900;
+      margin-inline-end: 6px;
+    }
+
+    .hint{
+      font-size: 13px;
+      color: rgba(248,250,252,.70);
+      line-height: 1.85;
+      margin: 0 0 10px 0;
+    }
+
+    .field-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin: 10px 0;
+      flex-wrap: wrap;
+    }
+
+    .field-row label{
+      flex: 1;
+      min-width: 150px;
+      font-size: 14px;
+      color: rgba(248,250,252,.88);
+      font-weight: 700;
+    }
+
+    input[type="number"],
+    input[type="date"],
+    input[type="text"],
+    input[type="password"],
+    input[type="file"]{
+      width: 230px;
+      max-width: 100%;
+      padding: 10px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(244,196,81,.20);
+      background: var(--card2);
+      color: var(--text);
+      font-size: 14px;
+      outline:none;
+      transition: .15s ease;
+      font-family: inherit;
+    }
+
+    input::placeholder{ color: rgba(248,250,252,.55); }
+    input:focus{
+      border-color: rgba(244,196,81,.55);
+      box-shadow: 0 0 0 2px rgba(244,196,81,.10);
+      transform: translateY(-1px);
+    }
+
+    input[type="file"]{ padding: 7px 8px; }
+
+    button{
+      margin-top: 10px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(244,196,81,.95), rgba(217,166,59,.95));
+      color: #172140;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: 900;
+      letter-spacing: .01em;
+      box-shadow: 0 14px 30px rgba(244,196,81,.20);
+      transition: transform .12s ease, filter .12s ease;
+      user-select:none;
+    }
+    button:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+    button:active{ transform: translateY(1px); }
+
+    .btn-secondary{
+      background: transparent;
+      border: 2px solid rgba(244,196,81,.65);
+      color: rgba(244,196,81,.94);
+      box-shadow:none;
+    }
+    .btn-secondary:hover{ background: rgba(244,196,81,.09); }
+
+    .result{
+      margin-top: 14px;
+      font-size: 14px;
+      font-weight: 700;
+      color: rgba(244,196,81,.95);
+      line-height: 1.9;
+      background: rgba(3, 16, 43, .75);
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid rgba(244,196,81,.22);
+    }
+
+    /* sections below hero (user/admin) */
+    .app-section{
+      position:relative;
+      z-index:12;
+      padding: 18px 32px 34px 32px;
+    }
+
+    .panel{
+      background: rgba(2, 20, 55, .56);
+      border: 1px solid rgba(244,196,81,.22);
+      border-radius: 18px;
+      padding: 18px 16px 18px 16px;
+      box-shadow: 0 18px 55px rgba(0,0,0,.28);
+      backdrop-filter: blur(12px);
+    }
+
+    .panel h2{
+      margin: 0 0 10px 0;
+      font-family:"El Messiri", serif;
+      color: rgba(244,196,81,.95);
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    h3{
+      color: rgba(244,196,81,.92);
+      margin: 18px 0 8px 0;
+      font-family:"El Messiri", serif;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    /* tables */
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      background: rgba(3, 16, 43, .78);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
+    }
+    th, td{
+      border: 1px solid rgba(244,196,81,.14);
+      padding: 8px;
+      text-align: center;
+      font-size: 13px;
+      color: rgba(248,250,252,.90);
+    }
+    th{
+      background: linear-gradient(135deg, rgba(244,196,81,.25), rgba(10,79,134,.35));
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+    }
+    tbody tr:nth-child(even){ background: rgba(3,16,43,.86); }
+    tbody tr:nth-child(odd){ background: rgba(3,16,43,.70); }
+    tbody tr:hover{ background: rgba(244,196,81,.08); }
+
+    a{
+      color: rgba(244,196,81,.95);
+      font-weight: 900;
+      text-decoration: none;
+    }
+    a:hover{ text-decoration: underline; }
+
+    /* progress bars */
+    .target-progress-wrapper{ width: 100%; margin-top: 6px; margin-bottom: 10px; }
+    .target-progress-label{ font-size: 12.5px; color: rgba(248,250,252,.70); margin-bottom: 4px; }
+    .target-progress-bar{
+      width: 100%;
+      height: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(3, 16, 43, .82);
+      border: 1px solid rgba(244,196,81,.20);
+    }
+    .target-progress-fill{
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #22c55e, #a3e635, #facc15);
+      width: 0%;
+      transition: width 0.25s ease-out;
+    }
+
+    /* photos */
+    #adminPhotosContainer img{
+      max-width: 140px;
+      max-height: 140px;
+      margin: 6px;
+      border-radius: 10px;
+      border: 1px solid rgba(244,196,81,.55);
+      box-shadow: 0 10px 25px rgba(0,0,0,.35);
+      object-fit: cover;
+    }
+
+    /* overlay */
+    .score-overlay{
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 16, 43, .82);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index: 80;
+    }
+    .score-overlay.hidden{ display:none; }
+
+    .score-overlay-content{
+      width: min(420px, 92%);
+      background: rgba(2,20,55,.92);
+      border-radius: 20px;
+      padding: 18px 16px 18px 16px;
+      border: 1px solid rgba(244,196,81,.55);
+      box-shadow: 0 24px 60px rgba(0,0,0,.45);
+      text-align:center;
+      backdrop-filter: blur(14px);
+    }
+    .score-overlay-content h2{
+      margin: 0 0 8px 0;
+      color: rgba(244,196,81,.95);
+      font-family:"El Messiri", serif;
+      font-weight: 900;
+      font-size: 18px;
+    }
+    .score-main{ font-size: 22px; font-weight: 900; margin: 6px 0 10px 0; }
+
+    .overlay-bar-wrapper{
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(3, 16, 43, .82);
+      border: 1px solid rgba(244,196,81,.25);
+      margin-bottom: 8px;
+    }
+    .overlay-bar-fill{
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #22c55e, #a3e635, #facc15);
+      width: 0;
+    }
+    .score-rank{ font-size: 14px; margin: 8px 0; color: rgba(248,250,252,.90); }
+    .score-trend{ font-size: 13px; color: rgba(248,250,252,.70); margin-bottom: 8px; }
+
+    .score-overlay-content.rank-up{
+      animation: rankUpGlow .9s ease-out;
+      box-shadow: 0 0 25px rgba(244,196,81,.45), 0 0 60px rgba(244,196,81,.35);
+    }
+    .score-overlay-content.rank-down{
+      animation: rankDownShake .7s ease-out;
+      box-shadow: 0 0 25px rgba(239,68,68,.35), 0 0 60px rgba(239,68,68,.22);
+    }
+    .rank-down-rocket{ font-size: 28px; margin-bottom: 6px; animation: rocketDown .8s ease-in forwards; }
+
+    @keyframes rankUpGlow{
+      0%{ transform: scale(.92); }
+      40%{ transform: scale(1.03); }
+      100%{ transform: scale(1); }
+    }
+    @keyframes rankDownShake{
+      0%{ transform: translateX(0); }
+      20%{ transform: translateX(-5px); }
+      40%{ transform: translateX(5px); }
+      60%{ transform: translateX(-4px); }
+      80%{ transform: translateX(4px); }
+      100%{ transform: translateX(0); }
+    }
+    @keyframes rocketDown{
+      0%{ transform: translateY(-30px); opacity:0; }
+      40%{ transform: translateY(0); opacity:1; }
+      100%{ transform: translateY(40px); opacity:0; }
+    }
+
+    .hidden{ display:none; }
+
+    /* days summary toggle */
+    #toggleDaysButton{ margin-top: 12px; }
+    #daysSummarySection{ margin-top: 10px; }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      .hero::after, .hero::before{ display:none; }
+
+      /* ✅ على الموبايل نخلي الديكور فوق */
+      .moon-wrap{ left: 12%; top: 120px; width: 320px; height: 320px; }
+      .lantern.l1{ left: 14%; }
+      .lantern.l2{ left: 2%; width: 130px; }
+      .lantern.l3{ left: 24%; }
+
+      header.topbar{ padding: 14px 16px; }
+      .app-section{ padding: 14px 16px 24px 16px; }
+      .hero{ padding: 26px 16px 16px 16px; }
+      .hero-title{ font-size: 44px; }
+    }
+    @media (max-width: 600px){
+      .moon-wrap{ left: 8%; top: 150px; width: 260px; height: 260px; }
+      .nav{ gap: 10px; font-size: .9rem; }
+      input[type="number"],
+      input[type="date"],
+      input[type="text"],
+      input[type="password"],
+      input[type="file"]{ width: 100%; }
+      .field-row label{ min-width: 100%; }
+    }
   </style>
 </head>
+
 <body>
+  <div class="stage">
+    <div class="ramadan-canvas">
+
+      <!-- NAVBAR -->
+      <header class="topbar">
+        <div class="logo">مسابقة الفرق التطوعية</div>
+        <ul class="nav">
+          <li><a href="#" onclick="goBackToLogin();return false;">الدخول</a></li>
+          <li><a href="#" onclick="openLeaderboard();return false;">لوحة الشرف</a></li>
+          <li><a href="#app">تسجيل النقاط</a></li>
+          <li><a href="#admin">الأدمن</a></li>
+        </ul>
+      </header>
+      <div class="golden-rule"></div>
+
+      <!-- Stars -->
+      <svg class="stars" viewBox="0 0 1200 650" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="white" stop-opacity="1"/>
+            <stop offset="60%" stop-color="white" stop-opacity=".35"/>
+            <stop offset="100%" stop-color="white" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <g opacity=".85">
+          <circle cx="820" cy="170" r="38" fill="url(#starGlow)" opacity=".55"/>
+          <circle cx="960" cy="210" r="24" fill="url(#starGlow)" opacity=".45"/>
+          <circle cx="720" cy="260" r="18" fill="url(#starGlow)" opacity=".35"/>
+          <g fill="white" opacity=".85">
+            <circle cx="740" cy="120" r="1.6"/>
+            <circle cx="880" cy="130" r="1.2"/>
+            <circle cx="1010" cy="160" r="1.4"/>
+            <circle cx="1120" cy="210" r="1.3"/>
+            <circle cx="860" cy="280" r="1.2"/>
+            <circle cx="780" cy="310" r="1.1"/>
+            <circle cx="930" cy="330" r="1.2"/>
+            <circle cx="1060" cy="290" r="1.1"/>
+          </g>
+        </g>
+      </svg>
+
+      <!-- Moon -->
+      <svg class="moon-wrap" viewBox="0 0 420 420" aria-hidden="true">
+        <defs>
+          <radialGradient id="moonGrad" cx="35%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#fff3cf" stop-opacity="1"/>
+            <stop offset="45%" stop-color="#f4c451" stop-opacity=".98"/>
+            <stop offset="100%" stop-color="#d19a2f" stop-opacity="1"/>
+          </radialGradient>
+          <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <path filter="url(#softGlow)"
+              d="M275 65c-45 22-76 69-76 123 0 63 42 116 100 133-22 18-51 29-83 29-73 0-132-59-132-132S143 86 216 86c21 0 41 5 59 14z"
+              fill="url(#moonGrad)"
+              opacity=".98"/>
+
+        <path filter="url(#softGlow)"
+              d="M330 170l11 23 25 4-18 17 4 24-22-12-22 12 4-24-18-17 25-4z"
+              fill="#ffe7a1"
+              opacity=".95"/>
+      </svg>
+
+      <!-- Strings -->
+      <div class="string s1"></div>
+      <div class="string s2"></div>
+      <div class="string s3"></div>
+
+      <!-- Lanterns (SVG) -->
+      <svg class="lantern l1" viewBox="0 0 120 220" aria-hidden="true">
+        <defs>
+          <linearGradient id="lanGold" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#fff3cf"/>
+            <stop offset="0.45" stop-color="#f4c451"/>
+            <stop offset="1" stop-color="#c98b24"/>
+          </linearGradient>
+          <linearGradient id="glass" x1="0" x2="1">
+            <stop offset="0" stop-color="#a7f3d0" stop-opacity=".15"/>
+            <stop offset="1" stop-color="#93c5fd" stop-opacity=".22"/>
+          </linearGradient>
+        </defs>
+        <path d="M60 14c14 0 24 8 24 18v14H36V32c0-10 10-18 24-18z" fill="url(#lanGold)"/>
+        <path d="M34 46h52l-8 18v98l8 18H34l8-18V64z" fill="url(#lanGold)"/>
+        <rect x="44" y="70" width="32" height="78" rx="10" fill="url(#glass)" stroke="rgba(255,255,255,.25)"/>
+        <circle cx="60" cy="110" r="18" fill="rgba(255,255,255,.12)"/>
+        <path d="M44 198h32l-6 12H50z" fill="url(#lanGold)"/>
+      </svg>
+
+      <svg class="lantern l2" viewBox="0 0 120 220" aria-hidden="true">
+        <defs>
+          <linearGradient id="lanGold2" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#fff3cf"/>
+            <stop offset="0.45" stop-color="#f4c451"/>
+            <stop offset="1" stop-color="#c98b24"/>
+          </linearGradient>
+          <linearGradient id="glass2" x1="0" x2="1">
+            <stop offset="0" stop-color="#a7f3d0" stop-opacity=".15"/>
+            <stop offset="1" stop-color="#93c5fd" stop-opacity=".22"/>
+          </linearGradient>
+        </defs>
+        <path d="M60 14c14 0 24 8 24 18v14H36V32c0-10 10-18 24-18z" fill="url(#lanGold2)"/>
+        <path d="M34 46h52l-8 18v98l8 18H34l8-18V64z" fill="url(#lanGold2)"/>
+        <rect x="44" y="70" width="32" height="78" rx="10" fill="url(#glass2)" stroke="rgba(255,255,255,.25)"/>
+        <circle cx="60" cy="110" r="18" fill="rgba(255,255,255,.12)"/>
+        <path d="M44 198h32l-6 12H50z" fill="url(#lanGold2)"/>
+      </svg>
+
+      <svg class="lantern l3" viewBox="0 0 120 220" aria-hidden="true">
+        <defs>
+          <linearGradient id="lanGold3" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#fff3cf"/>
+            <stop offset="0.45" stop-color="#f4c451"/>
+            <stop offset="1" stop-color="#c98b24"/>
+          </linearGradient>
+          <linearGradient id="glass3" x1="0" x2="1">
+            <stop offset="0" stop-color="#a7f3d0" stop-opacity=".15"/>
+            <stop offset="1" stop-color="#93c5fd" stop-opacity=".22"/>
+          </linearGradient>
+        </defs>
+        <path d="M60 14c14 0 24 8 24 18v14H36V32c0-10 10-18 24-18z" fill="url(#lanGold3)"/>
+        <path d="M34 46h52l-8 18v98l8 18H34l8-18V64z" fill="url(#lanGold3)"/>
+        <rect x="44" y="70" width="32" height="78" rx="10" fill="url(#glass3)" stroke="rgba(255,255,255,.25)"/>
+        <circle cx="60" cy="110" r="18" fill="rgba(255,255,255,.12)"/>
+        <path d="M44 198h32l-6 12H50z" fill="url(#lanGold3)"/>
+      </svg>
+
+      <!-- Mosque silhouette -->
+      <svg class="mosque" viewBox="0 0 1200 260" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <linearGradient id="mosq" x1="0" x2="0" y1="0" y2="1">
+            <stop offset="0" stop-color="#0b3a69" stop-opacity=".85"/>
+            <stop offset="1" stop-color="#041a3f" stop-opacity="1"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#mosq)" opacity=".95"
+          d="M0 260V170c40-10 70-30 95-60 24-29 55-45 90-50v-6c0-10 8-18 18-18s18 8 18 18v9
+             c45 10 79 33 105 70 25 36 62 55 112 58v-40c0-18 14-32 32-32h16c-2-8-3-16-3-24
+             0-46 33-86 78-96-2-5-3-10-3-15 0-26 21-47 47-47s47 21 47 47c0 5-1 10-3 15
+             45 10 78 50 78 96 0 8-1 16-3 24h16c18 0 32 14 32 32v40c50-3 87-22 112-58
+             26-37 60-60 105-70v-9c0-10 8-18 18-18s18 8 18 18v6c35 5 66 21 90 50
+             25 30 55 50 95 60v90H0z"/>
+      </svg>
+
+      <!-- HERO -->
+      <section class="hero">
+        <!-- ✅ يمين: عنوان فقط -->
+        <div class="hero-left">
+          <h1 class="hero-title">مسابقة الفرق التطوعية</h1>
+          <div class="hero-subtitle">رمضان — تسجيل النقاط • ترتيب الفرق • لوحة شرف مباشرة</div>
+
+          <!-- ✅ اتسابوا موجودين بس مخفيين بالـ CSS -->
+          <p class="hero-desc">
+            ويب سايت لإدارة مسابقة رمضانية بين فرق تطوعية بشكل سهل وعادل: قائد الفريق يسجل نقاط يومه بتاريخ (بدون تكرار)،
+            والأدمن يراجع الجودة وشيت الحضور، والنتائج تظهر فورًا على لوحة الشرف.
+          </p>
+
+          <ul class="hero-bullets">
+            <li>تسجيل يومي للنقاط + منع تسجيل نفس اليوم مرتين لنفس الفريق.</li>
+            <li>نظام درجات من 100%: (55% أوتوماتيك) + (15% يدوي للأدمن) + (30% تبرعات/منتجات تراكمي).</li>
+            <li>Pop-up لطيف يوضح الـ Score والمركز والميدالية 🥇🥈🥉.</li>
+            <li>Leaderboard عام يعتمد على Firebase Realtime Database.</li>
+          </ul>
+
+          <div class="cta-row">
+            <a class="cta primary" href="#" onclick="openLeaderboard();return false;">🏆 افتح لوحة الشرف</a>
+            <a class="cta" href="#app">ابدأ تسجيل النقاط</a>
+          </div>
+        </div>
+
+        <!-- ✅ شمال: نفس كارت الدخول زي ما هو -->
+        <div class="hero-right">
+          <div id="loginSection" class="glass-card">
+            <h2>تسجيل الدخول</h2>
+
+            <div class="field-row">
+              <label>اسم المستخدم:</label>
+              <input type="text" id="loginName" placeholder="مثال: admin أو فريق الرحمة" />
+            </div>
+
+            <div class="field-row">
+              <label>كلمة المرور:</label>
+              <input type="password" id="loginPassword" placeholder="للأدمن فقط" />
+            </div>
+
+            <button onclick="handleLogin()">دخول</button>
+            <button class="btn-secondary" type="button" onclick="openLeaderboard()" style="margin-top:10px;">
+              مشاهدة لوحة الشرف
+            </button>
+
+            <p class="hint" style="margin-top:12px;">
+              <span class="badge">Admin</span>
+              للدخول كأدمن: <b>admin</b> / <b>admin123</b><br>
+              أي اسم آخر ➜ يُعتبر <b>قائد فريق</b> ويتم فتح صفحة إدخال نقاط لفريقه.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- APP (User/Admin) -->
+      <div class="app-section" id="app">
+
+        <!-- User Page -->
+        <div id="userSection" class="panel hidden">
+          <h2>صفحة قائد الفريق</h2>
+          <p class="hint" id="userWelcome"></p>
+
+          <div class="field-row">
+            <label>اسم الفريق:</label>
+            <input type="text" id="teamName" disabled />
+          </div>
+
+          <div class="field-row">
+            <label>عدد أعضاء الفريق (الكامل):</label>
+            <input type="number" id="teamSize" min="1" placeholder="مثال: 15" />
+          </div>
+
+          <div class="field-row">
+            <label>تاريخ اليوم:</label>
+            <input type="date" id="dayDate" />
+          </div>
+
+          <h3>التعبئة (إجمالي وزن القسم = ٤٠٪)</h3>
+
+          <div class="field-row">
+            <label>عدد الشنط المطلوب اليوم (تارجت اليوم):</label>
+            <input type="number" id="bags_target" min="0" placeholder="مثال: 100" />
+          </div>
+
+          <div class="field-row">
+            <label>عدد الشنط اللي اتعملت فعلاً اليوم:</label>
+            <input type="number" id="bags_done" min="0" placeholder="مثال: 80" />
+          </div>
+
+          <p class="hint">نسبة إنجاز الشنط = (المنفذ ÷ المطلوب) × ٢٠٪.</p>
+
+          <div class="field-row">
+            <label>صور جودة التعبئة والنظام (تقييم أدمن):</label>
+            <input type="file" id="fill_quality_photos" accept="image/*" multiple />
+          </div>
+
+          <div class="field-row">
+            <label>الالتزام بالمواعيد (0 → 25):</label>
+            <input type="number" id="fill_time" min="0" max="25" placeholder="عدد اليوم" />
+          </div>
+
+          <h3>التبرعات (تراكمي – إجمالي وزن القسم = ٢٥٪)</h3>
+
+          <div class="field-row">
+            <label>المجزَر – مبلغ اليوم (تارجت المسابقة 15000):</label>
+            <input type="number" id="donation_meat" min="0" placeholder="مبلغ اليوم بالجنيه" />
+          </div>
+          <div class="target-progress-wrapper">
+            <div class="target-progress-label">
+              تقدم المجزر: <span id="meatProgressText">0 / 15000 (0٪)</span>
+            </div>
+            <div class="target-progress-bar">
+              <div id="meatProgressFill" class="target-progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <label>أصحاب البيت – مبلغ اليوم (تارجت المسابقة 5000):</label>
+            <input type="number" id="donation_house" min="0" placeholder="مبلغ اليوم بالجنيه" />
+          </div>
+          <div class="target-progress-wrapper">
+            <div class="target-progress-label">
+              تقدم أصحاب البيت: <span id="houseProgressText">0 / 5000 (0٪)</span>
+            </div>
+            <div class="target-progress-bar">
+              <div id="houseProgressFill" class="target-progress-fill"></div>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <label>تنوع – عدد أنواع/مصادر التبرع اليوم:</label>
+            <input type="number" id="donation_variety" min="0" placeholder="عدد اليوم" />
+          </div>
+
+          <h3>المنتجات (تراكمي – وزن البند = ٥٪)</h3>
+
+          <div class="field-row">
+            <label>قيمة المنتجات اليوم (تارجت المسابقة 3000):</label>
+            <input type="number" id="products_today" min="0" placeholder="مبلغ اليوم بالجنيه" />
+          </div>
+          <div class="target-progress-wrapper">
+            <div class="target-progress-label">
+              تقدم المنتجات: <span id="productsProgressText">0 / 3000 (0٪)</span>
+            </div>
+            <div class="target-progress-bar">
+              <div id="productsProgressFill" class="target-progress-fill"></div>
+            </div>
+          </div>
+
+          <h3>التارجت التطوعي (إجمالي وزن القسم = ٣٠٪)</h3>
+
+          <div class="field-row">
+            <label>حضور الفريق (عدد الحاضرين اليوم من إجمالي عدد الفريق):</label>
+            <input type="number" id="vol_team_presence" min="0" placeholder="عدد الحضور اليوم" />
+          </div>
+
+          <div class="field-row">
+            <label>المتطوعين الجدد (0 → 25):</label>
+            <input type="number" id="vol_new_volunteers" min="0" max="25" placeholder="عدد اليوم" />
+          </div>
+
+          <div class="field-row">
+            <label>رابط شيت الحضور (Google Sheets / Drive):</label>
+            <input type="text" id="vol_sheet_link" placeholder="ضع رابط الشيت هنا" />
+          </div>
+
+          <p class="hint">شيت الحضور + جودة التعبئة يتم تقييمهم يدويًا من صفحات الأدمن.</p>
+
+          <button onclick="calculateDay()">احسب نقاط اليوم</button>
+          <div class="result" id="resultText"></div>
+
+          <button id="toggleDaysButton" class="btn-secondary" type="button" onclick="toggleDaysSummary()">إظهار ملخص الأيام</button>
+
+          <div id="daysSummarySection" class="hidden">
+            <h3>ملخص الأيام لفريقك</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>التاريخ</th>
+                  <th>نسبة اليوم (تعبئة + تطوع أوتوماتيك)</th>
+                  <th>تبرعات المجزر (اليوم)</th>
+                  <th>تبرعات أصحاب البيت (اليوم)</th>
+                  <th>تنوع (اليوم)</th>
+                  <th>منتجات (اليوم)</th>
+                </tr>
+              </thead>
+              <tbody id="daysTableBody"></tbody>
+            </table>
+          </div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+            <button type="button" class="btn-secondary" onclick="openLeaderboard()">🏆 افتح لوحة الشرف</button>
+            <button type="button" class="btn-secondary" onclick="goBackToLogin()">خروج</button>
+          </div>
+        </div>
+
+        <!-- Admin Page -->
+        <div id="adminSection" class="panel hidden" style="margin-top:14px;">
+          <h2 id="admin">صفحة الأدمن</h2>
+          <p class="hint">
+            هذه الصفحة تعرض ملخص كل الفرق وترتيبهم حسب الـ Score الكلي (من ١٠٠)، ويمكن تعديل الدرجات اليدوية.
+          </p>
+
+          <button onclick="buildAdminTable()">تحديث بيانات الفرق</button>
+
+          <h3>ملخص الفرق</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>الترتيب</th>
+                <th>اسم الفريق</th>
+                <th>عدد الأيام</th>
+                <th>متوسط (تعبئة + تطوع أوتوماتيك) ٪</th>
+                <th>نسبة التبرعات والمنتجات الحالية ٪</th>
+                <th>درجة جودة التعبئة (0–10)</th>
+                <th>درجة شيت الحضور (0–5)</th>
+                <th>Score الكلي الحالي ٪</th>
+                <th>صور الجودة</th>
+                <th>رابط شيت الحضور</th>
+              </tr>
+            </thead>
+            <tbody id="adminTableBody"></tbody>
+          </table>
+
+          <h3>عرض صور جودة التعبئة للفريق المختار</h3>
+          <div id="adminPhotosContainer" class="result"></div>
+
+          <button type="button" class="btn-secondary" onclick="goBackToLogin()">خروج</button>
+        </div>
 
-<header>
-  <div class="header-content">
-    <div class="header-right">
-      <h1>🌙 مسابقة الفرق التطوعية في رمضان</h1>
-      <p>لوحة تسجيل النقاط ومتابعة الفرق</p>
-    </div>
-    <div class="header-left">
-      <div class="lantern lantern-1"></div>
-      <div class="lantern lantern-2"></div>
-    </div>
-  </div>
-</header>
-
-<!-- Login -->
-<div id="loginSection" class="login-card">
-  <h2>تسجيل الدخول</h2>
-
-  <div class="field-row">
-    <label>اسم المستخدم:</label>
-    <input type="text" id="loginName" placeholder="مثال: admin أو فريق الرحمة" />
-  </div>
-
-  <div class="field-row">
-    <label>كلمة المرور:</label>
-    <input type="password" id="loginPassword" placeholder="للأدمن فقط" />
-  </div>
-
-  <button onclick="handleLogin()">دخول</button>
-  <button type="button" onclick="openLeaderboard()" style="margin-top:8px;background:linear-gradient(135deg,#facc6b,#f59e0b);color:#1f2937;">
-  🏆 مشاهدة لوحة الشرف
-</button>
-
-
-  <div class="role-info">
-    <span class="badge">Admin</span>
-    للدخول كأدمن:<br>
-    Username: <strong>admin</strong><br>
-    Password: <strong>admin123</strong><br><br>
-    أي اسم آخر ➜ يُعتبر <strong>قائد فريق</strong> ويتم فتح صفحة إدخال نقاط لفريقه.
-  </div>
-</div>
-
-<!-- User Page -->
-<div id="userSection" class="container hidden">
-
-  <h2>صفحة قائد الفريق</h2>
-  <p class="hint" id="userWelcome"></p>
-
-  <div class="field-row">
-    <label>اسم الفريق:</label>
-    <input type="text" id="teamName" disabled />
-  </div>
-
-  <div class="field-row">
-    <label>عدد أعضاء الفريق (الكامل):</label>
-    <input type="number" id="teamSize" min="1" placeholder="مثال: 15" />
-  </div>
-
-  <div class="field-row">
-    <label>تاريخ اليوم:</label>
-    <input type="date" id="dayDate" />
-  </div>
-
-  <!-- التعبئة -->
-  <h3>التعبئة (إجمالي وزن القسم = ٤٠٪)</h3>
-
-  <div class="field-row">
-    <label>عدد الشنط المطلوب اليوم (تارجت اليوم):</label>
-    <input type="number" id="bags_target" min="0" placeholder="مثال: 100" />
-  </div>
-
-  <div class="field-row">
-    <label>عدد الشنط اللي اتعملت فعلاً اليوم:</label>
-    <input type="number" id="bags_done" min="0" placeholder="مثال: 80" />
-  </div>
-
-  <p class="hint">
-    نسبة إنجاز الشنط = (المنفذ ÷ المطلوب) × ٢٠٪.
-  </p>
-
-  <div class="field-row">
-    <label>صور جودة التعبئة والنظام (يتم تقييمها بواسطة الأدمن):</label>
-    <input type="file" id="fill_quality_photos" accept="image/*" multiple />
-  </div>
-
-  <div class="field-row">
-    <label>الالتزام بالمواعيد (0 → 25):</label>
-    <input type="number" id="fill_time" min="0" max="25" placeholder="عدد اليوم" />
-  </div>
-
-  <!-- التبرعات -->
-  <h3>التبرعات (تراكمي – إجمالي وزن القسم = ٢٥٪)</h3>
-
-  <div class="field-row">
-    <label>المجزَر – مبلغ اليوم (تارجت المسابقة 15000):</label>
-    <input type="number" id="donation_meat" min="0" placeholder="مبلغ اليوم بالجنيه" />
-  </div>
-  <div class="target-progress-wrapper">
-    <div class="target-progress-label">
-      تقدم المجزر: <span id="meatProgressText">0 / 15000 (0٪)</span>
-    </div>
-    <div class="target-progress-bar">
-      <div id="meatProgressFill" class="target-progress-fill"></div>
-    </div>
-  </div>
-
-  <div class="field-row">
-    <label>أصحاب البيت – مبلغ اليوم (تارجت المسابقة 5000):</label>
-    <input type="number" id="donation_house" min="0" placeholder="مبلغ اليوم بالجنيه" />
-  </div>
-  <div class="target-progress-wrapper">
-    <div class="target-progress-label">
-      تقدم أصحاب البيت: <span id="houseProgressText">0 / 5000 (0٪)</span>
-    </div>
-    <div class="target-progress-bar">
-      <div id="houseProgressFill" class="target-progress-fill"></div>
-    </div>
-  </div>
-
-  <div class="field-row">
-    <label>تنوع – عدد أنواع/مصادر التبرع اليوم:</label>
-    <input type="number" id="donation_variety" min="0" placeholder="عدد اليوم" />
-  </div>
-
-  <!-- المنتجات -->
-  <h3>المنتجات (تراكمي – وزن البند = ٥٪)</h3>
-
-  <div class="field-row">
-    <label>قيمة المنتجات اليوم (تارجت المسابقة 3000):</label>
-    <input type="number" id="products_today" min="0" placeholder="مبلغ اليوم بالجنيه" />
-  </div>
-  <div class="target-progress-wrapper">
-    <div class="target-progress-label">
-      تقدم المنتجات: <span id="productsProgressText">0 / 3000 (0٪)</span>
-    </div>
-    <div class="target-progress-bar">
-      <div id="productsProgressFill" class="target-progress-fill"></div>
-    </div>
-  </div>
-
-  <!-- التطوع -->
-  <h3>التارجت التطوعي (إجمالي وزن القسم = ٣٠٪)</h3>
-
-  <div class="field-row">
-    <label>حضور الفريق (عدد الحاضرين اليوم من إجمالي عدد الفريق):</label>
-    <input type="number" id="vol_team_presence" min="0" placeholder="عدد الحضور اليوم" />
-  </div>
-
-  <div class="field-row">
-    <label>المتطوعين الجدد (0 → 25):</label>
-    <input type="number" id="vol_new_volunteers" min="0" max="25" placeholder="عدد اليوم" />
-  </div>
-
-  <div class="field-row">
-    <label>رابط شيت الحضور (Google Sheets / Drive):</label>
-    <input type="text" id="vol_sheet_link" placeholder="ضع رابط الشيت هنا" />
-  </div>
-
-  <p class="hint">
-    شيت الحضور + جودة التعبئة يتم تقييمهم يدويًا من صفحات الأدمن.
-  </p>
-
-  <button onclick="calculateDay()">احسب نقاط اليوم</button>
-
-  <div class="result" id="resultText"></div>
-
-  <!-- زر و Section ملخص الأيام -->
-  <button id="toggleDaysButton" type="button" onclick="toggleDaysSummary()">إظهار ملخص الأيام</button>
-
-  <div id="daysSummarySection" class="hidden">
-    <h3>ملخص الأيام لفريقك</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>التاريخ</th>
-          <th>نسبة اليوم (تعبئة + تطوع أوتوماتيك)</th>
-          <th>تبرعات المجزر (اليوم)</th>
-          <th>تبرعات أصحاب البيت (اليوم)</th>
-          <th>تنوع (اليوم)</th>
-          <th>منتجات (اليوم)</th>
-        </tr>
-      </thead>
-      <tbody id="daysTableBody"></tbody>
-    </table>
-  </div>
-  <button type="button" onclick="openLeaderboard()">🏆 افتح لوحة الشرف</button>
-  <button onclick="goBackToLogin()">خروج</button>
-</div>
-
-<!-- Admin Page -->
-<div id="adminSection" class="container hidden">
-  <h2>صفحة الأدمن</h2>
-  <p class="hint">
-    هذه الصفحة تعرض ملخص كل الفرق وترتيبهم حسب الـ Score الكلي (من ١٠٠)، ويمكن تعديل الدرجات اليدوية.
-  </p>
-
-  <button onclick="buildAdminTable()">تحديث بيانات الفرق</button>
-
-  <h3>ملخص الفرق</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>الترتيب</th>
-        <th>اسم الفريق</th>
-        <th>عدد الأيام</th>
-        <th>متوسط (تعبئة + تطوع أوتوماتيك) ٪</th>
-        <th>نسبة التبرعات والمنتجات الحالية ٪</th>
-        <th>درجة جودة التعبئة (0–10)</th>
-        <th>درجة شيت الحضور (0–5)</th>
-        <th>Score الكلي الحالي ٪ (من ١٠٠)</th>
-        <th>صور الجودة</th>
-        <th>رابط شيت الحضور</th>
-      </tr>
-    </thead>
-    <tbody id="adminTableBody"></tbody>
-  </table>
-
-  <h3>عرض صور جودة التعبئة للفريق المختار</h3>
-  <div id="adminPhotosContainer" class="result"></div>
-
-  <button onclick="goBackToLogin()">خروج</button>
-</div>
-
-<!-- Pop-up للـ New Score -->
-<div id="scoreOverlay" class="score-overlay hidden">
-  <div id="scoreOverlayContent" class="score-overlay-content"></div>
-</div>
-
-<!-- ✅ FIREBASE + APP LOGIC (Realtime Database) -->
-<script type="module">
-  // =========================
-  // 🔥 Firebase Imports (CDN)
-  // =========================
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
-  import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
-
-  // =========================
-  // ✅ 1) ضع بيانات Firebase هنا
-  // =========================
-const firebaseConfig = {
-  apiKey: "AIzaSyDSxSRKH-cZFk9y4AqzrmFQftXcxI_ADSk",
-  authDomain: "ramdan-92ed1.firebaseapp.com",
-  databaseURL: "https://ramdan-92ed1-default-rtdb.firebaseio.com",
-  projectId: "ramdan-92ed1",
-  storageBucket: "ramdan-92ed1.firebasestorage.app",
-  messagingSenderId: "467097580348",
-  appId: "1:467097580348:web:52ebc0b97988857a60a439",
-  measurementId: "G-YZSM40GPXF"
-};
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // =========================
-  // ===== CONSTANTS =====
-  // =========================
-  const ITEM_MAX_PERCENT = {
-    fill_daily_target: 20,
-    fill_quality: 10,
-    fill_time: 10,
-    donation_meat: 10,
-    donation_house: 10,
-    donation_variety: 5,
-    products: 5,
-    vol_team_presence: 15,
-    vol_new_volunteers: 10,
-    vol_sheet: 5
-  };
-
-  const MAX_NON_DONATION_PERCENT =
-    ITEM_MAX_PERCENT.fill_daily_target +
-    ITEM_MAX_PERCENT.fill_time +
-    ITEM_MAX_PERCENT.vol_team_presence +
-    ITEM_MAX_PERCENT.vol_new_volunteers; // 55
-
-  const MANUAL_EXTRA_MAX =
-    ITEM_MAX_PERCENT.fill_quality + ITEM_MAX_PERCENT.vol_sheet; // 15
-
-  const MAX_DONATION_PERCENT =
-    ITEM_MAX_PERCENT.donation_meat +
-    ITEM_MAX_PERCENT.donation_house +
-    ITEM_MAX_PERCENT.donation_variety +
-    ITEM_MAX_PERCENT.products; // 30
-
-  const MAX_TOTAL_PERCENT = MAX_NON_DONATION_PERCENT + MANUAL_EXTRA_MAX + MAX_DONATION_PERCENT; // 100
-
-  const DONATION_TARGETS = {
-    donation_meat: 15000,
-    donation_house: 5000,
-    donation_variety: 10,
-    products: 3000
-  };
-
-  let currentTeamName = null;
-  let currentTeamKey = null;
-  const sessionMedia = {}; // صور الجلسة فقط (مش بتتخزن على firebase)
-
-  function getMedal(rank) {
-    if (rank === 1) return " 🥇";
-    if (rank === 2) return " 🥈";
-    if (rank === 3) return " 🥉";
-    return "";
-  }
-window.openLeaderboard = function () {
-  window.location.href = "leaderboard.html";
-};
-
-  // =========================
-  // ✅ Firebase "Storage layer"
-  // =========================
-  function teamKeyFromName(name) {
-    // Firebase keys ممنوع فيها: . # $ [ ] /
-    // encodeURIComponent هيشيل / ويحوّل الرموز لمسموحة
-    return encodeURIComponent(name.trim());
-  }
-
-  async function getTeamsStats() {
-    const snap = await get(ref(db, "teamsStats"));
-    return snap.exists() ? (snap.val() || {}) : {};
-  }
-
-  async function setTeamsStats(stats) {
-    await set(ref(db, "teamsStats"), stats || {});
-  }
-
-  // =========================
-  // ===== NAVIGATION / LOGIN =====
-  // =========================
-  function showSection(id) {
-    document.getElementById('loginSection').classList.add('hidden');
-    document.getElementById('userSection').classList.add('hidden');
-    document.getElementById('adminSection').classList.add('hidden');
-    document.getElementById(id).classList.remove('hidden');
-  }
-  function openLeaderboard() {
-  // لو اسم الملف عندك مختلف عدله هنا
-  window.location.href = "leaderboard.html";
-}
-
-
-  function setToday() {
-    const todayInput = document.getElementById('dayDate');
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    todayInput.value = `${yyyy}-${mm}-${dd}`;
-  }
-
-  async function handleLogin() {
-    const name = document.getElementById('loginName').value.trim();
-    const pass = document.getElementById('loginPassword').value;
-
-    if (!name) {
-      alert('من فضلك أدخل اسم المستخدم');
-      return;
-    }
-
-    if (name === 'admin' && pass === 'admin123') {
-      currentTeamName = null;
-      currentTeamKey = null;
-      showSection('adminSection');
-      await buildAdminTable();
-      return;
-    }
-
-    // قائد فريق
-    currentTeamName = name;
-    currentTeamKey = teamKeyFromName(currentTeamName);
-
-    showSection('userSection');
-    document.getElementById('teamName').value = currentTeamName;
-    document.getElementById('userWelcome').textContent =
-      `أهلاً بك يا قائد فريق "${currentTeamName}". قم بتسجيل نقاط اليوم لفريقك.`;
-
-    setToday();
-    document.getElementById('daysTableBody').innerHTML = '';
-    document.getElementById('resultText').innerHTML = '';
-    document.getElementById('daysSummarySection').classList.add('hidden');
-    document.getElementById('toggleDaysButton').textContent = 'إظهار ملخص الأيام';
-
-    const stats = await getTeamsStats();
-    const t = stats[currentTeamKey];
-    updateMoneyProgressBars(t || null);
-
-    if (t && t.daysCount > 0) {
-      const overallStats = computeTeamOverallStats(t);
-
-      const scores = [];
-      Object.keys(stats).forEach(k => {
-        const ts = stats[k];
-        if (ts && ts.daysCount > 0) {
-          const s = computeTeamOverallStats(ts);
-          scores.push({ key: k, name: ts.name || decodeURIComponent(k), score: s.overallCurrent });
-        }
-      });
-      scores.sort((a, b) => b.score - a.score);
-      const rank = scores.findIndex(x => x.key === currentTeamKey) + 1;
-      const totalTeams = scores.length;
-
-      document.getElementById('resultText').innerHTML =
-        `تم تسجيل الفريق بنجاح. Score الحالي: ${overallStats.overallCurrent.toFixed(1)}٪ – المركز: ${rank} من ${totalTeams} فريق${getMedal(rank)}.`;
-    }
-  }
-
-  function goBackToLogin() {
-    currentTeamName = null;
-    currentTeamKey = null;
-    showSection('loginSection');
-  }
-
-  function toggleDaysSummary() {
-    const sec = document.getElementById('daysSummarySection');
-    const btn = document.getElementById('toggleDaysButton');
-    const isHidden = sec.classList.toggle('hidden');
-    btn.textContent = isHidden ? 'إظهار ملخص الأيام' : 'إخفاء ملخص الأيام';
-  }
-
-  // =========================
-  // ===== SCORING HELPERS =====
-  // =========================
-  function getNumber(id) {
-    const el = document.getElementById(id);
-    if (!el) return 0;
-    return Number(el.value) || 0;
-  }
-
-  function scoreDailyBags() {
-    const target = getNumber('bags_target');
-    const done   = getNumber('bags_done');
-    const maxPercent = ITEM_MAX_PERCENT.fill_daily_target;
-    if (target <= 0) return 0;
-    const ratio = Math.max(0, Math.min(done / target, 1));
-    return ratio * maxPercent;
-  }
-
-  function calcPercentFromValue(value, maxPercent) {
-    if (value >= 20) return maxPercent;
-    if (value >= 15) return maxPercent - 2;
-    if (value >= 10) return maxPercent - 4;
-    if (value >= 5)  return maxPercent - 6;
-    if (value > 0)   return maxPercent - 8;
-    return 0;
-  }
-
-  function scoreItem(id) {
-    const value = getNumber(id);
-    const maxPercent = ITEM_MAX_PERCENT[id] || 0;
-    return calcPercentFromValue(value, maxPercent);
-  }
-
-  function scoreVolTeamPresence() {
-    const teamSize = getNumber('teamSize');
-    const present = getNumber('vol_team_presence');
-    const maxPercent = ITEM_MAX_PERCENT.vol_team_presence;
-
-    if (teamSize <= 0) return 0;
-    const ratio = Math.max(0, Math.min(present / teamSize, 1));
-    return ratio * maxPercent;
-  }
-
-  function calcDonationPercent(totalAmount, target, maxPercent) {
-    if (totalAmount <= 0) return 0;
-    const ratio = totalAmount / target;
-    const clamped = Math.min(ratio, 1);
-    return clamped * maxPercent;
-  }
-
-  function computeTeamOverallStats(t) {
-    if (!t || !t.daysCount || t.daysCount <= 0) {
-      const manualQuality = t && t.manualQuality ? t.manualQuality : 0;
-      const manualSheet = t && t.manualSheet ? t.manualSheet : 0;
-      return {
-        avgNonDonation: 0,
-        donationTotalPercent: 0,
-        manualQuality,
-        manualSheet,
-        overallCurrent: manualQuality + manualSheet
-      };
-    }
-
-    const avgNonDonation = t.nonDonationTotalSum / t.daysCount;
-
-    const donationMeatPercent = calcDonationPercent(
-      t.donationMeatTotal || 0,
-      DONATION_TARGETS.donation_meat,
-      ITEM_MAX_PERCENT.donation_meat
-    );
-    const donationHousePercent = calcDonationPercent(
-      t.donationHouseTotal || 0,
-      DONATION_TARGETS.donation_house,
-      ITEM_MAX_PERCENT.donation_house
-    );
-    const donationVarietyPercent = calcDonationPercent(
-      t.donationVarietyTotal || 0,
-      DONATION_TARGETS.donation_variety,
-      ITEM_MAX_PERCENT.donation_variety
-    );
-    const productsPercent = calcDonationPercent(
-      t.productsTotal || 0,
-      DONATION_TARGETS.products,
-      ITEM_MAX_PERCENT.products
-    );
-
-    const donationTotalPercent =
-      donationMeatPercent + donationHousePercent + donationVarietyPercent + productsPercent;
-
-    const manualQuality = t.manualQuality || 0;
-    const manualSheet = t.manualSheet || 0;
-    const overallCurrent = avgNonDonation + donationTotalPercent + manualQuality + manualSheet;
-
-    return {
-      avgNonDonation,
-      donationTotalPercent,
-      manualQuality,
-      manualSheet,
-      overallCurrent
-    };
-  }
-
-  // =========================
-  // ==== Progress bars ====
-  // =========================
-  function updateMoneyProgressBars(teamStats) {
-    const meatTotal = teamStats && teamStats.donationMeatTotal ? teamStats.donationMeatTotal : 0;
-    const houseTotal = teamStats && teamStats.donationHouseTotal ? teamStats.donationHouseTotal : 0;
-    const productsTotal = teamStats && teamStats.productsTotal ? teamStats.productsTotal : 0;
-
-    const meatPercent = Math.min(meatTotal / DONATION_TARGETS.donation_meat, 1) * 100;
-    const housePercent = Math.min(houseTotal / DONATION_TARGETS.donation_house, 1) * 100;
-    const productsPercent = Math.min(productsTotal / DONATION_TARGETS.products, 1) * 100;
-
-    const meatFill = document.getElementById('meatProgressFill');
-    const meatText = document.getElementById('meatProgressText');
-    if (meatFill && meatText) {
-      meatFill.style.width = meatPercent + '%';
-      meatText.textContent =
-        `${meatTotal} / ${DONATION_TARGETS.donation_meat} (${meatPercent.toFixed(1)}٪)`;
-    }
-
-    const houseFill = document.getElementById('houseProgressFill');
-    const houseText = document.getElementById('houseProgressText');
-    if (houseFill && houseText) {
-      houseFill.style.width = housePercent + '%';
-      houseText.textContent =
-        `${houseTotal} / ${DONATION_TARGETS.donation_house} (${housePercent.toFixed(1)}٪)`;
-    }
-
-    const productsFill = document.getElementById('productsProgressFill');
-    const productsText = document.getElementById('productsProgressText');
-    if (productsFill && productsText) {
-      productsFill.style.width = productsPercent + '%';
-      productsText.textContent =
-        `${productsTotal} / ${DONATION_TARGETS.products} (${productsPercent.toFixed(1)}٪)`;
-    }
-  }
-
-  // =========================
-  // ===== Pop-up للـ Score =====
-  // =========================
-  function showScoreOverlay(score, rank, totalTeams, diffScore, prevRank, newRank) {
-    const overlay = document.getElementById('scoreOverlay');
-    const box = document.getElementById('scoreOverlayContent');
-    const medal = getMedal(rank);
-
-    let trend;
-    if (diffScore > 0.05) {
-      trend = `⬆️ زاد ${diffScore.toFixed(1)} نقطة عن آخر مرة`;
-    } else if (diffScore < -0.05) {
-      trend = `⬇️ قلّ ${Math.abs(diffScore).toFixed(1)} نقطة عن آخر مرة`;
-    } else {
-      trend = 'الـ Score ثابت تقريبًا زي آخر مرة';
-    }
-
-    let rankExtraText = '';
-    let extraRocket = '';
-    let extraClass = '';
-
-    if (prevRank && prevRank > 0) {
-      if (newRank < prevRank) {
-        rankExtraText = `🔥 أحلى قفزة! طلعت من المركز ${prevRank} إلى ${newRank}.`;
-        extraClass = 'rank-up';
-      } else if (newRank > prevRank) {
-        rankExtraText = `🚀 نزلت من المركز ${prevRank} إلى ${newRank}… شد حيلكم بكرة 💪`;
-        extraClass = 'rank-down';
-        extraRocket = `<div class="rank-down-rocket">🚀</div>`;
-      }
-    }
-
-    const width = Math.min(score, MAX_TOTAL_PERCENT);
-
-    box.classList.remove('rank-up', 'rank-down');
-    if (extraClass) box.classList.add(extraClass);
-
-    box.innerHTML = `
-      ${extraRocket}
-      <h2>✨ Score جديد لفريقك ✨</h2>
-      <p class="score-main">${score.toFixed(1)}٪ من ${MAX_TOTAL_PERCENT}٪</p>
-      <div class="overlay-bar-wrapper">
-        <div class="overlay-bar-fill" style="width:${width}%;"></div>
       </div>
-      <p class="score-rank">📌 مركزك الآن: <strong>${newRank}${medal}</strong> من ${totalTeams} فريق</p>
-      ${rankExtraText ? `<p class="score-rank">${rankExtraText}</p>` : ''}
-      <p class="score-trend">${trend}</p>
-      <button onclick="hideScoreOverlay()">تمام شكراً ✨</button>
-    `;
 
-    overlay.classList.remove('hidden');
-  }
+      <!-- Pop-up للـ New Score -->
+      <div id="scoreOverlay" class="score-overlay hidden">
+        <div id="scoreOverlayContent" class="score-overlay-content"></div>
+      </div>
 
-  function hideScoreOverlay() {
-    document.getElementById('scoreOverlay').classList.add('hidden');
-  }
+      <!-- ✅ FIREBASE + APP LOGIC (Realtime Database) -->
+      <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+        import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
-  // =========================
-  // ===== USER: CALCULATE DAY (مع daysDates) =====
-  // =========================
-  async function calculateDay() {
-    if (!currentTeamName || !currentTeamKey) {
-      alert('من فضلك سجل دخول كقائد فريق أولاً');
-      return;
-    }
+        const firebaseConfig = {
+          apiKey: "AIzaSyDSxSRKH-cZFk9y4AqzrmFQftXcxI_ADSk",
+          authDomain: "ramdan-92ed1.firebaseapp.com",
+          databaseURL: "https://ramdan-92ed1-default-rtdb.firebaseio.com",
+          projectId: "ramdan-92ed1",
+          storageBucket: "ramdan-92ed1.firebasestorage.app",
+          messagingSenderId: "467097580348",
+          appId: "1:467097580348:web:52ebc0b97988857a60a439",
+          measurementId: "G-YZSM40GPXF"
+        };
 
-    // لازم تاريخ
-    const dayDate = document.getElementById('dayDate').value;
-    if (!dayDate) {
-      alert('من فضلك اختر تاريخ اليوم قبل حساب النقاط');
-      return;
-    }
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-    const donationMeatToday = getNumber('donation_meat');
-    const donationHouseToday = getNumber('donation_house');
-    const donationVarietyToday = getNumber('donation_variety');
-    const productsToday = getNumber('products_today');
-    const sheetLink = document.getElementById('vol_sheet_link').value.trim();
+        const ITEM_MAX_PERCENT = {
+          fill_daily_target: 20,
+          fill_quality: 10,
+          fill_time: 10,
+          donation_meat: 10,
+          donation_house: 10,
+          donation_variety: 5,
+          products: 5,
+          vol_team_presence: 15,
+          vol_new_volunteers: 10,
+          vol_sheet: 5
+        };
 
-    // صور الجلسة (مش بتتخزن على firebase)
-    const photosInput = document.getElementById('fill_quality_photos');
-    const photos = photosInput && photosInput.files ? Array.from(photosInput.files) : [];
-    sessionMedia[currentTeamKey] = sessionMedia[currentTeamKey] || {};
-    sessionMedia[currentTeamKey].photos = photos.map(file => URL.createObjectURL(file));
+        const MAX_NON_DONATION_PERCENT =
+          ITEM_MAX_PERCENT.fill_daily_target +
+          ITEM_MAX_PERCENT.fill_time +
+          ITEM_MAX_PERCENT.vol_team_presence +
+          ITEM_MAX_PERCENT.vol_new_volunteers;
 
-    const allStats = await getTeamsStats();
+        const MANUAL_EXTRA_MAX =
+          ITEM_MAX_PERCENT.fill_quality + ITEM_MAX_PERCENT.vol_sheet;
 
-    let teamStats = allStats[currentTeamKey] || {
-      name: currentTeamName,
-      daysCount: 0,
-      nonDonationTotalSum: 0,
-      donationMeatTotal: 0,
-      donationHouseTotal: 0,
-      donationVarietyTotal: 0,
-      productsTotal: 0,
-      manualQuality: 0,
-      manualSheet: 0,
-      lastSheetLink: '',
-      daysDates: []
-    };
+        const MAX_DONATION_PERCENT =
+          ITEM_MAX_PERCENT.donation_meat +
+          ITEM_MAX_PERCENT.donation_house +
+          ITEM_MAX_PERCENT.donation_variety +
+          ITEM_MAX_PERCENT.products;
 
-    // داتا قديمة؟
-    if (!teamStats.name) teamStats.name = currentTeamName;
-    if (!Array.isArray(teamStats.daysDates)) teamStats.daysDates = [];
+        const MAX_TOTAL_PERCENT = MAX_NON_DONATION_PERCENT + MANUAL_EXTRA_MAX + MAX_DONATION_PERCENT;
 
-    // Anti-cheat: نفس التاريخ
-    if (teamStats.daysDates.includes(dayDate)) {
-      alert('اليوم بهذا التاريخ مسجّل بالفعل لهذا الفريق. اختر تاريخ مختلف.');
-      return;
-    }
+        const DONATION_TARGETS = {
+          donation_meat: 15000,
+          donation_house: 5000,
+          donation_variety: 10,
+          products: 3000
+        };
 
-    const prevStats = computeTeamOverallStats(teamStats);
-    const prevScore = prevStats.overallCurrent;
+        let currentTeamName = null;
+        let currentTeamKey = null;
+        const sessionMedia = {};
 
-    // ترتيب قبل
-    let prevRank = 0;
-    {
-      const scoresPre = [];
-      Object.keys(allStats).forEach(key => {
-        const ts = allStats[key];
-        if (ts && ts.daysCount > 0) {
-          const s = computeTeamOverallStats(ts);
-          scoresPre.push({ key, score: s.overallCurrent });
+        function getMedal(rank) {
+          if (rank === 1) return " 🥇";
+          if (rank === 2) return " 🥈";
+          if (rank === 3) return " 🥉";
+          return "";
         }
-      });
-      scoresPre.sort((a, b) => b.score - a.score);
-      const idx = scoresPre.findIndex(x => x.key === currentTeamKey);
-      prevRank = idx >= 0 ? idx + 1 : 0;
-    }
 
-    // تحديث التراكمات
-    teamStats.donationMeatTotal += donationMeatToday;
-    teamStats.donationHouseTotal += donationHouseToday;
-    teamStats.donationVarietyTotal += donationVarietyToday;
-    teamStats.productsTotal += productsToday;
+        function openLeaderboard() {
+          window.location.href = "leaderboard.html";
+        }
+        window.openLeaderboard = openLeaderboard;
 
-    if (sheetLink) teamStats.lastSheetLink = sheetLink;
+        function teamKeyFromName(name) {
+          return encodeURIComponent(name.trim());
+        }
 
-    // حساب non-donation اليوم
-    const dailyBagsPercent = scoreDailyBags();
-    const nonDonationToday =
-      dailyBagsPercent +
-      scoreItem('fill_time') +
-      scoreVolTeamPresence() +
-      scoreItem('vol_new_volunteers');
+        async function getTeamsStats() {
+          const snap = await get(ref(db, "teamsStats"));
+          return snap.exists() ? (snap.val() || {}) : {};
+        }
 
-    teamStats.daysCount += 1;
-    teamStats.nonDonationTotalSum += nonDonationToday;
+        async function setTeamsStats(stats) {
+          await set(ref(db, "teamsStats"), stats || {});
+        }
 
-    // سجل التاريخ
-    teamStats.daysDates.push(dayDate);
+        function showSection(id) {
+          document.getElementById('loginSection').classList.add('hidden');
+          document.getElementById('userSection').classList.add('hidden');
+          document.getElementById('adminSection').classList.add('hidden');
+          document.getElementById(id).classList.remove('hidden');
+        }
 
-    // حفظ على Firebase
-    allStats[currentTeamKey] = teamStats;
-    await setTeamsStats(allStats);
+        function setToday() {
+          const todayInput = document.getElementById('dayDate');
+          const today = new Date();
+          const yyyy = today.getFullYear();
+          const mm = String(today.getMonth() + 1).padStart(2, '0');
+          const dd = String(today.getDate()).padStart(2, '0');
+          todayInput.value = `${yyyy}-${mm}-${dd}`;
+        }
 
-    updateMoneyProgressBars(teamStats);
+        async function handleLogin() {
+          const name = document.getElementById('loginName').value.trim();
+          const pass = document.getElementById('loginPassword').value;
 
-    // إعادة حساب score وترتيب
-    const overallStats = computeTeamOverallStats(teamStats);
-    const overallCurrent = overallStats.overallCurrent;
+          if (!name) {
+            alert('من فضلك أدخل اسم المستخدم');
+            return;
+          }
 
-    const scores = [];
-    Object.keys(allStats).forEach(key => {
-      const ts = allStats[key];
-      if (ts && ts.daysCount > 0) {
-        const s = computeTeamOverallStats(ts);
-        scores.push({ key, name: ts.name || decodeURIComponent(key), score: s.overallCurrent });
-      }
-    });
-    scores.sort((a, b) => b.score - a.score);
+          if (name === 'admin' && pass === 'admin123') {
+            currentTeamName = null;
+            currentTeamKey = null;
+            showSection('adminSection');
+            await buildAdminTable();
+            return;
+          }
 
-    const rank = scores.findIndex(x => x.key === currentTeamKey) + 1;
-    const totalTeams = scores.length;
+          currentTeamName = name;
+          currentTeamKey = teamKeyFromName(currentTeamName);
 
-    document.getElementById('resultText').innerHTML =
-      `تم تسجيل يوم ${dayDate} بنجاح ✅<br>` +
-      `Score الحالي: ${overallCurrent.toFixed(1)}٪ – المركز: ${rank} من ${totalTeams} فريق${getMedal(rank)}.`;
+          showSection('userSection');
+          document.getElementById('teamName').value = currentTeamName;
+          document.getElementById('userWelcome').textContent =
+            `أهلاً بك يا قائد فريق "${currentTeamName}". قم بتسجيل نقاط اليوم لفريقك.`;
 
-    // جدول ملخص الأيام (جلسة UI فقط)
-    const tbody = document.getElementById('daysTableBody');
-    const row = document.createElement('tr');
+          setToday();
+          document.getElementById('daysTableBody').innerHTML = '';
+          document.getElementById('resultText').innerHTML = '';
+          document.getElementById('daysSummarySection').classList.add('hidden');
+          document.getElementById('toggleDaysButton').textContent = 'إظهار ملخص الأيام';
 
-    const dateCell = document.createElement('td');
-    dateCell.textContent = dayDate;
+          const stats = await getTeamsStats();
+          const t = stats[currentTeamKey];
+          updateMoneyProgressBars(t || null);
 
-    const nonDonationCell = document.createElement('td');
-    nonDonationCell.textContent = nonDonationToday.toFixed(1);
+          if (t && t.daysCount > 0) {
+            const overallStats = computeTeamOverallStats(t);
 
-    const meatCell = document.createElement('td');
-    meatCell.textContent = donationMeatToday;
+            const scores = [];
+            Object.keys(stats).forEach(k => {
+              const ts = stats[k];
+              if (ts && ts.daysCount > 0) {
+                const s = computeTeamOverallStats(ts);
+                scores.push({ key: k, name: ts.name || decodeURIComponent(k), score: s.overallCurrent });
+              }
+            });
+            scores.sort((a, b) => b.score - a.score);
+            const rank = scores.findIndex(x => x.key === currentTeamKey) + 1;
+            const totalTeams = scores.length;
 
-    const houseCell = document.createElement('td');
-    houseCell.textContent = donationHouseToday;
+            document.getElementById('resultText').innerHTML =
+              `تم تسجيل الفريق بنجاح. Score الحالي: ${overallStats.overallCurrent.toFixed(1)}٪ – المركز: ${rank} من ${totalTeams} فريق${getMedal(rank)}.`;
+          }
 
-    const varietyCell = document.createElement('td');
-    varietyCell.textContent = donationVarietyToday;
+          document.getElementById('app')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
 
-    const productsCell = document.createElement('td');
-    productsCell.textContent = productsToday;
+        function goBackToLogin() {
+          currentTeamName = null;
+          currentTeamKey = null;
+          showSection('loginSection');
+          document.getElementById('loginSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
 
-    row.appendChild(dateCell);
-    row.appendChild(nonDonationCell);
-    row.appendChild(meatCell);
-    row.appendChild(houseCell);
-    row.appendChild(varietyCell);
-    row.appendChild(productsCell);
-    tbody.appendChild(row);
+        function toggleDaysSummary() {
+          const sec = document.getElementById('daysSummarySection');
+          const btn = document.getElementById('toggleDaysButton');
+          const isHidden = sec.classList.toggle('hidden');
+          btn.textContent = isHidden ? 'إظهار ملخص الأيام' : 'إخفاء ملخص الأيام';
+        }
 
-    const diff = overallCurrent - prevScore;
-    showScoreOverlay(overallCurrent, rank, totalTeams, diff, prevRank, rank);
-  }
+        function getNumber(id) {
+          const el = document.getElementById(id);
+          if (!el) return 0;
+          return Number(el.value) || 0;
+        }
 
-  // =========================
-  // ===== ADMIN =====
-  // =========================
-  async function updateManualScore(teamKey, field, value) {
-    const stats = await getTeamsStats();
-    if (!stats[teamKey]) return;
+        function scoreDailyBags() {
+          const target = getNumber('bags_target');
+          const done   = getNumber('bags_done');
+          const maxPercent = ITEM_MAX_PERCENT.fill_daily_target;
+          if (target <= 0) return 0;
+          const ratio = Math.max(0, Math.min(done / target, 1));
+          return ratio * maxPercent;
+        }
 
-    let v = Number(value) || 0;
+        function calcPercentFromValue(value, maxPercent) {
+          if (value >= 20) return maxPercent;
+          if (value >= 15) return maxPercent - 2;
+          if (value >= 10) return maxPercent - 4;
+          if (value >= 5)  return maxPercent - 6;
+          if (value > 0)   return maxPercent - 8;
+          return 0;
+        }
 
-    if (field === 'manualQuality') {
-      if (v < 0) v = 0;
-      if (v > ITEM_MAX_PERCENT.fill_quality) v = ITEM_MAX_PERCENT.fill_quality;
-      stats[teamKey].manualQuality = v;
-    } else if (field === 'manualSheet') {
-      if (v < 0) v = 0;
-      if (v > ITEM_MAX_PERCENT.vol_sheet) v = ITEM_MAX_PERCENT.vol_sheet;
-      stats[teamKey].manualSheet = v;
-    }
+        function scoreItem(id) {
+          const value = getNumber(id);
+          const maxPercent = ITEM_MAX_PERCENT[id] || 0;
+          return calcPercentFromValue(value, maxPercent);
+        }
 
-    await setTeamsStats(stats);
-    await buildAdminTable();
-  }
+        function scoreVolTeamPresence() {
+          const teamSize = getNumber('teamSize');
+          const present = getNumber('vol_team_presence');
+          const maxPercent = ITEM_MAX_PERCENT.vol_team_presence;
 
-  function showTeamPhotos(teamKey) {
-    const container = document.getElementById('adminPhotosContainer');
-    container.innerHTML = '';
-    const media = sessionMedia[teamKey];
-    if (!media || !media.photos || media.photos.length === 0) {
-      container.textContent = 'لا توجد صور مرفوعة للجودة لهذا الفريق في هذه الجلسة.';
-      return;
-    }
-    media.photos.forEach(url => {
-      const img = document.createElement('img');
-      img.src = url;
-      container.appendChild(img);
-    });
-  }
+          if (teamSize <= 0) return 0;
+          const ratio = Math.max(0, Math.min(present / teamSize, 1));
+          return ratio * maxPercent;
+        }
 
-  async function buildAdminTable() {
-    const stats = await getTeamsStats();
-    const tbody = document.getElementById('adminTableBody');
-    tbody.innerHTML = '';
+        function calcDonationPercent(totalAmount, target, maxPercent) {
+          if (totalAmount <= 0) return 0;
+          const ratio = totalAmount / target;
+          const clamped = Math.min(ratio, 1);
+          return clamped * maxPercent;
+        }
 
-    const keys = Object.keys(stats || {});
-    if (keys.length === 0) {
-      const row = document.createElement('tr');
-      const cell = document.createElement('td');
-      cell.colSpan = 10;
-      cell.textContent = 'لا توجد بيانات فرق مسجّلة حتى الآن.';
-      row.appendChild(cell);
-      tbody.appendChild(row);
-      return;
-    }
+        function computeTeamOverallStats(t) {
+          if (!t || !t.daysCount || t.daysCount <= 0) {
+            const manualQuality = t && t.manualQuality ? t.manualQuality : 0;
+            const manualSheet = t && t.manualSheet ? t.manualSheet : 0;
+            return {
+              avgNonDonation: 0,
+              donationTotalPercent: 0,
+              manualQuality,
+              manualSheet,
+              overallCurrent: manualQuality + manualSheet
+            };
+          }
 
-    const rowsData = [];
-    keys.forEach(key => {
-      const t = stats[key];
-      if (!t || !t.daysCount || t.daysCount <= 0) return;
-      const overallStats = computeTeamOverallStats(t);
-      rowsData.push({ teamKey: key, teamName: t.name || decodeURIComponent(key), t, overallStats });
-    });
+          const avgNonDonation = t.nonDonationTotalSum / t.daysCount;
 
-    if (rowsData.length === 0) {
-      const row = document.createElement('tr');
-      const cell = document.createElement('td');
-      cell.colSpan = 10;
-      cell.textContent = 'لا توجد بيانات فرق مسجّلة حتى الآن.';
-      row.appendChild(cell);
-      tbody.appendChild(row);
-      return;
-    }
+          const donationMeatPercent = calcDonationPercent(
+            t.donationMeatTotal || 0,
+            DONATION_TARGETS.donation_meat,
+            ITEM_MAX_PERCENT.donation_meat
+          );
+          const donationHousePercent = calcDonationPercent(
+            t.donationHouseTotal || 0,
+            DONATION_TARGETS.donation_house,
+            ITEM_MAX_PERCENT.donation_house
+          );
+          const donationVarietyPercent = calcDonationPercent(
+            t.donationVarietyTotal || 0,
+            DONATION_TARGETS.donation_variety,
+            ITEM_MAX_PERCENT.donation_variety
+          );
+          const productsPercent = calcDonationPercent(
+            t.productsTotal || 0,
+            DONATION_TARGETS.products,
+            ITEM_MAX_PERCENT.products
+          );
 
-    rowsData.sort((a, b) => b.overallStats.overallCurrent - a.overallStats.overallCurrent);
+          const donationTotalPercent =
+            donationMeatPercent + donationHousePercent + donationVarietyPercent + productsPercent;
 
-    rowsData.forEach((item, index) => {
-      const teamKey = item.teamKey;
-      const teamName = item.teamName;
-      const t = item.t;
-      const s = item.overallStats;
-      const rank = index + 1;
+          const manualQuality = t.manualQuality || 0;
+          const manualSheet = t.manualSheet || 0;
+          const overallCurrent = avgNonDonation + donationTotalPercent + manualQuality + manualSheet;
 
-      const row = document.createElement('tr');
+          return {
+            avgNonDonation,
+            donationTotalPercent,
+            manualQuality,
+            manualSheet,
+            overallCurrent
+          };
+        }
 
-      const rankCell = document.createElement('td');
-      rankCell.textContent = `${rank}${getMedal(rank)}`;
+        function updateMoneyProgressBars(teamStats) {
+          const meatTotal = teamStats && teamStats.donationMeatTotal ? teamStats.donationMeatTotal : 0;
+          const houseTotal = teamStats && teamStats.donationHouseTotal ? teamStats.donationHouseTotal : 0;
+          const productsTotal = teamStats && teamStats.productsTotal ? teamStats.productsTotal : 0;
 
-      const nameCell = document.createElement('td');
-      nameCell.textContent = teamName;
+          const meatPercent = Math.min(meatTotal / DONATION_TARGETS.donation_meat, 1) * 100;
+          const housePercent = Math.min(houseTotal / DONATION_TARGETS.donation_house, 1) * 100;
+          const productsPercent = Math.min(productsTotal / DONATION_TARGETS.products, 1) * 100;
 
-      const daysCell = document.createElement('td');
-      daysCell.textContent = t.daysCount;
+          const meatFill = document.getElementById('meatProgressFill');
+          const meatText = document.getElementById('meatProgressText');
+          if (meatFill && meatText) {
+            meatFill.style.width = meatPercent + '%';
+            meatText.textContent =
+              `${meatTotal} / ${DONATION_TARGETS.donation_meat} (${meatPercent.toFixed(1)}٪)`;
+          }
 
-      const avgNonDonationCell = document.createElement('td');
-      avgNonDonationCell.textContent = s.avgNonDonation.toFixed(1);
+          const houseFill = document.getElementById('houseProgressFill');
+          const houseText = document.getElementById('houseProgressText');
+          if (houseFill && houseText) {
+            houseFill.style.width = housePercent + '%';
+            houseText.textContent =
+              `${houseTotal} / ${DONATION_TARGETS.donation_house} (${housePercent.toFixed(1)}٪)`;
+          }
 
-      const donationCell = document.createElement('td');
-      donationCell.textContent = s.donationTotalPercent.toFixed(1);
+          const productsFill = document.getElementById('productsProgressFill');
+          const productsText = document.getElementById('productsProgressText');
+          if (productsFill && productsText) {
+            productsFill.style.width = productsPercent + '%';
+            productsText.textContent =
+              `${productsTotal} / ${DONATION_TARGETS.products} (${productsPercent.toFixed(1)}٪)`;
+          }
+        }
 
-      const qualityCell = document.createElement('td');
-      const qInput = document.createElement('input');
-      qInput.type = 'number';
-      qInput.min = '0';
-      qInput.max = String(ITEM_MAX_PERCENT.fill_quality);
-      qInput.value = (s.manualQuality || 0).toFixed(1).replace(/\.0$/, '');
-      qInput.style.width = '60px';
-      qInput.onchange = (e) => updateManualScore(teamKey, 'manualQuality', e.target.value);
-      qualityCell.appendChild(qInput);
+        function showScoreOverlay(score, rank, totalTeams, diffScore, prevRank, newRank) {
+          const overlay = document.getElementById('scoreOverlay');
+          const box = document.getElementById('scoreOverlayContent');
+          const medal = getMedal(rank);
 
-      const sheetCellScore = document.createElement('td');
-      const sInput = document.createElement('input');
-      sInput.type = 'number';
-      sInput.min = '0';
-      sInput.max = String(ITEM_MAX_PERCENT.vol_sheet);
-      sInput.value = (s.manualSheet || 0).toFixed(1).replace(/\.0$/, '');
-      sInput.style.width = '60px';
-      sInput.onchange = (e) => updateManualScore(teamKey, 'manualSheet', e.target.value);
-      sheetCellScore.appendChild(sInput);
+          let trend;
+          if (diffScore > 0.05) {
+            trend = `⬆️ زاد ${diffScore.toFixed(1)} نقطة عن آخر مرة`;
+          } else if (diffScore < -0.05) {
+            trend = `⬇️ قلّ ${Math.abs(diffScore).toFixed(1)} نقطة عن آخر مرة`;
+          } else {
+            trend = 'الـ Score ثابت تقريبًا زي آخر مرة';
+          }
 
-      const overallCell = document.createElement('td');
-      overallCell.textContent = s.overallCurrent.toFixed(1);
+          let rankExtraText = '';
+          let extraRocket = '';
+          let extraClass = '';
 
-      const photosCell = document.createElement('td');
-      const media = sessionMedia[teamKey];
-      if (media && media.photos && media.photos.length > 0) {
-        const btn = document.createElement('button');
-        btn.textContent = 'عرض الصور';
-        btn.onclick = () => showTeamPhotos(teamKey);
-        photosCell.appendChild(btn);
-      } else {
-        photosCell.textContent = 'لا يوجد (من هذه الجلسة)';
-      }
+          if (prevRank && prevRank > 0) {
+            if (newRank < prevRank) {
+              rankExtraText = `🔥 أحلى قفزة! طلعت من المركز ${prevRank} إلى ${newRank}.`;
+              extraClass = 'rank-up';
+            } else if (newRank > prevRank) {
+              rankExtraText = `🚀 نزلت من المركز ${prevRank} إلى ${newRank}… شد حيلكم بكرة 💪`;
+              extraClass = 'rank-down';
+              extraRocket = `<div class="rank-down-rocket">🚀</div>`;
+            }
+          }
 
-      const sheetLinkCell = document.createElement('td');
-      if (t.lastSheetLink) {
-        const a = document.createElement('a');
-        a.href = t.lastSheetLink;
-        a.target = '_blank';
-        a.textContent = 'فتح الشيت';
-        sheetLinkCell.appendChild(a);
-      } else {
-        sheetLinkCell.textContent = 'لا يوجد';
-      }
+          const width = Math.min(score, MAX_TOTAL_PERCENT);
 
-      row.appendChild(rankCell);
-      row.appendChild(nameCell);
-      row.appendChild(daysCell);
-      row.appendChild(avgNonDonationCell);
-      row.appendChild(donationCell);
-      row.appendChild(qualityCell);
-      row.appendChild(sheetCellScore);
-      row.appendChild(overallCell);
-      row.appendChild(photosCell);
-      row.appendChild(sheetLinkCell);
+          box.classList.remove('rank-up', 'rank-down');
+          if (extraClass) box.classList.add(extraClass);
 
-      tbody.appendChild(row);
-    });
-  }
+          box.innerHTML = `
+            ${extraRocket}
+            <h2>✨ Score جديد لفريقك ✨</h2>
+            <p class="score-main">${score.toFixed(1)}٪ من ${MAX_TOTAL_PERCENT}٪</p>
+            <div class="overlay-bar-wrapper">
+              <div class="overlay-bar-fill" style="width:${width}%;"></div>
+            </div>
+            <p class="score-rank">📌 مركزك الآن: <strong>${newRank}${medal}</strong> من ${totalTeams} فريق</p>
+            ${rankExtraText ? `<p class="score-rank">${rankExtraText}</p>` : ''}
+            <p class="score-trend">${trend}</p>
+            <button onclick="hideScoreOverlay()">تمام شكراً ✨</button>
+          `;
 
-  // =========================
-  // ✅ expose functions for onclick=""
-  // =========================
-  window.handleLogin = handleLogin;
-  window.goBackToLogin = goBackToLogin;
-  window.toggleDaysSummary = toggleDaysSummary;
-  window.calculateDay = calculateDay;
-  window.buildAdminTable = buildAdminTable;
-  window.hideScoreOverlay = hideScoreOverlay;
-  window.updateManualScore = updateManualScore;
-  window.showTeamPhotos = showTeamPhotos;
-</script>
+          overlay.classList.remove('hidden');
+        }
 
+        function hideScoreOverlay() {
+          document.getElementById('scoreOverlay').classList.add('hidden');
+        }
+
+        async function calculateDay() {
+          if (!currentTeamName || !currentTeamKey) {
+            alert('من فضلك سجل دخول كقائد فريق أولاً');
+            return;
+          }
+
+          const dayDate = document.getElementById('dayDate').value;
+          if (!dayDate) {
+            alert('من فضلك اختر تاريخ اليوم قبل حساب النقاط');
+            return;
+          }
+
+          const donationMeatToday = getNumber('donation_meat');
+          const donationHouseToday = getNumber('donation_house');
+          const donationVarietyToday = getNumber('donation_variety');
+          const productsToday = getNumber('products_today');
+          const sheetLink = document.getElementById('vol_sheet_link').value.trim();
+
+          const photosInput = document.getElementById('fill_quality_photos');
+          const photos = photosInput && photosInput.files ? Array.from(photosInput.files) : [];
+          sessionMedia[currentTeamKey] = sessionMedia[currentTeamKey] || {};
+          sessionMedia[currentTeamKey].photos = photos.map(file => URL.createObjectURL(file));
+
+          const allStats = await getTeamsStats();
+
+          let teamStats = allStats[currentTeamKey] || {
+            name: currentTeamName,
+            daysCount: 0,
+            nonDonationTotalSum: 0,
+            donationMeatTotal: 0,
+            donationHouseTotal: 0,
+            donationVarietyTotal: 0,
+            productsTotal: 0,
+            manualQuality: 0,
+            manualSheet: 0,
+            lastSheetLink: '',
+            daysDates: []
+          };
+
+          if (!teamStats.name) teamStats.name = currentTeamName;
+          if (!Array.isArray(teamStats.daysDates)) teamStats.daysDates = [];
+
+          if (teamStats.daysDates.includes(dayDate)) {
+            alert('اليوم بهذا التاريخ مسجّل بالفعل لهذا الفريق. اختر تاريخ مختلف.');
+            return;
+          }
+
+          const prevStats = computeTeamOverallStats(teamStats);
+          const prevScore = prevStats.overallCurrent;
+
+          let prevRank = 0;
+          {
+            const scoresPre = [];
+            Object.keys(allStats).forEach(key => {
+              const ts = allStats[key];
+              if (ts && ts.daysCount > 0) {
+                const s = computeTeamOverallStats(ts);
+                scoresPre.push({ key, score: s.overallCurrent });
+              }
+            });
+            scoresPre.sort((a, b) => b.score - a.score);
+            const idx = scoresPre.findIndex(x => x.key === currentTeamKey);
+            prevRank = idx >= 0 ? idx + 1 : 0;
+          }
+
+          teamStats.donationMeatTotal += donationMeatToday;
+          teamStats.donationHouseTotal += donationHouseToday;
+          teamStats.donationVarietyTotal += donationVarietyToday;
+          teamStats.productsTotal += productsToday;
+
+          if (sheetLink) teamStats.lastSheetLink = sheetLink;
+
+          const dailyBagsPercent = scoreDailyBags();
+          const nonDonationToday =
+            dailyBagsPercent +
+            scoreItem('fill_time') +
+            scoreVolTeamPresence() +
+            scoreItem('vol_new_volunteers');
+
+          teamStats.daysCount += 1;
+          teamStats.nonDonationTotalSum += nonDonationToday;
+          teamStats.daysDates.push(dayDate);
+
+          allStats[currentTeamKey] = teamStats;
+          await setTeamsStats(allStats);
+
+          updateMoneyProgressBars(teamStats);
+
+          const overallStats = computeTeamOverallStats(teamStats);
+          const overallCurrent = overallStats.overallCurrent;
+
+          const scores = [];
+          Object.keys(allStats).forEach(key => {
+            const ts = allStats[key];
+            if (ts && ts.daysCount > 0) {
+              const s = computeTeamOverallStats(ts);
+              scores.push({ key, name: ts.name || decodeURIComponent(key), score: s.overallCurrent });
+            }
+          });
+          scores.sort((a, b) => b.score - a.score);
+
+          const rank = scores.findIndex(x => x.key === currentTeamKey) + 1;
+          const totalTeams = scores.length;
+
+          document.getElementById('resultText').innerHTML =
+            `تم تسجيل يوم ${dayDate} بنجاح ✅<br>` +
+            `Score الحالي: ${overallCurrent.toFixed(1)}٪ – المركز: ${rank} من ${totalTeams} فريق${getMedal(rank)}.`;
+
+          const tbody = document.getElementById('daysTableBody');
+          const row = document.createElement('tr');
+
+          const dateCell = document.createElement('td');
+          dateCell.textContent = dayDate;
+
+          const nonDonationCell = document.createElement('td');
+          nonDonationCell.textContent = nonDonationToday.toFixed(1);
+
+          const meatCell = document.createElement('td');
+          meatCell.textContent = donationMeatToday;
+
+          const houseCell = document.createElement('td');
+          houseCell.textContent = donationHouseToday;
+
+          const varietyCell = document.createElement('td');
+          varietyCell.textContent = donationVarietyToday;
+
+          const productsCell = document.createElement('td');
+          productsCell.textContent = productsToday;
+
+          row.appendChild(dateCell);
+          row.appendChild(nonDonationCell);
+          row.appendChild(meatCell);
+          row.appendChild(houseCell);
+          row.appendChild(varietyCell);
+          row.appendChild(productsCell);
+          tbody.appendChild(row);
+
+          const diff = overallCurrent - prevScore;
+          showScoreOverlay(overallCurrent, rank, totalTeams, diff, prevRank, rank);
+        }
+
+        async function updateManualScore(teamKey, field, value) {
+          const stats = await getTeamsStats();
+          if (!stats[teamKey]) return;
+
+          let v = Number(value) || 0;
+
+          if (field === 'manualQuality') {
+            if (v < 0) v = 0;
+            if (v > ITEM_MAX_PERCENT.fill_quality) v = ITEM_MAX_PERCENT.fill_quality;
+            stats[teamKey].manualQuality = v;
+          } else if (field === 'manualSheet') {
+            if (v < 0) v = 0;
+            if (v > ITEM_MAX_PERCENT.vol_sheet) v = ITEM_MAX_PERCENT.vol_sheet;
+            stats[teamKey].manualSheet = v;
+          }
+
+          await setTeamsStats(stats);
+          await buildAdminTable();
+        }
+
+        function showTeamPhotos(teamKey) {
+          const container = document.getElementById('adminPhotosContainer');
+          container.innerHTML = '';
+          const media = sessionMedia[teamKey];
+          if (!media || !media.photos || media.photos.length === 0) {
+            container.textContent = 'لا توجد صور مرفوعة للجودة لهذا الفريق في هذه الجلسة.';
+            return;
+          }
+          media.photos.forEach(url => {
+            const img = document.createElement('img');
+            img.src = url;
+            container.appendChild(img);
+          });
+        }
+
+        async function buildAdminTable() {
+          const stats = await getTeamsStats();
+          const tbody = document.getElementById('adminTableBody');
+          tbody.innerHTML = '';
+
+          const keys = Object.keys(stats || {});
+          if (keys.length === 0) {
+            const row = document.createElement('tr');
+            const cell = document.createElement('td');
+            cell.colSpan = 10;
+            cell.textContent = 'لا توجد بيانات فرق مسجّلة حتى الآن.';
+            row.appendChild(cell);
+            tbody.appendChild(row);
+            return;
+          }
+
+          const rowsData = [];
+          keys.forEach(key => {
+            const t = stats[key];
+            if (!t || !t.daysCount || t.daysCount <= 0) return;
+            const overallStats = computeTeamOverallStats(t);
+            rowsData.push({ teamKey: key, teamName: t.name || decodeURIComponent(key), t, overallStats });
+          });
+
+          if (rowsData.length === 0) {
+            const row = document.createElement('tr');
+            const cell = document.createElement('td');
+            cell.colSpan = 10;
+            cell.textContent = 'لا توجد بيانات فرق مسجّلة حتى الآن.';
+            row.appendChild(cell);
+            tbody.appendChild(row);
+            return;
+          }
+
+          rowsData.sort((a, b) => b.overallStats.overallCurrent - a.overallStats.overallCurrent);
+
+          rowsData.forEach((item, index) => {
+            const teamKey = item.teamKey;
+            const teamName = item.teamName;
+            const t = item.t;
+            const s = item.overallStats;
+            const rank = index + 1;
+
+            const row = document.createElement('tr');
+
+            const rankCell = document.createElement('td');
+            rankCell.textContent = `${rank}${getMedal(rank)}`;
+
+            const nameCell = document.createElement('td');
+            nameCell.textContent = teamName;
+
+            const daysCell = document.createElement('td');
+            daysCell.textContent = t.daysCount;
+
+            const avgNonDonationCell = document.createElement('td');
+            avgNonDonationCell.textContent = s.avgNonDonation.toFixed(1);
+
+            const donationCell = document.createElement('td');
+            donationCell.textContent = s.donationTotalPercent.toFixed(1);
+
+            const qualityCell = document.createElement('td');
+            const qInput = document.createElement('input');
+            qInput.type = 'number';
+            qInput.min = '0';
+            qInput.max = String(ITEM_MAX_PERCENT.fill_quality);
+            qInput.value = (s.manualQuality || 0).toFixed(1).replace(/\.0$/, '');
+            qInput.style.width = '70px';
+            qInput.onchange = (e) => updateManualScore(teamKey, 'manualQuality', e.target.value);
+            qualityCell.appendChild(qInput);
+
+            const sheetCellScore = document.createElement('td');
+            const sInput = document.createElement('input');
+            sInput.type = 'number';
+            sInput.min = '0';
+            sInput.max = String(ITEM_MAX_PERCENT.vol_sheet);
+            sInput.value = (s.manualSheet || 0).toFixed(1).replace(/\.0$/, '');
+            sInput.style.width = '70px';
+            sInput.onchange = (e) => updateManualScore(teamKey, 'manualSheet', e.target.value);
+            sheetCellScore.appendChild(sInput);
+
+            const overallCell = document.createElement('td');
+            overallCell.textContent = s.overallCurrent.toFixed(1);
+
+            const photosCell = document.createElement('td');
+            const media = sessionMedia[teamKey];
+            if (media && media.photos && media.photos.length > 0) {
+              const btn = document.createElement('button');
+              btn.textContent = 'عرض الصور';
+              btn.onclick = () => showTeamPhotos(teamKey);
+              photosCell.appendChild(btn);
+            } else {
+              photosCell.textContent = 'لا يوجد (من هذه الجلسة)';
+            }
+
+            const sheetLinkCell = document.createElement('td');
+            if (t.lastSheetLink) {
+              const a = document.createElement('a');
+              a.href = t.lastSheetLink;
+              a.target = '_blank';
+              a.textContent = 'فتح الشيت';
+              sheetLinkCell.appendChild(a);
+            } else {
+              sheetLinkCell.textContent = 'لا يوجد';
+            }
+
+            row.appendChild(rankCell);
+            row.appendChild(nameCell);
+            row.appendChild(daysCell);
+            row.appendChild(avgNonDonationCell);
+            row.appendChild(donationCell);
+            row.appendChild(qualityCell);
+            row.appendChild(sheetCellScore);
+            row.appendChild(overallCell);
+            row.appendChild(photosCell);
+            row.appendChild(sheetLinkCell);
+
+            tbody.appendChild(row);
+          });
+
+          document.getElementById('admin')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        window.handleLogin = handleLogin;
+        window.goBackToLogin = goBackToLogin;
+        window.toggleDaysSummary = toggleDaysSummary;
+        window.calculateDay = calculateDay;
+        window.buildAdminTable = buildAdminTable;
+        window.hideScoreOverlay = hideScoreOverlay;
+        window.updateManualScore = updateManualScore;
+        window.showTeamPhotos = showTeamPhotos;
+      </script>
+
+    </div>
+  </div>
 </body>
 </html>
