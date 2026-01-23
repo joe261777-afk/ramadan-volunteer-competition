@@ -10,596 +10,637 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600;700;800&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      /* Ramadan palette (like reference) */
-      --navy-950:#03102b;
-      --navy-900:#041a3f;
-      --navy-850:#06234f;
-      --navy-800:#07315e;
-      --navy-700:#0a4f86;
+<style>
+  :root{
+    /* Ramadan palette (like reference) */
+    --navy-950:#03102b;
+    --navy-900:#041a3f;
+    --navy-850:#06234f;
+    --navy-800:#07315e;
+    --navy-700:#0a4f86;
 
-      --gold-500:#f4c451;
-      --gold-600:#d9a63b;
+    --gold-500:#f4c451;
+    --gold-600:#d9a63b;
 
-      --text:#f8fafc;
-      --muted:rgba(248,250,252,.72);
+    --text:#f8fafc;
+    --muted:rgba(248,250,252,.72);
 
-      --line:rgba(244,196,81,.58);
-      --line2:rgba(244,196,81,.28);
+    --line:rgba(244,196,81,.58);
+    --line2:rgba(244,196,81,.28);
 
-      --card: rgba(2, 20, 55, .62);
-      --card2: rgba(3, 16, 43, .82);
-      --border: rgba(244,196,81,.28);
+    --card: rgba(2, 20, 55, .62);
+    --card2: rgba(3, 16, 43, .82);
+    --border: rgba(244,196,81,.28);
 
-      --ok: rgba(34,197,94,.22);
-      --okBorder: rgba(34,197,94,.35);
-    }
+    --ok: rgba(34,197,94,.22);
+    --okBorder: rgba(34,197,94,.35);
+  }
 
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body{
-      margin:0;
-      font-family:"Tajawal",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
-      background:#e7e7e7; /* outer gray like screenshot */
-      color:var(--text);
-    }
+  *{ box-sizing:border-box; }
 
-    /* stage like screenshot */
-    .stage{
-      max-width: 1200px;
-      margin: 36px auto;
-      padding: 0 18px;
-    }
+  html, body{
+    width:100%;
+    height:100%;
+    margin:0;
+    padding:0;
+  }
 
-    /* main canvas */
-    .ramadan-canvas{
-      position:relative;
-      overflow:hidden;
-      background: linear-gradient(135deg, var(--navy-900), var(--navy-800) 55%, #064d83);
-      box-shadow: 0 18px 55px rgba(0,0,0,.35);
-      border-radius: 2px;
-      min-height: 720px;
-    }
+  body{
+    font-family:"Tajawal",system-ui,-apple-system,"Segoe UI",Roboto,Arial;
+    /* background:#e7e7e7;  لو عايز الإطار الرمادي برّه رجّع السطر ده */
+    min-height:100vh;
+    overflow-x:hidden;
+    color:var(--text);
+  }
 
-    .ramadan-canvas::before{
-      content:"";
-      position:absolute; inset:0;
-      background:
-        radial-gradient(circle at 70% 35%, rgba(255,255,255,.06), transparent 55%),
-        radial-gradient(circle at 22% 85%, rgba(0,0,0,.22), transparent 55%);
-      pointer-events:none;
-      z-index:1;
-    }
+  /* stage like screenshot */
+  .stage{
+    width:100%;
+    max-width:none;
+    margin:0;
+    padding:0;
+  }
 
-    /* ================= NAVBAR ================= */
-    header.topbar{
-      position: sticky;
-      top: 0;
-      z-index: 30;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      padding: 18px 32px;
-      background: rgba(2, 20, 55, .74);
-      border-bottom: 2px solid var(--line);
-      backdrop-filter: blur(10px);
-    }
+  /* main canvas */
+  .ramadan-canvas{
+    position:relative;
+    width:100%;
+    min-height:100vh;
+    overflow:hidden;
+    background: linear-gradient(135deg, var(--navy-900), var(--navy-800) 55%, #064d83);
+    box-shadow:none;
+    border-radius:0;
+  }
 
-    .logo{
-      font-family:"El Messiri", serif;
-      font-weight: 800;
-      letter-spacing: .02em;
-      color: var(--gold-500);
-      font-size: 20px;
-      white-space: nowrap;
-    }
+  .ramadan-canvas::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(circle at 70% 35%, rgba(255,255,255,.06), transparent 55%),
+      radial-gradient(circle at 22% 85%, rgba(0,0,0,.22), transparent 55%);
+    pointer-events:none;
+    z-index:1;
+  }
 
-    .nav{
-      display:flex;
-      align-items:center;
-      gap: 26px;
-      flex-wrap: wrap;
-      list-style:none;
-      margin:0;
-      padding:0;
-      color: var(--gold-500);
-      font-weight: 700;
-      font-size: .95rem;
-    }
-    .nav a{
-      color:inherit;
-      text-decoration:none;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      transition: .15s ease;
-    }
-    .nav a:hover{
-      border-color: var(--line2);
-      background: rgba(244,196,81,.08);
-    }
+  /* ================= NAVBAR ================= */
+  header.topbar{
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    padding:18px 32px;
+    background: rgba(2, 20, 55, .74);
+    border-bottom:2px solid var(--line);
+    backdrop-filter: blur(10px);
+  }
 
-    .golden-rule{
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(244,196,81,.78), transparent);
-      opacity:.95;
-      position:relative;
-      z-index: 25;
-    }
+  .logo{
+    font-family:"El Messiri", serif;
+    font-weight:800;
+    letter-spacing:.02em;
+    color:var(--gold-500);
+    font-size:20px;
+    white-space:nowrap;
+  }
 
-    /* ================= DECOR LAYERS ================= */
-    .stars{
-      position:absolute;
-      inset:0;
-      z-index:3;
-      pointer-events:none;
-      opacity:.95;
-    }
+  .nav{
+    display:flex;
+    align-items:center;
+    gap:26px;
+    flex-wrap:wrap;
+    list-style:none;
+    margin:0;
+    padding:0;
+    color:var(--gold-500);
+    font-weight:700;
+    font-size:.95rem;
+  }
 
-    /* ✅ Mosque silhouette already exists: just make it a bit clearer */
-    .mosque{
-      position:absolute;
-      left:0; right:0;
-      bottom:-12px;
-      height: 280px;
-      z-index:4;
-      pointer-events:none;
-      opacity:.64;            /* كان .48 */
-      filter: blur(.15px);
-    }
+  .nav a{
+    color:inherit;
+    text-decoration:none;
+    padding:6px 10px;
+    border-radius:999px;
+    border:1px solid transparent;
+    transition:.15s ease;
+  }
 
-    /* ======= MOVE RAMADAN DECOR TO THE LEFT EMPTY SIDE ======= */
-    .moon-wrap{
-      position:absolute;
-      left: 10%;              /* كان 61% */
-      top: 145px;             /* ضبط بسيط */
-      width: 360px;
-      height: 360px;
-      z-index:5;
-      pointer-events:none;
-      filter: drop-shadow(0 18px 30px rgba(244,196,81,.18));
-      opacity:.98;
-    }
+  .nav a:hover{
+    border-color:var(--line2);
+    background: rgba(244,196,81,.08);
+  }
 
-    .string{
-      position:absolute;
-      width:2px;
-      background: linear-gradient(180deg, rgba(244,196,81,.9), rgba(244,196,81,.15));
-      z-index:6;
-      pointer-events:none;
-      opacity:.85;
-    }
-    /* ✅ strings على الشمال بدل اليمين */
-    .string.s1{ left: 18%; top: 64px; height: 185px; }
-    .string.s2{ left: 6.5%; top: 0; height: 225px; }
-    .string.s3{ left: 28.5%; top: 260px; height: 175px; }
+  .golden-rule{
+    height:2px;
+    background: linear-gradient(90deg, transparent, rgba(244,196,81,.78), transparent);
+    opacity:.95;
+    position:relative;
+    z-index:25;
+  }
 
-    .lantern{
-      position:absolute;
-      top: 0;
-      z-index:6;
-      width: 120px;
-      opacity: .98;
-      transform-origin: top center;
-      animation: swing 4.2s ease-in-out infinite;
-      pointer-events:none;
-    }
-    /* ✅ lanterns متوزعين على الشمال بمسافات */
-    .lantern.l1{ left: 14%; top: 86px; width: 120px; animation-delay: .1s; }
-    .lantern.l2{ left: 2.5%; top: 10px; width: 150px; animation-delay: .35s; }
-    .lantern.l3{ left: 24%; top: 320px; width: 120px; animation-delay: .25s; }
+  /* ================= DECOR LAYERS ================= */
+  .stars{
+    position:absolute;
+    inset:0;
+    z-index:3;
+    pointer-events:none;
+    opacity:.95;
+  }
 
-    @keyframes swing{
-      0%,100%{ transform: rotate(-2.2deg); }
-      50%{ transform: rotate(2.2deg); }
-    }
+  /* Mosque silhouette */
+  .mosque{
+    position:absolute;
+    left:0; right:0;
+    bottom:-12px;
+    height:280px;
+    z-index:4;
+    pointer-events:none;
+    opacity:.64;
+    filter: blur(.15px);
+  }
 
-    /* ================= HERO / LAYOUT ================= */
-    .hero{
-      position:relative;
-      z-index:10;
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 18px;
-      padding: 46px 32px 24px 32px;
-      min-height: 560px;
-    }
+  /* MOVE RAMADAN DECOR TO THE LEFT */
+  .moon-wrap{
+    position:absolute;
+    left:10%;
+    top:145px;
+    width:360px;
+    height:360px;
+    z-index:5;
+    pointer-events:none;
+    filter: drop-shadow(0 18px 30px rgba(244,196,81,.18));
+    opacity:.98;
+  }
 
-    /* vertical golden separators like screenshot */
-    .hero::after{
-      content:"";
-      position:absolute;
-      top:0; bottom:0;
-      left: 57%;
-      width:2px;
-      background: linear-gradient(180deg, transparent, rgba(244,196,81,.5), transparent);
-      opacity:.75;
-      z-index:2;
-      pointer-events:none;
-    }
-    .hero::before{
-      content:"";
-      position:absolute;
-      top:0; bottom:0;
-      right: 8.5%;
-      width:2px;
-      background: linear-gradient(180deg, transparent, rgba(244,196,81,.5), transparent);
-      opacity:.6;
-      z-index:2;
-      pointer-events:none;
-    }
+  .string{
+    position:absolute;
+    width:2px;
+    background: linear-gradient(180deg, rgba(244,196,81,.9), rgba(244,196,81,.15));
+    z-index:6;
+    pointer-events:none;
+    opacity:.85;
+  }
 
-    /* ✅ خليت العمود اليمين للعنوان فقط (مكان الكلام)، وخلّيت الشمال للدخول */
-    .hero-left{
-      position:relative;
-      z-index:12;
-      padding-top: 56px;
-      text-align: right;
-    }
+  .string.s1{ left:18%; top:64px; height:185px; }
+  .string.s2{ left:6.5%; top:0; height:225px; }
+  .string.s3{ left:28.5%; top:260px; height:175px; }
 
-    .hero-title{
-      font-family:"El Messiri", serif;
-      font-weight: 800;
-      font-size: 64px;     /* أكبر شوية زي طلبك */
-      margin: 0;
-      color: var(--gold-500);
-      text-shadow: 0 10px 30px rgba(244,196,81,.18);
-      line-height: 1.12;
-    }
+  .lantern{
+    position:absolute;
+    top:0;
+    z-index:6;
+    width:120px;
+    opacity:.98;
+    transform-origin: top center;
+    animation: swing 4.2s ease-in-out infinite;
+    pointer-events:none;
+  }
 
-    .hero-subtitle{
-      margin: 14px 0 0 0;
-      font-weight: 800;
-      color: rgba(244,196,81,.92);
-      font-size: 18px;
-      letter-spacing: .02em;
-    }
+  .lantern.l1{ left:14%; top:86px; width:120px; animation-delay:.1s; }
+  .lantern.l2{ left:2.5%; top:10px; width:150px; animation-delay:.35s; }
+  .lantern.l3{ left:24%; top:320px; width:120px; animation-delay:.25s; }
 
-    /* ✅ إخفاء الوصف والبنود بالكامل (بدون حذف HTML لو تحب ترجعهم) */
-    .hero-desc,
-    .hero-bullets,
-    .cta-row{
-      display:none;
-    }
+  @keyframes swing{
+    0%,100%{ transform: rotate(-2.2deg); }
+    50%{ transform: rotate(2.2deg); }
+  }
 
-    .hero-right{
-      position:relative;
-      z-index:12;
-      min-height: 460px;
-      display:flex;
-      align-items:flex-start;
-      justify-content:flex-start;
-      padding-top: 48px;
-    }
+  /* ================= HERO / LAYOUT ================= */
+  .hero{
+    position:relative;
+    z-index:10;
+    display:grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap:18px;
+    padding:46px 32px 24px 32px;
+    min-height:560px;
+  }
 
-    /* ================= APP CARDS (Login/User/Admin) ================= */
-    .glass-card{
-      width: min(420px, 95%);
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px 16px 16px 16px;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 18px 45px rgba(0,0,0,.25);
-    }
+  .hero::after{
+    content:"";
+    position:absolute;
+    top:0; bottom:0;
+    left:57%;
+    width:2px;
+    background: linear-gradient(180deg, transparent, rgba(244,196,81,.5), transparent);
+    opacity:.75;
+    z-index:2;
+    pointer-events:none;
+  }
 
-    .glass-card h2{
-      margin:0 0 12px 0;
-      font-family:"El Messiri", serif;
-      font-size: 20px;
-      color: rgba(244,196,81,.95);
-      font-weight: 800;
-    }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:0; bottom:0;
+    right:8.5%;
+    width:2px;
+    background: linear-gradient(180deg, transparent, rgba(244,196,81,.5), transparent);
+    opacity:.6;
+    z-index:2;
+    pointer-events:none;
+  }
 
-    .badge{
-      display:inline-block;
-      padding: 2px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
-      color: #18233d;
-      font-weight: 900;
-      margin-inline-end: 6px;
-    }
+  .hero-left{
+    position:relative;
+    z-index:12;
+    padding-top:56px;
+    text-align:right;
+  }
 
-    .hint{
-      font-size: 13px;
-      color: rgba(248,250,252,.70);
-      line-height: 1.85;
-      margin: 0 0 10px 0;
-    }
+  .hero-title{
+    font-family:"El Messiri", serif;
+    font-weight:800;
+    font-size:64px;
+    margin:0;
+    color:var(--gold-500);
+    text-shadow: 0 10px 30px rgba(244,196,81,.18);
+    line-height:1.12;
+  }
 
-    .field-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      margin: 10px 0;
-      flex-wrap: wrap;
-    }
+  .hero-subtitle{
+    margin:14px 0 0 0;
+    font-weight:800;
+    color: rgba(244,196,81,.92);
+    font-size:18px;
+    letter-spacing:.02em;
+  }
 
-    .field-row label{
-      flex: 1;
-      min-width: 150px;
-      font-size: 14px;
-      color: rgba(248,250,252,.88);
-      font-weight: 700;
-    }
+  /* Hide desc/bullets/cta */
+  .hero-desc,
+  .hero-bullets,
+  .cta-row{
+    display:none;
+  }
+
+  .hero-right{
+    position:relative;
+    z-index:12;
+    min-height:460px;
+    display:flex;
+    align-items:flex-start;
+    justify-content:flex-start;
+    padding-top:48px;
+  }
+
+  /* ================= APP CARDS ================= */
+  .glass-card{
+    width: min(420px, 95%);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 16px 16px 16px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 18px 45px rgba(0,0,0,.25);
+  }
+
+  .glass-card h2{
+    margin:0 0 12px 0;
+    font-family:"El Messiri", serif;
+    font-size:20px;
+    color: rgba(244,196,81,.95);
+    font-weight:800;
+  }
+
+ .badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--gold-500), var(--gold-600));
+  color:#18233d;
+  font-weight: 900;
+  margin-inline-end: 6px;
+  gap: 6px;
+}
+.badge-gif{
+  height: 18px;     /* غيّرها لو عايزه أكبر */
+  width: 20px;
+  display:block;
+}
+  .hint{
+    font-size:13px;
+    color: rgba(248,250,252,.70);
+    line-height:1.85;
+    margin:0 0 10px 0;
+  }
+
+  .field-row{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin:10px 0;
+    flex-wrap:wrap;
+  }
+
+  .field-row label{
+    flex:1;
+    min-width:150px;
+    font-size:14px;
+    color: rgba(248,250,252,.88);
+    font-weight:700;
+  }
+
+  input[type="number"],
+  input[type="date"],
+  input[type="text"],
+  input[type="password"],
+  input[type="file"]{
+    width:230px;
+    max-width:100%;
+    padding:10px 10px;
+    border-radius:10px;
+    border: 1px solid rgba(244,196,81,.20);
+    background: var(--card2);
+    color: var(--text);
+    font-size:14px;
+    outline:none;
+    transition:.15s ease;
+    font-family:inherit;
+  }
+
+  input::placeholder{ color: rgba(248,250,252,.55); }
+
+  input:focus{
+    border-color: rgba(244,196,81,.55);
+    box-shadow: 0 0 0 2px rgba(244,196,81,.10);
+    transform: translateY(-1px);
+  }
+
+  input[type="file"]{ padding:7px 8px; }
+
+  button{
+    margin-top:10px;
+    padding:10px 16px;
+    border:none;
+    border-radius:999px;
+    background: linear-gradient(135deg, rgba(244,196,81,.95), rgba(217,166,59,.95));
+    color:#172140;
+    font-size:14px;
+    cursor:pointer;
+    font-weight:900;
+    letter-spacing:.01em;
+    box-shadow: 0 14px 30px rgba(244,196,81,.20);
+    transition: transform .12s ease, filter .12s ease;
+    user-select:none;
+  }
+
+  button:hover{ transform: translateY(-1px); filter: brightness(1.03); }
+  button:active{ transform: translateY(1px); }
+
+  .btn-secondary{
+    background: transparent;
+    border: 2px solid rgba(244,196,81,.65);
+    color: rgba(244,196,81,.94);
+    box-shadow:none;
+  }
+
+  .btn-secondary:hover{ background: rgba(244,196,81,.09); }
+
+  .result{
+    margin-top:14px;
+    font-size:14px;
+    font-weight:700;
+    color: rgba(244,196,81,.95);
+    line-height:1.9;
+    background: rgba(3, 16, 43, .75);
+    border-radius:12px;
+    padding:10px 12px;
+    border: 1px solid rgba(244,196,81,.22);
+  }
+
+  /* sections below hero */
+  .app-section{
+    position:relative;
+    z-index:12;
+    padding:18px 32px 34px 32px;
+  }
+
+  .panel{
+    background: rgba(2, 20, 55, .56);
+    border: 1px solid rgba(244,196,81,.22);
+    border-radius:18px;
+    padding:18px 16px 18px 16px;
+    box-shadow: 0 18px 55px rgba(0,0,0,.28);
+    backdrop-filter: blur(12px);
+  }
+
+  .panel h2{
+    margin:0 0 10px 0;
+    font-family:"El Messiri", serif;
+    color: rgba(244,196,81,.95);
+    font-size:20px;
+    font-weight:900;
+  }
+
+  h3{
+    color: rgba(244,196,81,.92);
+    margin:18px 0 8px 0;
+    font-family:"El Messiri", serif;
+    font-size:16px;
+    font-weight:800;
+  }
+
+  /* tables */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:12px;
+    background: rgba(3, 16, 43, .78);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow: 0 12px 30px rgba(0,0,0,.28);
+  }
+
+  th, td{
+    border: 1px solid rgba(244,196,81,.14);
+    padding:8px;
+    text-align:center;
+    font-size:13px;
+    color: rgba(248,250,252,.90);
+  }
+
+  th{
+    background: linear-gradient(135deg, rgba(244,196,81,.25), rgba(10,79,134,.35));
+    color: rgba(255,255,255,.92);
+    font-weight:900;
+  }
+
+  tbody tr:nth-child(even){ background: rgba(3,16,43,.86); }
+  tbody tr:nth-child(odd){ background: rgba(3,16,43,.70); }
+  tbody tr:hover{ background: rgba(244,196,81,.08); }
+
+  a{
+    color: rgba(244,196,81,.95);
+    font-weight:900;
+    text-decoration:none;
+  }
+
+  a:hover{ text-decoration:underline; }
+
+  /* progress bars */
+  .target-progress-wrapper{ width:100%; margin-top:6px; margin-bottom:10px; }
+  .target-progress-label{ font-size:12.5px; color: rgba(248,250,252,.70); margin-bottom:4px; }
+
+  .target-progress-bar{
+    width:100%;
+    height:10px;
+    border-radius:999px;
+    overflow:hidden;
+    background: rgba(3, 16, 43, .82);
+    border: 1px solid rgba(244,196,81,.20);
+  }
+
+  .target-progress-fill{
+    height:100%;
+    border-radius:inherit;
+    background: linear-gradient(90deg, #22c55e, #a3e635, #facc15);
+    width:0%;
+    transition: width 0.25s ease-out;
+  }
+
+  /* photos */
+  #adminPhotosContainer img{
+    max-width:140px;
+    max-height:140px;
+    margin:6px;
+    border-radius:10px;
+    border: 1px solid rgba(244,196,81,.55);
+    box-shadow: 0 10px 25px rgba(0,0,0,.35);
+    object-fit:cover;
+  }
+
+  /* overlay */
+  .score-overlay{
+    position:fixed;
+    inset:0;
+    background: rgba(3, 16, 43, .82);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:80;
+  }
+
+  .score-overlay.hidden{ display:none; }
+
+  .score-overlay-content{
+    width: min(420px, 92%);
+    background: rgba(2,20,55,.92);
+    border-radius:20px;
+    padding:18px 16px 18px 16px;
+    border: 1px solid rgba(244,196,81,.55);
+    box-shadow: 0 24px 60px rgba(0,0,0,.45);
+    text-align:center;
+    backdrop-filter: blur(14px);
+  }
+
+  .score-overlay-content h2{
+    margin:0 0 8px 0;
+    color: rgba(244,196,81,.95);
+    font-family:"El Messiri", serif;
+    font-weight:900;
+    font-size:18px;
+  }
+
+  .score-main{ font-size:22px; font-weight:900; margin:6px 0 10px 0; }
+
+  .overlay-bar-wrapper{
+    width:100%;
+    height:12px;
+    border-radius:999px;
+    overflow:hidden;
+    background: rgba(3, 16, 43, .82);
+    border: 1px solid rgba(244,196,81,.25);
+    margin-bottom:8px;
+  }
+
+  .overlay-bar-fill{
+    height:100%;
+    border-radius:inherit;
+    background: linear-gradient(90deg, #22c55e, #a3e635, #facc15);
+    width:0;
+  }
+
+  .score-rank{ font-size:14px; margin:8px 0; color: rgba(248,250,252,.90); }
+  .score-trend{ font-size:13px; color: rgba(248,250,252,.70); margin-bottom:8px; }
+
+  .score-overlay-content.rank-up{
+    animation: rankUpGlow .9s ease-out;
+    box-shadow: 0 0 25px rgba(244,196,81,.45), 0 0 60px rgba(244,196,81,.35);
+  }
+
+  .score-overlay-content.rank-down{
+    animation: rankDownShake .7s ease-out;
+    box-shadow: 0 0 25px rgba(239,68,68,.35), 0 0 60px rgba(239,68,68,.22);
+  }
+
+  .rank-down-rocket{
+    font-size:28px;
+    margin-bottom:6px;
+    animation: rocketDown .8s ease-in forwards;
+  }
+
+  @keyframes rankUpGlow{
+    0%{ transform: scale(.92); }
+    40%{ transform: scale(1.03); }
+    100%{ transform: scale(1); }
+  }
+
+  @keyframes rankDownShake{
+    0%{ transform: translateX(0); }
+    20%{ transform: translateX(-5px); }
+    40%{ transform: translateX(5px); }
+    60%{ transform: translateX(-4px); }
+    80%{ transform: translateX(4px); }
+    100%{ transform: translateX(0); }
+  }
+
+  @keyframes rocketDown{
+    0%{ transform: translateY(-30px); opacity:0; }
+    40%{ transform: translateY(0); opacity:1; }
+    100%{ transform: translateY(40px); opacity:0; }
+  }
+
+  .hidden{ display:none; }
+
+  /* days summary toggle */
+  #toggleDaysButton{ margin-top:12px; }
+  #daysSummarySection{ margin-top:10px; }
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .hero{ grid-template-columns:1fr; }
+    .hero::after, .hero::before{ display:none; }
+
+    .moon-wrap{ left:12%; top:120px; width:320px; height:320px; }
+    .lantern.l1{ left:14%; }
+    .lantern.l2{ left:2%; width:130px; }
+    .lantern.l3{ left:24%; }
+
+    header.topbar{ padding:14px 16px; }
+    .app-section{ padding:14px 16px 24px 16px; }
+    .hero{ padding:26px 16px 16px 16px; }
+    .hero-title{ font-size:44px; }
+  }
+
+  @media (max-width: 600px){
+    .moon-wrap{ left:8%; top:150px; width:260px; height:260px; }
+    .nav{ gap:10px; font-size:.9rem; }
 
     input[type="number"],
     input[type="date"],
     input[type="text"],
     input[type="password"],
-    input[type="file"]{
-      width: 230px;
-      max-width: 100%;
-      padding: 10px 10px;
-      border-radius: 10px;
-      border: 1px solid rgba(244,196,81,.20);
-      background: var(--card2);
-      color: var(--text);
-      font-size: 14px;
-      outline:none;
-      transition: .15s ease;
-      font-family: inherit;
-    }
+    input[type="file"]{ width:100%; }
 
-    input::placeholder{ color: rgba(248,250,252,.55); }
-    input:focus{
-      border-color: rgba(244,196,81,.55);
-      box-shadow: 0 0 0 2px rgba(244,196,81,.10);
-      transform: translateY(-1px);
-    }
+    .field-row label{ min-width:100%; }
+  }
+</style>
 
-    input[type="file"]{ padding: 7px 8px; }
-
-    button{
-      margin-top: 10px;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 999px;
-      background: linear-gradient(135deg, rgba(244,196,81,.95), rgba(217,166,59,.95));
-      color: #172140;
-      font-size: 14px;
-      cursor: pointer;
-      font-weight: 900;
-      letter-spacing: .01em;
-      box-shadow: 0 14px 30px rgba(244,196,81,.20);
-      transition: transform .12s ease, filter .12s ease;
-      user-select:none;
-    }
-    button:hover{ transform: translateY(-1px); filter: brightness(1.03); }
-    button:active{ transform: translateY(1px); }
-
-    .btn-secondary{
-      background: transparent;
-      border: 2px solid rgba(244,196,81,.65);
-      color: rgba(244,196,81,.94);
-      box-shadow:none;
-    }
-    .btn-secondary:hover{ background: rgba(244,196,81,.09); }
-
-    .result{
-      margin-top: 14px;
-      font-size: 14px;
-      font-weight: 700;
-      color: rgba(244,196,81,.95);
-      line-height: 1.9;
-      background: rgba(3, 16, 43, .75);
-      border-radius: 12px;
-      padding: 10px 12px;
-      border: 1px solid rgba(244,196,81,.22);
-    }
-
-    /* sections below hero (user/admin) */
-    .app-section{
-      position:relative;
-      z-index:12;
-      padding: 18px 32px 34px 32px;
-    }
-
-    .panel{
-      background: rgba(2, 20, 55, .56);
-      border: 1px solid rgba(244,196,81,.22);
-      border-radius: 18px;
-      padding: 18px 16px 18px 16px;
-      box-shadow: 0 18px 55px rgba(0,0,0,.28);
-      backdrop-filter: blur(12px);
-    }
-
-    .panel h2{
-      margin: 0 0 10px 0;
-      font-family:"El Messiri", serif;
-      color: rgba(244,196,81,.95);
-      font-size: 20px;
-      font-weight: 900;
-    }
-
-    h3{
-      color: rgba(244,196,81,.92);
-      margin: 18px 0 8px 0;
-      font-family:"El Messiri", serif;
-      font-size: 16px;
-      font-weight: 800;
-    }
-
-    /* tables */
-    table{
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 12px;
-      background: rgba(3, 16, 43, .78);
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 12px 30px rgba(0,0,0,.28);
-    }
-    th, td{
-      border: 1px solid rgba(244,196,81,.14);
-      padding: 8px;
-      text-align: center;
-      font-size: 13px;
-      color: rgba(248,250,252,.90);
-    }
-    th{
-      background: linear-gradient(135deg, rgba(244,196,81,.25), rgba(10,79,134,.35));
-      color: rgba(255,255,255,.92);
-      font-weight: 900;
-    }
-    tbody tr:nth-child(even){ background: rgba(3,16,43,.86); }
-    tbody tr:nth-child(odd){ background: rgba(3,16,43,.70); }
-    tbody tr:hover{ background: rgba(244,196,81,.08); }
-
-    a{
-      color: rgba(244,196,81,.95);
-      font-weight: 900;
-      text-decoration: none;
-    }
-    a:hover{ text-decoration: underline; }
-
-    /* progress bars */
-    .target-progress-wrapper{ width: 100%; margin-top: 6px; margin-bottom: 10px; }
-    .target-progress-label{ font-size: 12.5px; color: rgba(248,250,252,.70); margin-bottom: 4px; }
-    .target-progress-bar{
-      width: 100%;
-      height: 10px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(3, 16, 43, .82);
-      border: 1px solid rgba(244,196,81,.20);
-    }
-    .target-progress-fill{
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #22c55e, #a3e635, #facc15);
-      width: 0%;
-      transition: width 0.25s ease-out;
-    }
-
-    /* photos */
-    #adminPhotosContainer img{
-      max-width: 140px;
-      max-height: 140px;
-      margin: 6px;
-      border-radius: 10px;
-      border: 1px solid rgba(244,196,81,.55);
-      box-shadow: 0 10px 25px rgba(0,0,0,.35);
-      object-fit: cover;
-    }
-
-    /* overlay */
-    .score-overlay{
-      position: fixed;
-      inset: 0;
-      background: rgba(3, 16, 43, .82);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index: 80;
-    }
-    .score-overlay.hidden{ display:none; }
-
-    .score-overlay-content{
-      width: min(420px, 92%);
-      background: rgba(2,20,55,.92);
-      border-radius: 20px;
-      padding: 18px 16px 18px 16px;
-      border: 1px solid rgba(244,196,81,.55);
-      box-shadow: 0 24px 60px rgba(0,0,0,.45);
-      text-align:center;
-      backdrop-filter: blur(14px);
-    }
-    .score-overlay-content h2{
-      margin: 0 0 8px 0;
-      color: rgba(244,196,81,.95);
-      font-family:"El Messiri", serif;
-      font-weight: 900;
-      font-size: 18px;
-    }
-    .score-main{ font-size: 22px; font-weight: 900; margin: 6px 0 10px 0; }
-
-    .overlay-bar-wrapper{
-      width: 100%;
-      height: 12px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(3, 16, 43, .82);
-      border: 1px solid rgba(244,196,81,.25);
-      margin-bottom: 8px;
-    }
-    .overlay-bar-fill{
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #22c55e, #a3e635, #facc15);
-      width: 0;
-    }
-    .score-rank{ font-size: 14px; margin: 8px 0; color: rgba(248,250,252,.90); }
-    .score-trend{ font-size: 13px; color: rgba(248,250,252,.70); margin-bottom: 8px; }
-
-    .score-overlay-content.rank-up{
-      animation: rankUpGlow .9s ease-out;
-      box-shadow: 0 0 25px rgba(244,196,81,.45), 0 0 60px rgba(244,196,81,.35);
-    }
-    .score-overlay-content.rank-down{
-      animation: rankDownShake .7s ease-out;
-      box-shadow: 0 0 25px rgba(239,68,68,.35), 0 0 60px rgba(239,68,68,.22);
-    }
-    .rank-down-rocket{ font-size: 28px; margin-bottom: 6px; animation: rocketDown .8s ease-in forwards; }
-
-    @keyframes rankUpGlow{
-      0%{ transform: scale(.92); }
-      40%{ transform: scale(1.03); }
-      100%{ transform: scale(1); }
-    }
-    @keyframes rankDownShake{
-      0%{ transform: translateX(0); }
-      20%{ transform: translateX(-5px); }
-      40%{ transform: translateX(5px); }
-      60%{ transform: translateX(-4px); }
-      80%{ transform: translateX(4px); }
-      100%{ transform: translateX(0); }
-    }
-    @keyframes rocketDown{
-      0%{ transform: translateY(-30px); opacity:0; }
-      40%{ transform: translateY(0); opacity:1; }
-      100%{ transform: translateY(40px); opacity:0; }
-    }
-
-    .hidden{ display:none; }
-
-    /* days summary toggle */
-    #toggleDaysButton{ margin-top: 12px; }
-    #daysSummarySection{ margin-top: 10px; }
-
-    /* Responsive */
-    @media (max-width: 980px){
-      .hero{ grid-template-columns: 1fr; }
-      .hero::after, .hero::before{ display:none; }
-
-      /* ✅ على الموبايل نخلي الديكور فوق */
-      .moon-wrap{ left: 12%; top: 120px; width: 320px; height: 320px; }
-      .lantern.l1{ left: 14%; }
-      .lantern.l2{ left: 2%; width: 130px; }
-      .lantern.l3{ left: 24%; }
-
-      header.topbar{ padding: 14px 16px; }
-      .app-section{ padding: 14px 16px 24px 16px; }
-      .hero{ padding: 26px 16px 16px 16px; }
-      .hero-title{ font-size: 44px; }
-    }
-    @media (max-width: 600px){
-      .moon-wrap{ left: 8%; top: 150px; width: 260px; height: 260px; }
-      .nav{ gap: 10px; font-size: .9rem; }
-      input[type="number"],
-      input[type="date"],
-      input[type="text"],
-      input[type="password"],
-      input[type="file"]{ width: 100%; }
-      .field-row label{ min-width: 100%; }
-    }
-  </style>
-</head>
 
 <body>
   <div class="stage">
@@ -798,9 +839,8 @@
             </button>
 
             <p class="hint" style="margin-top:12px;">
-              <span class="badge">Admin</span>
-              للدخول كأدمن: <b>admin</b> / <b>admin123</b><br>
-              أي اسم آخر ➜ يُعتبر <b>قائد فريق</b> ويتم فتح صفحة إدخال نقاط لفريقه.
+              <span class="badge">  <img src="crescent-moon.gif"  class="badge-gif">
+</span>
             </p>
           </div>
         </div>
@@ -849,9 +889,13 @@
           </div>
 
           <div class="field-row">
-            <label>الالتزام بالمواعيد (0 → 25):</label>
-            <input type="number" id="fill_time" min="0" max="25" placeholder="عدد اليوم" />
-          </div>
+            <label>الالتزام بالمواعيد :</label>
+             <input type="number" id="fill_time_display" disabled placeholder="لم يتم التقييم بعد" />
+              </div>
+
+              <p class="hint" id="fillTimeHint">
+                هذه الدرجة يتم إدخالها من الأدمن فقط، وستظهر لك هنا بعد المراجعة.
+              </p>
 
           <h3>التبرعات (تراكمي – إجمالي وزن القسم = ٢٥٪)</h3>
 
@@ -967,6 +1011,8 @@
                 <th>متوسط (تعبئة + تطوع أوتوماتيك) ٪</th>
                 <th>نسبة التبرعات والمنتجات الحالية ٪</th>
                 <th>درجة جودة التعبئة (0–10)</th>
+                <th>تاريخ التقييم</th>
+                <th>الالتزام بالمواعيد (0–10)</th>
                 <th>درجة شيت الحضور (0–5)</th>
                 <th>Score الكلي الحالي ٪</th>
                 <th>صور الجودة</th>
@@ -1124,6 +1170,21 @@
           const stats = await getTeamsStats();
           const t = stats[currentTeamKey];
           updateMoneyProgressBars(t || null);
+          // Show admin-set "fill_time" for today's date (if exists)
+          const todayDate = document.getElementById('dayDate')?.value;
+          const fillTimeDisplay = document.getElementById('fill_time_display');
+          if (fillTimeDisplay) {
+            const v = t?.fillTimeByDate?.[todayDate];
+            if (typeof v === 'number') {
+              fillTimeDisplay.value = v;
+              document.getElementById('fillTimeHint').textContent =
+                `تم تقييم الالتزام بالمواعيد: ${v} من 25 (بواسطة الأدمن).`;
+            } else {
+              fillTimeDisplay.value = '';
+              document.getElementById('fillTimeHint').textContent =
+                'هذه الدرجة يتم إدخالها من الأدمن فقط، وستظهر لك هنا بعد المراجعة.';
+            }
+          }
 
           if (t && t.daysCount > 0) {
             const overallStats = computeTeamOverallStats(t);
@@ -1384,9 +1445,13 @@
             manualQuality: 0,
             manualSheet: 0,
             lastSheetLink: '',
-            daysDates: []
-          };
+            daysDates: [],
+            fillTimeByDate: {}
 
+          };
+          if (!teamStats.fillTimeByDate || typeof teamStats.fillTimeByDate !== 'object') {
+            teamStats.fillTimeByDate = {};
+          }
           if (!teamStats.name) teamStats.name = currentTeamName;
           if (!Array.isArray(teamStats.daysDates)) teamStats.daysDates = [];
 
@@ -1423,7 +1488,6 @@
           const dailyBagsPercent = scoreDailyBags();
           const nonDonationToday =
             dailyBagsPercent +
-            scoreItem('fill_time') +
             scoreVolTeamPresence() +
             scoreItem('vol_new_volunteers');
 
@@ -1524,127 +1588,234 @@
           });
         }
 
-        async function buildAdminTable() {
-          const stats = await getTeamsStats();
-          const tbody = document.getElementById('adminTableBody');
-          tbody.innerHTML = '';
+    async function buildAdminTable() {
+  const stats = await getTeamsStats();
+  const tbody = document.getElementById('adminTableBody');
+  tbody.innerHTML = '';
 
-          const keys = Object.keys(stats || {});
-          if (keys.length === 0) {
-            const row = document.createElement('tr');
-            const cell = document.createElement('td');
-            cell.colSpan = 10;
-            cell.textContent = 'لا توجد بيانات فرق مسجّلة حتى الآن.';
-            row.appendChild(cell);
-            tbody.appendChild(row);
-            return;
-          }
+  const keys = Object.keys(stats || {});
+  if (keys.length === 0) {
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+    cell.colSpan = 12; // كان 10
+    cell.textContent = 'لا توجد بيانات فرق مسجّلة حتى الآن.';
+    row.appendChild(cell);
+    tbody.appendChild(row);
+    return;
+  }
 
-          const rowsData = [];
-          keys.forEach(key => {
-            const t = stats[key];
-            if (!t || !t.daysCount || t.daysCount <= 0) return;
-            const overallStats = computeTeamOverallStats(t);
-            rowsData.push({ teamKey: key, teamName: t.name || decodeURIComponent(key), t, overallStats });
-          });
+  const rowsData = [];
+  keys.forEach(key => {
+    const t = stats[key];
+    if (!t || !t.daysCount || t.daysCount <= 0) return;
 
-          if (rowsData.length === 0) {
-            const row = document.createElement('tr');
-            const cell = document.createElement('td');
-            cell.colSpan = 10;
-            cell.textContent = 'لا توجد بيانات فرق مسجّلة حتى الآن.';
-            row.appendChild(cell);
-            tbody.appendChild(row);
-            return;
-          }
+    // ضمان وجود fillTimeByDate
+    if (!t.fillTimeByDate || typeof t.fillTimeByDate !== 'object') {
+      t.fillTimeByDate = {};
+    }
 
-          rowsData.sort((a, b) => b.overallStats.overallCurrent - a.overallStats.overallCurrent);
+    const overallStats = computeTeamOverallStats(t);
+    rowsData.push({ teamKey: key, teamName: t.name || decodeURIComponent(key), t, overallStats });
+  });
 
-          rowsData.forEach((item, index) => {
-            const teamKey = item.teamKey;
-            const teamName = item.teamName;
-            const t = item.t;
-            const s = item.overallStats;
-            const rank = index + 1;
+  if (rowsData.length === 0) {
+    const row = document.createElement('tr');
+    const cell = document.createElement('td');
+    cell.colSpan = 12; // كان 10
+    cell.textContent = 'لا توجد بيانات فرق مسجّلة حتى الآن.';
+    row.appendChild(cell);
+    tbody.appendChild(row);
+    return;
+  }
 
-            const row = document.createElement('tr');
+  rowsData.sort((a, b) => b.overallStats.overallCurrent - a.overallStats.overallCurrent);
 
-            const rankCell = document.createElement('td');
-            rankCell.textContent = `${rank}${getMedal(rank)}`;
+  rowsData.forEach((item, index) => {
+    const teamKey = item.teamKey;
+    const teamName = item.teamName;
+    const t = item.t;
+    const s = item.overallStats;
+    const rank = index + 1;
 
-            const nameCell = document.createElement('td');
-            nameCell.textContent = teamName;
+    const row = document.createElement('tr');
 
-            const daysCell = document.createElement('td');
-            daysCell.textContent = t.daysCount;
+    const rankCell = document.createElement('td');
+    rankCell.textContent = `${rank}${getMedal(rank)}`;
 
-            const avgNonDonationCell = document.createElement('td');
-            avgNonDonationCell.textContent = s.avgNonDonation.toFixed(1);
+    const nameCell = document.createElement('td');
+    nameCell.textContent = teamName;
 
-            const donationCell = document.createElement('td');
-            donationCell.textContent = s.donationTotalPercent.toFixed(1);
+    const daysCell = document.createElement('td');
+    daysCell.textContent = t.daysCount;
 
-            const qualityCell = document.createElement('td');
-            const qInput = document.createElement('input');
-            qInput.type = 'number';
-            qInput.min = '0';
-            qInput.max = String(ITEM_MAX_PERCENT.fill_quality);
-            qInput.value = (s.manualQuality || 0).toFixed(1).replace(/\.0$/, '');
-            qInput.style.width = '70px';
-            qInput.onchange = (e) => updateManualScore(teamKey, 'manualQuality', e.target.value);
-            qualityCell.appendChild(qInput);
+    const avgNonDonationCell = document.createElement('td');
+    avgNonDonationCell.textContent = s.avgNonDonation.toFixed(1);
 
-            const sheetCellScore = document.createElement('td');
-            const sInput = document.createElement('input');
-            sInput.type = 'number';
-            sInput.min = '0';
-            sInput.max = String(ITEM_MAX_PERCENT.vol_sheet);
-            sInput.value = (s.manualSheet || 0).toFixed(1).replace(/\.0$/, '');
-            sInput.style.width = '70px';
-            sInput.onchange = (e) => updateManualScore(teamKey, 'manualSheet', e.target.value);
-            sheetCellScore.appendChild(sInput);
+    const donationCell = document.createElement('td');
+    donationCell.textContent = s.donationTotalPercent.toFixed(1);
 
-            const overallCell = document.createElement('td');
-            overallCell.textContent = s.overallCurrent.toFixed(1);
+    const qualityCell = document.createElement('td');
+    const qInput = document.createElement('input');
+    qInput.type = 'number';
+    qInput.min = '0';
+    qInput.max = String(ITEM_MAX_PERCENT.fill_quality);
+    qInput.value = (s.manualQuality || 0).toFixed(1).replace(/\.0$/, '');
+    qInput.style.width = '70px';
+    qInput.onchange = (e) => updateManualScore(teamKey, 'manualQuality', e.target.value);
+    qualityCell.appendChild(qInput);
 
-            const photosCell = document.createElement('td');
-            const media = sessionMedia[teamKey];
-            if (media && media.photos && media.photos.length > 0) {
-              const btn = document.createElement('button');
-              btn.textContent = 'عرض الصور';
-              btn.onclick = () => showTeamPhotos(teamKey);
-              photosCell.appendChild(btn);
-            } else {
-              photosCell.textContent = 'لا يوجد (من هذه الجلسة)';
-            }
+    const sheetCellScore = document.createElement('td');
+    const sInput = document.createElement('input');
+    sInput.type = 'number';
+    sInput.min = '0';
+    sInput.max = String(ITEM_MAX_PERCENT.vol_sheet);
+    sInput.value = (s.manualSheet || 0).toFixed(1).replace(/\.0$/, '');
+    sInput.style.width = '70px';
+    sInput.onchange = (e) => updateManualScore(teamKey, 'manualSheet', e.target.value);
+    sheetCellScore.appendChild(sInput);
 
-            const sheetLinkCell = document.createElement('td');
-            if (t.lastSheetLink) {
-              const a = document.createElement('a');
-              a.href = t.lastSheetLink;
-              a.target = '_blank';
-              a.textContent = 'فتح الشيت';
-              sheetLinkCell.appendChild(a);
-            } else {
-              sheetLinkCell.textContent = 'لا يوجد';
-            }
+    // ✅ NEW: تاريخ تقييم الالتزام بالمواعيد (اختيار من أيام الفريق)
+    const fillTimeDateCell = document.createElement('td');
+    const dateSelect = document.createElement('select');
+    dateSelect.style.width = '140px';
+    dateSelect.style.padding = '6px 8px';
+    dateSelect.style.borderRadius = '10px';
+    dateSelect.style.border = '1px solid rgba(244,196,81,.20)';
+    dateSelect.style.background = 'rgba(3,16,43,.82)';
+    dateSelect.style.color = 'rgba(248,250,252,.95)';
+    dateSelect.style.fontFamily = 'inherit';
+    dateSelect.style.fontSize = '13px';
 
-            row.appendChild(rankCell);
-            row.appendChild(nameCell);
-            row.appendChild(daysCell);
-            row.appendChild(avgNonDonationCell);
-            row.appendChild(donationCell);
-            row.appendChild(qualityCell);
-            row.appendChild(sheetCellScore);
-            row.appendChild(overallCell);
-            row.appendChild(photosCell);
-            row.appendChild(sheetLinkCell);
+    const dates = Array.isArray(t.daysDates) ? t.daysDates.slice() : [];
+    dates.sort(); // ترتيب تصاعدي
+    if (dates.length === 0) {
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = 'لا يوجد أيام';
+      dateSelect.appendChild(opt);
+      dateSelect.disabled = true;
+    } else {
+      dates.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d;
+        opt.textContent = d;
+        dateSelect.appendChild(opt);
+      });
+      // اختار آخر يوم افتراضيًا
+      dateSelect.value = dates[dates.length - 1];
+    }
 
-            tbody.appendChild(row);
-          });
+    fillTimeDateCell.appendChild(dateSelect);
 
-          document.getElementById('admin')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+    // ✅ NEW: إدخال الالتزام بالمواعيد + حفظ
+    const fillTimeCell = document.createElement('td');
+    const ftInput = document.createElement('input');
+    ftInput.type = 'number';
+    ftInput.min = '0';
+    ftInput.max = '25';
+    ftInput.placeholder = '0-25';
+    ftInput.style.width = '70px';
+
+    // تحميل قيمة موجودة للتاريخ الافتراضي
+    const initDate = dateSelect.value;
+    const initVal = initDate ? t.fillTimeByDate?.[initDate] : undefined;
+    if (typeof initVal === 'number') ftInput.value = initVal;
+
+    const saveBtn = document.createElement('button');
+    saveBtn.type = 'button';
+    saveBtn.textContent = 'حفظ';
+    saveBtn.style.marginTop = '6px';
+    saveBtn.style.padding = '8px 10px';
+    saveBtn.style.borderRadius = '999px';
+
+    // عند تغيير التاريخ: اعرض القيمة إن وُجدت
+    dateSelect.onchange = () => {
+      const d = dateSelect.value;
+      const v = d ? t.fillTimeByDate?.[d] : undefined;
+      ftInput.value = (typeof v === 'number') ? v : '';
+    };
+
+    saveBtn.onclick = async () => {
+      const d = dateSelect.value;
+      if (!d) {
+        alert('اختر تاريخ التقييم');
+        return;
+      }
+      const v = Number(ftInput.value);
+      if (Number.isNaN(v) || v < 0 || v > 25) {
+        alert('درجة الالتزام بالمواعيد لازم تكون بين 0 و 25');
+        return;
+      }
+
+      await updateFillTimeForDate(teamKey, d, v);
+
+      // تحديث النسخة المحلية عشان لما تغيّر التاريخ تلاقيها موجودة
+      t.fillTimeByDate = t.fillTimeByDate || {};
+      t.fillTimeByDate[d] = v;
+    };
+
+    fillTimeCell.appendChild(ftInput);
+    fillTimeCell.appendChild(document.createElement('div')).appendChild(saveBtn);
+
+    const overallCell = document.createElement('td');
+    overallCell.textContent = s.overallCurrent.toFixed(1);
+
+    const photosCell = document.createElement('td');
+    const media = sessionMedia[teamKey];
+    if (media && media.photos && media.photos.length > 0) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = 'عرض الصور';
+      btn.onclick = () => showTeamPhotos(teamKey);
+      photosCell.appendChild(btn);
+    } else {
+      photosCell.textContent = 'لا يوجد (من هذه الجلسة)';
+    }
+
+    const sheetLinkCell = document.createElement('td');
+    if (t.lastSheetLink) {
+      const a = document.createElement('a');
+      a.href = t.lastSheetLink;
+      a.target = '_blank';
+      a.textContent = 'فتح الشيت';
+      sheetLinkCell.appendChild(a);
+    } else {
+      sheetLinkCell.textContent = 'لا يوجد';
+    }
+
+    row.appendChild(rankCell);
+    row.appendChild(nameCell);
+    row.appendChild(daysCell);
+    row.appendChild(avgNonDonationCell);
+    row.appendChild(donationCell);
+    row.appendChild(qualityCell);
+    row.appendChild(sheetCellScore);
+
+    // ✅ NEW columns
+    row.appendChild(fillTimeDateCell);
+    row.appendChild(fillTimeCell);
+
+    row.appendChild(overallCell);
+    row.appendChild(photosCell);
+    row.appendChild(sheetLinkCell);
+
+    tbody.appendChild(row);
+  });
+
+  document.getElementById('admin')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+        async function updateFillTimeForDate(teamKey, dayDate, value) {
+  const stats = await getTeamsStats();
+  if (!stats[teamKey]) return;
+
+  stats[teamKey].fillTimeByDate = stats[teamKey].fillTimeByDate || {};
+  stats[teamKey].fillTimeByDate[dayDate] = value;
+
+  await setTeamsStats(stats);
+  await buildAdminTable();
+}
+window.updateFillTimeForDate = updateFillTimeForDate;
 
         window.handleLogin = handleLogin;
         window.goBackToLogin = goBackToLogin;
