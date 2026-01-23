@@ -71,6 +71,35 @@
     box-shadow:none;
     border-radius:0;
   }
+/* ✅ Admin table horizontal scroll on mobile */
+.table-wrap{
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+  margin-top: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.28);
+}
+
+/* ✅ خلي الجدول مايكسرش الأعمدة */
+.table-wrap table{
+  min-width: 980px; /* زود/قلل حسب عدد الأعمدة عندك */
+}
+
+/* ✅ منع تكسير الكلام داخل الخلايا */
+.table-wrap th,
+.table-wrap td{
+  white-space: nowrap;
+}
+.table-wrap::-webkit-scrollbar{ height: 10px; }
+.table-wrap::-webkit-scrollbar-thumb{
+  background: rgba(244,196,81,.35);
+  border-radius: 999px;
+}
+.table-wrap::-webkit-scrollbar-track{
+  background: rgba(3,16,43,.55);
+  border-radius: 999px;
+}
 
   .ramadan-canvas::before{
     content:"";
@@ -1004,7 +1033,7 @@
           <h3>ملخص الفرق</h3>
           <div class="table-wrap">
 
-          <table>
+  <table id="adminTable">
             <thead>
               <tr>
                 <th>الترتيب</th>
