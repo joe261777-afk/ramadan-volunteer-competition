@@ -516,7 +516,7 @@
   .target-progress-label{ font-size:12.5px; color: rgba(248,250,252,.70); margin-bottom:4px; }
 
   .target-progress-bar{
-    width:100%;
+    width:50%;
     height:10px;
     border-radius:999px;
     overflow:hidden;
@@ -908,7 +908,6 @@
             <input type="number" id="bags_done" min="0" placeholder="مثال: 80" />
           </div>
 
-          <p class="hint">نسبة إنجاز الشنط = (المنفذ ÷ المطلوب) × ٢٠٪.</p>
 
           <div class="field-row">
             <label>صور جودة التعبئة والنظام (تقييم أدمن):</label>
@@ -924,7 +923,7 @@
                 هذه الدرجة يتم إدخالها من الأدمن فقط، وستظهر لك هنا بعد المراجعة.
               </p>
 
-          <h3>التبرعات (تراكمي – إجمالي وزن القسم = ٢٥٪)</h3>
+          <h3>التبرعات</h3>
 
           <div class="field-row">
             <label>المجزَر – مبلغ اليوم (تارجت المسابقة 15000):</label>
@@ -957,7 +956,7 @@
             <input type="number" id="donation_variety" min="0" placeholder="عدد اليوم" />
           </div>
 
-          <h3>المنتجات (تراكمي – وزن البند = ٥٪)</h3>
+          <h3>المنتجات</h3>
 
           <div class="field-row">
             <label>قيمة المنتجات اليوم (تارجت المسابقة 3000):</label>
@@ -972,7 +971,7 @@
             </div>
           </div>
 
-          <h3>التارجت التطوعي (إجمالي وزن القسم = ٣٠٪)</h3>
+          <h3>التارجت التطوعي</h3>
 
           <div class="field-row">
             <label>حضور الفريق (عدد الحاضرين اليوم من إجمالي عدد الفريق):</label>
@@ -989,7 +988,6 @@
             <input type="text" id="vol_sheet_link" placeholder="ضع رابط الشيت هنا" />
           </div>
 
-          <p class="hint">شيت الحضور + جودة التعبئة يتم تقييمهم يدويًا من صفحات الأدمن.</p>
 
           <button onclick="calculateDay()">احسب نقاط اليوم</button>
           <div class="result" id="resultText"></div>
