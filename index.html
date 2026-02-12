@@ -81,6 +81,183 @@
   box-shadow: 0 12px 30px rgba(0,0,0,.28);
 }
 
+.rank-panel{
+  margin: 10px 0 14px 0;
+  padding: 12px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(244,196,81,.28);
+  background: rgba(2,20,55,.55);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 18px 45px rgba(0,0,0,.22);
+}
+
+.rank-panel .rank-title{
+  font-family:"El Messiri", serif;
+  font-weight: 900;
+  color: rgba(244,196,81,.95);
+  margin: 0 0 8px 0;
+  font-size: 16px;
+}
+
+.rank-panel .rank-sub{
+  margin: 0 0 10px 0;
+  color: rgba(248,250,252,.75);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.rank-table{
+  width:100%;
+  border-collapse: collapse;
+  overflow:hidden;
+  border-radius: 12px;
+  background: rgba(3,16,43,.78);
+}
+
+.rank-table th, .rank-table td{
+  border: 1px solid rgba(244,196,81,.14);
+  padding: 8px;
+  text-align:center;
+  font-size: 13px;
+  color: rgba(248,250,252,.92);
+  white-space: nowrap;
+}
+
+.rank-table th{
+  background: linear-gradient(135deg, rgba(244,196,81,.22), rgba(10,79,134,.28));
+  font-weight: 900;
+}
+
+.rank-row-me{
+  background: rgba(244,196,81,.10) !important;
+  outline: 1px solid rgba(244,196,81,.28);
+}
+
+
+.hero-left{ position:relative; } /* مهم عشان absolute يشتغل صح */
+
+.hero-rank-card{
+  position:absolute;
+  right: 0;
+  top: 190px;          /* عدّليها حسب مكان الدايرة */
+  width: min(520px, 92%);
+  padding: 16px 16px 14px 16px;
+  border-radius: 22px;
+  border: 1px solid rgba(244,196,81,.38);
+  background: linear-gradient(135deg, rgba(2,20,55,.55), rgba(3,16,43,.72));
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 22px 55px rgba(0,0,0,.32),
+    0 0 55px rgba(244,196,81,.10);
+  overflow:hidden;
+}
+
+.hero-rank-card::before{
+  content:"";
+  position:absolute; inset:-2px;
+  background: radial-gradient(circle at 20% 10%, rgba(244,196,81,.22), transparent 55%),
+              radial-gradient(circle at 80% 90%, rgba(59,130,246,.18), transparent 55%);
+  pointer-events:none;
+}
+
+.hero-rank-header{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom: 10px;
+}
+
+.hero-rank-title{
+  font-family:"El Messiri", serif;
+  font-weight:900;
+  color: rgba(244,196,81,.98);
+  font-size:18px;
+  margin:0;
+}
+
+.hero-rank-pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(244,196,81,.28);
+  background: rgba(3,16,43,.55);
+  color: rgba(248,250,252,.88);
+  font-weight:800;
+  font-size: 12.5px;
+}
+
+.hero-rank-sub{
+  position:relative;
+  margin: 0 0 10px 0;
+  color: rgba(248,250,252,.78);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.podium{
+  position:relative;
+  display:grid;
+  grid-template-columns: 1fr 1.1fr 1fr;
+  gap:10px;
+}
+
+.podium-card{
+  border-radius: 16px;
+  border: 1px solid rgba(244,196,81,.20);
+  background: rgba(3,16,43,.55);
+  padding: 10px;
+  text-align:center;
+}
+
+.podium-card.p1{
+  transform: translateY(-6px);
+  border-color: rgba(244,196,81,.42);
+  box-shadow: 0 10px 25px rgba(244,196,81,.08);
+}
+
+.podium-emoji{ font-size: 18px; margin-bottom: 4px; }
+.podium-rank{ font-weight:900; color: rgba(244,196,81,.95); font-size: 13px; }
+.podium-name{ color: rgba(248,250,252,.92); font-weight:800; font-size: 13px; margin-top: 4px; }
+.podium-score{ color: rgba(248,250,252,.72); font-size: 12px; margin-top: 2px; }
+
+.me-row{
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(244,196,81,.28);
+  background: rgba(244,196,81,.10);
+  position:relative;
+  font-weight:900;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.me-left{ display:flex; align-items:center; gap:10px; }
+.me-badge{
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(3,16,43,.60);
+  border: 1px solid rgba(244,196,81,.28);
+  color: rgba(248,250,252,.92);
+  font-size: 12.5px;
+}
+
+@media (max-width: 980px){
+  .hero-rank-card{
+    position:relative;
+    top: auto;
+    right: auto;
+    margin-top: 14px;
+    width: 100%;
+  }
+}
+
 /* ✅ خلي الجدول مايكسرش الأعمدة */
 .table-wrap table{
   min-width: 980px; /* زود/قلل حسب عدد الأعمدة عندك */
@@ -825,6 +1002,10 @@
         <!-- ✅ يمين: عنوان فقط -->
         <div class="hero-left">
           <h1 class="hero-title"> مسابقة رمضان </h1>
+          <!-- ✅ Hero Rank Card (مكان الدايرة) -->
+          <div id="heroRankCard" class="hero-rank-card">
+            <!-- بيتعبى من JS -->
+          </div>
 
           <!-- ✅ اتسابوا موجودين بس مخفيين بالـ CSS -->
           <p class="hero-desc">
@@ -848,19 +1029,34 @@
         <!-- ✅ شمال: نفس كارت الدخول زي ما هو -->
         <div class="hero-right">
           <div id="loginSection" class="glass-card">
-            <h2>تسجيل الدخول</h2>
+<h2>تسجيل الدخول</h2>
 
-            <div class="field-row">
-              <label>اسم المستخدم:</label>
-              <input type="text" id="loginName" placeholder="مثال: admin أو فريق الرحمة" />
-            </div>
+<div class="field-row">
+  <label>نوع الحساب:</label>
+  <div style="display:flex; gap:20px;">
+    <label>
+      <input type="radio" name="role" value="admin" onchange="toggleRole()"> أدمن
+    </label>
+    <label>
+      <input type="radio" name="role" value="leader" checked onchange="toggleRole()"> ليدر فريق
+    </label>
+  </div>
+</div>
 
-            <div class="field-row">
-              <label>كلمة المرور:</label>
-              <input type="password" id="loginPassword" placeholder="للأدمن فقط" />
-            </div>
+<!-- اسم الفريق -->
+<div class="field-row" id="teamNameRow">
+  <label>اسم الفريق:</label>
+  <input type="text" id="teamNameInput" placeholder="مثال: فريق الرحمة" />
+</div>
 
-            <button onclick="handleLogin()">دخول</button>
+<!-- كلمة المرور -->
+<div class="field-row">
+  <label>كلمة المرور:</label>
+  <input type="password" id="loginPassword" placeholder="أدخل كلمة المرور" />
+</div>
+
+<button onclick="handleLogin()">دخول</button>
+
             <button class="btn-secondary" type="button" onclick="openLeaderboard()" style="margin-top:10px;">
               مشاهدة لوحة الشرف
             </button>
@@ -880,6 +1076,8 @@
         <div id="userSection" class="panel hidden">
           <h2>صفحة قائد الفريق</h2>
           <p class="hint" id="userWelcome"></p>
+<!-- ✅ بانل ترتيب الفريق -->
+<div id="userRankPanel" class="rank-panel"></div>
 
           <div class="field-row">
             <label>اسم الفريق:</label>
@@ -989,6 +1187,7 @@
           </div>
 
 
+          
           <button onclick="calculateDay()">احسب نقاط اليوم</button>
           <div class="result" id="resultText"></div>
 
@@ -1134,10 +1333,23 @@
           window.location.href = "leaderboard.html";
         }
         window.openLeaderboard = openLeaderboard;
+window.toggleRole = toggleRole;
 
         function teamKeyFromName(name) {
           return encodeURIComponent(name.trim());
         }
+
+        function toggleRole() {
+          const role = document.querySelector('input[name="role"]:checked').value;
+          const teamRow = document.getElementById('teamNameRow');
+
+          if (role === 'leader') {
+            teamRow.style.display = 'flex';
+          } else {
+            teamRow.style.display = 'none';
+          }
+        }
+
 
         async function getTeamsStats() {
           const snap = await get(ref(db, "teamsStats"));
@@ -1164,77 +1376,82 @@
           todayInput.value = `${yyyy}-${mm}-${dd}`;
         }
 
-        async function handleLogin() {
-          const name = document.getElementById('loginName').value.trim();
-          const pass = document.getElementById('loginPassword').value;
+      async function hashPassword(password) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(password);
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+  
+      async function handleLogin() {
+        const role = document.querySelector('input[name="role"]:checked').value;
+        const password = document.getElementById('loginPassword').value.trim();
+        const stats = await getTeamsStats();
 
-          if (!name) {
-            alert('من فضلك أدخل اسم المستخدم');
-            return;
-          }
-
-          if (name === 'admin' && pass === 'admin123') {
-            currentTeamName = null;
-            currentTeamKey = null;
+        // 🔵 دخول الأدمن
+        if (role === 'admin') {
+          if (password === "admin123") {
             showSection('adminSection');
             await buildAdminTable();
+          } else {
+            alert("كلمة مرور الأدمن غير صحيحة");
+          }
+          return;
+        }
+
+        // 🟢 دخول ليدر فريق
+        const teamName = document.getElementById('teamNameInput').value.trim();
+        //const password = document.getElementById('loginPassword').value.trim();
+
+        if (!teamName || !password) {
+          alert("أدخل اسم الفريق وكلمة المرور");
+          return;
+        }
+
+        const teamKey = teamKeyFromName(teamName);
+        const passwordHash = await hashPassword(password);
+
+        let teamData = stats[teamKey];
+
+        if (!teamData) {
+          // ✅ أول مرة يدخل الفريق → إنشاء حساب
+          teamData = {
+            name: teamName,
+            passwordHash: passwordHash,
+            daysCount: 0,
+            nonDonationTotalSum: 0,
+            donationMeatTotal: 0,
+            donationHouseTotal: 0,
+            donationVarietyTotal: 0,
+            productsTotal: 0,
+            manualQuality: 0,
+            manualSheet: 0,
+            lastSheetLink: '',
+            daysDates: [],
+            fillTimeByDate: {}
+          };
+
+          stats[teamKey] = teamData;
+          await setTeamsStats(stats);
+        }
+        else {
+          // ✅ الفريق موجود → تحقق من الباسورد
+          if (teamData.passwordHash !== passwordHash) {
+            alert("كلمة المرور غير صحيحة");
             return;
           }
-
-          currentTeamName = name;
-          currentTeamKey = teamKeyFromName(currentTeamName);
-
-          showSection('userSection');
-          document.getElementById('teamName').value = currentTeamName;
-          document.getElementById('userWelcome').textContent =
-            `أهلاً بك يا قائد فريق "${currentTeamName}". قم بتسجيل نقاط اليوم لفريقك.`;
-
-          setToday();
-          document.getElementById('daysTableBody').innerHTML = '';
-          document.getElementById('resultText').innerHTML = '';
-          document.getElementById('daysSummarySection').classList.add('hidden');
-          document.getElementById('toggleDaysButton').textContent = 'إظهار ملخص الأيام';
-
-          const stats = await getTeamsStats();
-          const t = stats[currentTeamKey];
-          updateMoneyProgressBars(t || null);
-          // Show admin-set "fill_time" for today's date (if exists)
-          const todayDate = document.getElementById('dayDate')?.value;
-          const fillTimeDisplay = document.getElementById('fill_time_display');
-          if (fillTimeDisplay) {
-            const v = t?.fillTimeByDate?.[todayDate];
-            if (typeof v === 'number') {
-              fillTimeDisplay.value = v;
-              document.getElementById('fillTimeHint').textContent =
-                `تم تقييم الالتزام بالمواعيد: ${v} من 25 (بواسطة الأدمن).`;
-            } else {
-              fillTimeDisplay.value = '';
-              document.getElementById('fillTimeHint').textContent =
-                'هذه الدرجة يتم إدخالها من الأدمن فقط، وستظهر لك هنا بعد المراجعة.';
-            }
-          }
-
-          if (t && t.daysCount > 0) {
-            const overallStats = computeTeamOverallStats(t);
-
-            const scores = [];
-            Object.keys(stats).forEach(k => {
-              const ts = stats[k];
-              if (ts && ts.daysCount > 0) {
-                const s = computeTeamOverallStats(ts);
-                scores.push({ key: k, name: ts.name || decodeURIComponent(k), score: s.overallCurrent });
-              }
-            });
-            scores.sort((a, b) => b.score - a.score);
-            const rank = scores.findIndex(x => x.key === currentTeamKey) + 1;
-            const totalTeams = scores.length;
-
-            document.getElementById('resultText').innerHTML =
-              `تم تسجيل الفريق بنجاح. Score الحالي: ${overallStats.overallCurrent.toFixed(1)}٪ – المركز: ${rank} من ${totalTeams} فريق${getMedal(rank)}.`;
-          }
-
-          document.getElementById('app')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+        currentTeamName = teamName;
+        currentTeamKey = teamKey;
+
+        showSection('userSection');
+        document.getElementById('teamName').value = teamName;
+        await renderHeroRankCard();
+
+
+      }
 
         function goBackToLogin() {
           currentTeamName = null;
@@ -1347,6 +1564,112 @@
             manualSheet,
             overallCurrent
           };
+        }
+
+        async function renderHeroRankCard() {
+          const card = document.getElementById('heroRankCard');
+          if (!card) return;
+
+          if (!currentTeamKey) {
+            card.innerHTML = '';
+            return;
+          }
+
+          const stats = await getTeamsStats();
+          const entries = Object.entries(stats || {});
+          const scores = entries.map(([key, t]) => {
+            const name = (t && t.name) ? t.name : decodeURIComponent(key);
+            const s = computeTeamOverallStats(t || {});
+            return { key, name, score: Number(s.overallCurrent) || 0 };
+          });
+
+          if (scores.length === 0) {
+            card.innerHTML = `
+              <div class="hero-rank-header">
+                <p class="hero-rank-title">🏆 لوحة الحماس</p>
+                <span class="hero-rank-pill">لا توجد بيانات</span>
+              </div>
+              <p class="hero-rank-sub">لسه مفيش فرق مسجلة نقاط.</p>
+            `;
+            return;
+          }
+
+          scores.sort((a,b) => b.score - a.score);
+          const ranked = scores.map((x, i) => ({ ...x, rank: i + 1 }));
+          const me = ranked.find(x => x.key === currentTeamKey) || {
+            key: currentTeamKey,
+            name: currentTeamName || 'فريقي',
+            score: 0,
+            rank: ranked.length + 1
+          };
+
+          const total = ranked.length;
+
+          // rules:
+          // me in top2 => show top3
+          // else => show top2 + me row
+          const showTop = (me.rank <= 2) ? ranked.slice(0, Math.min(3, total)) : ranked.slice(0, Math.min(2, total));
+          const top1 = showTop.find(x => x.rank === 1);
+          const top2 = showTop.find(x => x.rank === 2);
+          const top3 = (me.rank <= 2) ? showTop.find(x => x.rank === 3) : null;
+
+          const safe = (x) => x ? x : { rank: '-', name: '—', score: 0 };
+
+          const a1 = safe(top1), a2 = safe(top2), a3 = safe(top3);
+
+          const pillText = (me.rank <= 3) ? `🔥 أنت في التوب ${me.rank}` : `📌 مركزك: ${me.rank} / ${total}`;
+
+          card.innerHTML = `
+            <div class="hero-rank-header">
+              <p class="hero-rank-title">🏆 ترتيب الليلة</p>
+              <span class="hero-rank-pill">${pillText}</span>
+            </div>
+
+            <p class="hero-rank-sub">
+              فريقك: <strong>${me.name}</strong> — Score: <strong>${me.score.toFixed(1)}%</strong>
+            </p>
+
+            <div class="podium">
+              <div class="podium-card">
+                <div class="podium-emoji">🥈</div>
+                <div class="podium-rank">المركز 2</div>
+                <div class="podium-name">${a2.name}</div>
+                <div class="podium-score">${a2.score.toFixed(1)}%</div>
+              </div>
+
+              <div class="podium-card p1">
+                <div class="podium-emoji">🥇</div>
+                <div class="podium-rank">المركز 1</div>
+                <div class="podium-name">${a1.name}</div>
+                <div class="podium-score">${a1.score.toFixed(1)}%</div>
+              </div>
+
+              <div class="podium-card">
+                <div class="podium-emoji">🥉</div>
+                <div class="podium-rank">المركز 3</div>
+                <div class="podium-name">${me.rank <= 2 ? a3.name : '—'}</div>
+                <div class="podium-score">${me.rank <= 2 ? a3.score.toFixed(1)+'%' : '—'}</div>
+              </div>
+            </div>
+
+            ${me.rank > 2 ? `
+              <div class="me-row">
+                <div class="me-left">
+                  <span style="font-size:18px;">🚀</span>
+                  <span>ترتيبك وسط كل الفرق</span>
+                </div>
+                <div class="me-badge">#${me.rank} — ${me.score.toFixed(1)}%</div>
+              </div>
+            ` : `
+              <div class="me-row">
+                <div class="me-left">
+                  <span style="font-size:18px;">🔥</span>
+                  <span>أنت داخل التوب! كمل 👏</span>
+                </div>
+                <div class="me-badge">#${me.rank} — ${me.score.toFixed(1)}%</div>
+              </div>
+            `}
+          `;
         }
 
         function updateMoneyProgressBars(teamStats) {
@@ -1525,6 +1848,8 @@
 
           allStats[currentTeamKey] = teamStats;
           await setTeamsStats(allStats);
+          await renderHeroRankCard();
+
 
           updateMoneyProgressBars(teamStats);
 
